@@ -1,0 +1,77 @@
+/*
+Copyright [2017] [Universität Tübingen]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+body {
+	-webkit-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+	-webkit-transform-style: preserve-3d;
+	-moz-transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+	-moz-transform-style: preserve-3d;
+	transform: perspective(1400px) matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1);
+	transform-style: preserve-3d;
+
+	background-image: url('../images/pattern3.png');
+	background-repeat: repeat-y repeat-x;
+	font-family: Helvetica, Arial, sans-serif;
+	font-size: 12px;
+	color: #444;
+}
+
+.all {
+	position: absolute;
+	margin-left: 60px;
+	margin-top: 120px;
+	font-size: 14px;
+}
+
+#but{
+	position: absolute;
+	width: auto;
+	padding: 10px;
+	margin-top: -10px;
+	background-color: #fff;
+	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+  border-color: red;
+	border-width: 1px;
+}
+
+h1 {
+	position: absolute;
+	top: 20px;
+	left: 60px;
+	font-size: 16px;
+}
+
+p {
+	position: absolute;
+	top: 60px;
+	left: 60px;
+}
+
+table {
+	font-size: 12px;
+	color: #444;
+}
+
+.abstand{
+  left: 140px;
+  padding: 10px;
+  padding-left: 40px;
+}
+
+#toggle {
+	display: none;
+}

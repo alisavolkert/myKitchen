@@ -1,0 +1,728 @@
+/*
+Copyright [2017] [Universität Tübingen]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+body {
+	/*
+	background-image: url('../images/pattern3.png');
+	background-repeat: repeat-y repeat-x;
+	*/
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.all {
+	position: absolute;
+	margin-left: 60px;
+	margin-top: 60px;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.kitchen{
+	position: absolute;
+	width: 800px;
+	height: 600px;
+	background-color: #F6F6F6;
+	background-image: url(../images/kueche1_open.png);
+	background-size: 800px 600px;
+	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+}
+
+#obj{
+	position: absolute;
+	margin-left: 820px;
+	margin-top: 80px;
+	width: 420px;
+	height: 515px;
+	background-color: #fff;
+	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	display: inline-block;
+	border: 2px solid white;
+	overflow: auto;
+}
+
+.but{
+	position: absolute;
+	width: 420px;
+	height: 60px;
+	margin-left: 820px;
+	background-color: #fff;
+	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+}
+
+.resultate-kueche{
+	position: absolute;
+	width: 450px;
+	height: 520px;
+	margin-left: 820px;
+	margin-top: 80px;
+	overflow: scroll;
+	display:none;
+	background-color: #fff;
+	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+}
+
+.resultate-list{
+	color: #444;
+	font-size: 12.5px;
+	line-height: 28px;
+	background-color: none;
+	list-style-type: square;
+}
+
+
+h1 {
+	position: absolute;
+	top: 20px;
+	left: 60px;
+	font-size: 16px;
+	color: #444;
+}
+
+h3 {
+	position: absolute;
+	top: 60px;
+	left: 60px;
+	font-size: 14px;
+	color: #444;
+}
+
+.objekte {
+	width: 100px;
+	height:100px;
+}
+
+.draggable {
+	filter: alpha(opacity=80);
+	opacity: 0.8;
+}
+.dropped {
+	position: static !important;
+}
+
+
+.smaller-input {
+	width: 25px !important;
+	height: 25px !important;
+}
+
+/* Buttons */
+
+#open, #close, #refresh, #finish, #back, #next{
+	position:relative;
+	width: 75px;
+	height: 40px;
+	margin-right: 6px;
+	left:10px;
+	top: 10px;
+	float:left;
+}
+
+.schrank {
+	position: absolute;
+	display:none;
+	border: 1px solid #726c5d;
+	text-align: center;
+	overflow: hidden;
+	background-color: #c0ad8c;
+}
+
+.schrank.border {
+	border-width: 2px;
+	background-color: green;
+	opacity: 0.2;
+}
+
+/* TÃ¼re*/
+.door {
+	position: absolute;
+	text-align: center;
+	transition: transform .5s;
+	transform-style: preserve-3d;
+	transform-origin: left center;
+	border: 1px solid #adbeac;
+	/*z-index: 2;*/
+}
+
+.opendoorleft {
+	-webkit-transform: rotateY(-95deg) skewY(5deg);
+	-moz-transform: rotateY(-95deg) skewY(5deg);
+  -o-transform: rotateY(-95deg) skewY(5deg);
+	transform: rotateY(-95deg) skewY(5deg);
+	transform-origin: left bottom;
+	position: absolute;
+}
+
+.opendoorright {
+	-webkit-transform: rotateY(105deg) skewY(-5deg);
+	-moz-transform: rotateY(105deg) skewY(-5deg);
+  -o-transform: rotateY(105deg) skewY(-5deg);
+	transform: rotateY(105deg) skewY(-5deg);
+	transform-origin: right;
+	position: absolute;
+	z-index: 5;
+}
+
+.opendrawer {
+	-webkit-transform: translate(0,8px) scaleY(0.55);
+	-moz-transform: translate(0,8px) scaleY(0.55);
+	-o-transform: translate(0,8px) scaleY(0.55);
+	transform: translate(0,8px) scaleY(0.55);
+	transform-origin: bottom;
+	position: absolute;
+	z-index: 5;
+}
+
+.opendoordown {
+	-webkit-transform: rotateX(140deg);
+	-moz-transform: rotateX(140deg);
+	-moz-transform: rotateX(140deg);
+	transform: rotateX(140deg);
+	transform-origin: bottom;
+	position: absolute;
+}
+
+.opendoorup {
+	-webkit-transform: rotateX(20deg);
+	-moz-transform: rotateX(20deg);
+	-moz-transform: rotateX(20deg);
+	transform: rotateX(120deg);
+	transform-origin: 0 0;
+	position: absolute;
+}
+/*
+#close {
+	position:relative;
+	width: 80px;
+	height: 40px;
+	margin-right: 6px;
+	left:10px;
+	top:10px;
+}
+#refresh {
+	position:relative;
+	width: 80px;
+	height: 40px;
+	left:10px;
+	top:10px;
+}
+*/
+/* SchrÃ¤nke */
+
+#s1{
+	width: 134px;
+	left: 67px;
+	top: 69px;
+	height: 192px;
+}
+
+#s2 {
+	left: 209px;
+	top: 69px;
+	width: 137px;
+	height: 190px;
+}
+
+#s3 {
+	width: 97px;
+	height: 119px;
+	left: 493px;
+	top: 124px;
+}
+
+#s4 {
+	width: 138px;
+	height: 95px;
+	left: 604px;
+	top: 60px;
+}
+
+#s5 {
+	width: 139px;
+	left: 605px;
+	top: 165px;
+	height: 77px;
+}
+
+#s6 {
+	width: 140px;
+	left: 605px;
+	top: 247px;
+	height: 243px;
+}
+
+#s7 {
+	height: 45.5px;
+	left: 605px;
+	top: 498px;
+	width: 137px;
+}
+
+#s8 {
+	width: 104px;
+	height: 27px;
+	left: 493px;
+	top: 391px;
+}
+
+#s9 {
+	left: 493px;
+	top: 422px;
+	width: 104px;
+	height: 123px;
+}
+
+#s10 {
+	width: 138px;
+	height: 23px;
+	left: 57px;
+	top: 392px;
+}
+
+#s11 {
+	width: 138px;
+	left: 57px;
+	top: 422px;
+	height: 123px;
+}
+
+#s12 {
+	width: 144px;
+	height: 104px;
+	left: 346px;
+	top: 416px;
+	background-color: #83878A;
+}
+
+#d1 {
+	width: 134px;
+	left: 68px;
+	top: 69px;
+	height: 192px;
+	background-image: url(../images/kueche1_06.jpg);
+	background-size: 137px 192px;
+}
+/*
+#d1:hover{
+	-webkit-transition: rotateY(-97deg) skewY(10deg);
+	-moz-transition: rotateY(-97deg) skewY(10deg);
+  -o-transition: rotateY(-97deg) skewY(10deg);
+	transform: rotateY(-97deg) skewY(10deg);
+	left 10;
+}
+*/
+#d2 {
+	left: 209px;
+	top: 69px;
+	width: 134px;
+	height: 190px;
+	background-image: url(../images/kueche1_07.jpg);
+	background-size: 137px 190px;
+}
+
+
+#d3 {
+	width: 97px;
+	height: 118px;
+	left: 493px;
+	top: 124px;
+	background-image: url(../images/kueche1_10.jpg);
+	background-size: 97px 119px;
+}
+
+#d4 {
+	width: 139px;
+	height: 96px;
+	left: 604px;
+	top: 60.3px;
+	background-image: url(../images/kueche1_03.jpg);
+	background-size: 138px 95px;
+}
+
+#d5 {
+	width: 139px;
+	left: 605px;
+	top: 165px;
+	height: 77px;
+	background-image: url(../images/kueche1_13.jpg);
+	background-size: 139px 77px;
+}
+
+#d6 {
+	width: 140px;
+	left: 605px;
+	top: 248px;
+	height: 243px;
+	background-image: url(../images/kueche1_16.jpg);
+	background-size: 140px 243px;
+}
+
+#d7 {
+	height: 45.5px;
+	left: 605px;
+	top: 499px;
+	width: 137px;
+	background-image: url(../images/kueche1_26.jpg);
+	background-size: 137px 45px;
+}
+
+#d8 {
+	width: 104px;
+	height: 27px;
+	left: 493px;
+	top: 391px;
+	background-image: url(../images/kueche1_18.jpg);
+	background-size: 102px 27px;
+}
+
+#d9 {
+	left: 493px;
+	top: 422px;
+	width: 104px;
+	height: 123px;
+	background-image: url(../images/kueche1_24.jpg);
+	background-size: 103px 120px;
+}
+
+#d10 {
+	width: 138px;
+	height: 23px;
+	left: 57px;
+	top: 392px;
+	background-image: url(../images/kueche1_02.jpg);
+	background-size: 138px 23px;
+}
+
+#d11 {
+	width: 138px;
+	left: 57px;
+	top: 422px;
+	height: 123px;
+	background-image: url(../images/kueche1_22.jpg);
+	background-size: 137px 121px;
+}
+
+#d12 {
+	width: 144px;
+	height: 104px;
+	left: 346px;
+	top: 416px;
+	background-image: url(../images/kueche1_05.jpg);
+	background-size: 144px 104px;
+}
+
+/* Regale */
+.regal_lr {
+	position: absolute;
+	overflow: hidden;
+	background-color: red; /*#bdaa8a;*/
+	z-index: 4;
+}
+
+.regal {
+	position: absolute;
+	text-align: center;
+	overflow: auto;
+	overflow-x: hidden;
+	background-color: white; /*#bdaa8a;*/
+	min-height: 20px;
+	min-width: 20px;
+	perspective: 40px;
+	z-index: 4;
+}
+/*
+.regal::-webkit-scrollbar {
+    width: 8px;
+}
+*/
+#s1-1, #s2-1, #s1-2, #s2-2, #s1-3, #s2-3 {
+	width: 134px;
+	height: 61px;
+}
+
+#s1-1l,#s1-1r, #s2-1l, #s2-1r, #s1-2l, #s1-2r, #s2-2l, #s2-2r, #s1-3l, #s1-3r, #s2-3l, #s2-3r {
+	width: 67px;
+	height: 61px;
+	perspective: 30px;
+}
+
+#s1-1r, #s2-1r, #s1-2r, #s2-2r, #s1-3r, #s2-3r {
+	margin-left: 67px;
+}
+
+#s1-2, #s2-2 {
+	margin-top: 64px;
+}
+
+#s1-3, #s2-3 {
+	margin-top: 128px;
+}
+
+#s3-1, #s3-2 {
+	width: 97px;
+	height: 57px;
+	min-width: 30px;
+	perspective: 30px;
+}
+#s3-1l, #s3-1r, #s3-2l, #s3-2r {
+	width: 48px;
+	height: 57px;
+	min-width: 15px;
+	perspective: 30px;
+}
+#s3-1r, #s3-2r {
+	width: 49px;
+	margin-left: 48px;
+}
+#s3-2 {
+	margin-top: 60px;
+}
+#s4-1, #s4-2 {
+	width: 138px;
+	height: 46px;
+}
+#s4-1l, #s4-2l, #s4-1r, #s4-2r {
+	width: 69px;
+	height: 46px;
+}
+#s4-1r, #s4-2r {
+	margin-left: 69px;
+}
+#s4-2{
+	margin-top: 49px;
+}
+#s5-1 {
+	width: 138px;
+	height: 76px;
+}
+#s5-1l, #s5-1r {
+	width: 69px;
+	height: 76px;
+	min-height: 38px;
+}
+#s5-1r {
+	margin-left: 69px;
+}
+
+#s6-1, #s6-2, #s6-3, #s6-4 {
+	width: 140px;
+	height: 79px;
+}
+#s6-1l, #s6-2l, #s6-3l, #s6-4l, #s6-1r, #s6-2r, #s6-3r, #s6-4r {
+	width: 70px;
+	height: 79px;
+	min-height: 40px;
+}
+#s6-1r, #s6-2r, #s6-3r, #s6-4r {
+ margin-left: 70px;
+}
+#s6-2 { margin-top: 81px; }
+#s6-3 { margin-top: 163px; }
+#s6-4 { margin-top: 183px; }
+
+#s7-1 {
+	height: 45.5px;
+	width: 137px;
+}
+#s7-1l, #s7-1r {
+	height: 45.5px;
+	width: 68.5px;
+	min-height: 10px;
+}
+#s7-1r {
+	margin-left: 68.5px;
+}
+
+#s8-1 {
+	width: 104px;
+	height: 27px;
+}
+#s8-1l, #s8-1r {
+	width: 52px;
+	height: 27px;
+	min-height: 8px;
+	min-width: 15px;
+}
+#s8-1r {
+	margin-left: 52px;
+}
+
+#s9-1 {
+	width: 104px;
+	height: 50px;
+}
+#s9-1l, #s9-1r {
+	width: 52px;
+	height: 50px;
+	min-width: 15px;
+}
+#s9-1r {
+	margin-left: 52px;
+}
+#s9-2{
+	margin-top: 53px;
+	width: 104px;
+	height: 70px;
+}
+#s9-2l, #s9-2r{
+	width: 52px;
+	height: 70px;
+	min-height: 24px;
+	min-width: 15px;
+}
+#s9-2r{
+	margin-left: 52px;
+}
+
+#s10-1 {
+	width: 138px;
+	height: 23px;
+}
+#s10-1l, #s10-1r {
+	width: 69px;
+	height: 23px;
+	min-height: 8px;
+}
+#s10-1r {
+	margin-left: 69px;
+}
+
+#s11-1{
+	width: 138px;
+	height: 50px;
+}
+#s11-1l, #s11-1r{
+	width: 69px;
+	height: 50px;
+}
+#s11-1r{
+	margin-left: 69px;
+}
+#s11-2{
+	margin-top: 53px;
+	width: 138px;
+	height: 70px;
+}
+#s11-2l, #s11-2r{
+	width: 69px;
+	height: 70px;
+	min-height: 24px;
+}
+#s11-2r{
+	margin-left: 69px;
+}
+
+#s12-1, #s12-2 {
+	width: 144px;
+	height: 50px;
+}
+#s12-1l, #s12-2l, #s12-1r, #s12-2r {
+	width: 72px;
+	height: 50px;
+}
+#s12-1r, #s12-2r {
+	margin-left: 72px;
+}
+#s12-2{
+	margin-top: 53px;
+}
+
+#test {
+	width: 300px;
+	height: 100px;
+	margin-top: 650px;
+	margin-left: 820px;
+	position: absolute;
+	color: transparent;
+	background-color: transparent;
+
+}
+
+.hidden {
+	display: none;
+	width: 0;
+	color: white;
+}
+
+#obfl1 {
+	width: 268px;
+	height: 60px;
+	left: 319px;
+	top: 310px;
+}
+#obfl1l, #obfl1r {
+	width: 134px;
+	height: 60px;
+	min-height: 58px;
+	min-width: 100px;
+}
+#obfl1r {
+	margin-left: 134px;
+}
+
+#obfl2 {
+	background-color: transparent;
+	width: 144px;
+	height: 70px;
+	left: 438px;
+	top: 310px;
+	min-height: 69px;
+	min-width: 150px;
+}
+#obfl3 {
+	width: 96px;
+	height: 40px;
+	left: 490px;
+	top: 80px;
+}
+#obfl3l, #obfl3r {
+	width: 48px;
+	height: 40px;
+	min-height: 40px;
+	min-width: 30px;
+}
+#obfl3r {
+	margin-left: 48px;
+}
+
+#lupe {
+	width: 100px;
+	height: 100px;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	background-size: 100px 100px;
+	background-position: 0 0;
+	position: absolute;
+	border: 2px solid gray;
+	z-index: 10;
+	display: none;
+}
+
+.highlight {
+	background-color: red;
+	position: absolute;
+	opacity: 0.7;
+}
+
+.transparent {
+	opacity: 0.01;
+	filter: alpha(opacity=10);
+}
