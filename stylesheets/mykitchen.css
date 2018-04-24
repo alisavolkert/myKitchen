@@ -1,18 +1,3 @@
-/*
-Copyright [2017] [Universität Tübingen]
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 body {
 	/*
 	background-image: url('../images/pattern3.png');
@@ -22,19 +7,22 @@ body {
 }
 
 .all {
-	position: absolute;
+	/*position: absolute;
 	margin-left: 60px;
+	*/
+	width: 1400px;
+	margin: auto;
 	margin-top: 60px;
 	font-family: Helvetica, Arial, sans-serif;
 }
 
 .kitchen{
 	position: absolute;
-	width: 800px;
-	height: 600px;
+	width: 900px;
+	height: 524px;
 	background-color: #F6F6F6;
-	background-image: url(../images/kueche1_open.png);
-	background-size: 800px 600px;
+	background-image: url(../img/kueche_sand_leer2.jpg);
+	background-size: 900px 524px;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -42,7 +30,7 @@ body {
 
 #obj{
 	position: absolute;
-	margin-left: 820px;
+	margin-left: 920px;
 	margin-top: 80px;
 	width: 420px;
 	height: 515px;
@@ -59,7 +47,7 @@ body {
 	position: absolute;
 	width: 420px;
 	height: 60px;
-	margin-left: 820px;
+	margin-left: 920px;
 	background-color: #fff;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -126,7 +114,7 @@ h3 {
 
 /* Buttons */
 
-#open, #close, #refresh, #finish, #back, #next, #distance_table{
+#open, #close, #refresh, #finish, #back, #next, #distance_table, #screenshot{
 	position:relative;
 	width: 75px;
 	height: 40px;
@@ -142,7 +130,7 @@ h3 {
 	border: 1px solid #726c5d;
 	text-align: center;
 	overflow: hidden;
-	background-color: #c0ad8c;
+	background-color: #c0ad8c; /*REGAL LEISTE */
 }
 
 .schrank.border {
@@ -169,6 +157,7 @@ h3 {
 	transform: rotateY(-95deg) skewY(5deg);
 	transform-origin: left bottom;
 	position: absolute;
+	z-index: 5;
 }
 
 .opendoorright {
@@ -198,6 +187,7 @@ h3 {
 	transform: rotateX(140deg);
 	transform-origin: bottom;
 	position: absolute;
+	z-index: 5;
 }
 
 .opendoorup {
@@ -207,6 +197,7 @@ h3 {
 	transform: rotateX(120deg);
 	transform-origin: 0 0;
 	position: absolute;
+	z-index: 5;
 }
 /*
 #close {
@@ -229,52 +220,136 @@ h3 {
 
 /* cupboards */
 #s1{
-	width: 134px;
-	left: 67px;
-	top: 69px;
-	height: 192px;
+	width: 135px;
+	height: 177px;
+	left: 22px;
+	top: 3px;
 }
 
 #s2 {
-	left: 209px;
-	top: 69px;
-	width: 137px;
-	height: 190px;
+	width: 135px;
+	height: 177px;
+	left: 165px;
+	top: 3px;
 }
 
-#s3 {
-	width: 97px;
-	height: 119px;
-	left: 493px;
-	top: 124px;
+#s3 {	
+	width: 135px;
+	height: 177px;
+	left: 307px;
+	top: 3px;
 }
 
-#s4 {
-	width: 138px;
-	height: 95px;
-	left: 604px;
-	top: 60px;
+#s4 {	
+	width: 135px;
+	height: 177px;
+	left: 450px;
+	top: 3px;
 }
 
-#s5 {
-	width: 139px;
-	left: 605px;
-	top: 165px;
-	height: 77px;
+#s5 {	
+	width: 135px;
+	height: 177px;
+	left: 597px;
+	top: 3px;
 }
 
-#s6 {
-	width: 140px;
-	left: 605px;
-	top: 247px;
-	height: 243px;
+#s6-1 {	
+	width: 143px;
+	height: 27px;
+	left: 0px;
+	top: 345px;
 }
 
+#s6-2 {	
+	width: 143px;
+	height: 27px;
+	left: 0px;
+	top: 376px;
+}
+
+#s6-3 {	
+	width: 143px;
+	height: 27px;
+	left: 0px;
+	top: 407px;
+}
+
+#s6-4 {	
+	width: 143px;
+	height: 27px;
+	left: 0px;
+	top: 438px;
+}
+
+#s6-5 {	
+	width: 144px;
+	height: 54px;
+	left: 0px;
+	top: 468px;
+}
+
+#s7 {	
+	width: 147px;
+	height: 147px;
+	left: 298px;
+	top: 377px;
+}
+
+#s8 {	
+	width: 146px;
+	height: 118px;
+	left: 449px;
+	top: 385px;
+}
+
+#s9-1 {	
+	width: 143px;
+	height: 27px;
+	left: 603px;
+	top: 345px;
+}
+
+#s9-2 {	
+	width: 144px;
+	height: 54px;
+	left: 603px;
+	top:  377px;
+}
+
+#s9-3 {	
+	width: 146px;
+	height: 83px;
+	left: 603px;
+	top: 437px;
+}
+
+#s10-1 {	
+	width: 143px;
+	height: 27px;
+	left: 754px;
+	top: 345px;
+}
+
+#s10-2 {	
+	width: 144px;
+	height: 54px;
+	left: 753px;
+	top: 377px;
+}
+
+#s10-3 {	
+	width: 146px;
+	height: 83px;
+	left: 753px;
+	top: 437px;
+}
+/*
 #s7 {
-	height: 45.5px;
-	left: 605px;
-	top: 498px;
-	width: 137px;
+	height: 83px;
+	left: 603px;
+	top: 437px;
+	width: 146px;
 }
 
 #s8 {
@@ -284,21 +359,29 @@ h3 {
 	top: 391px;
 }
 
-#s9 {
+ #s9 {
 	left: 493px;
 	top: 422px;
 	width: 104px;
 	height: 123px;
-}
+} 
 
 #s10 {
-	width: 138px;
-	height: 23px;
-	left: 57px;
-	top: 392px;
+	width: 143px;
+	height: 27px;
+	left: 2px;
+	top: 345px;
 }
 
-#s11 {
+#s10_2 {
+	width: 143px;
+	height: 27px;
+	left: 2px;
+	top: 376px;
+}
+*/
+
+/* #s11 {
 	width: 138px;
 	left: 57px;
 	top: 422px;
@@ -311,16 +394,17 @@ h3 {
 	left: 346px;
 	top: 416px;
 	background-color: #83878A;
-}
+} */
 
 #d1 {
-	width: 134px;
-	left: 68px;
-	top: 69px;
-	height: 192px;
-	background-image: url(../images/kueche1_06.jpg);
-	background-size: 137px 192px;
+	width: 135px;
+	left: 22px;
+	top: 3px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_rechts.jpg);
+	background-size: 142px 182px;
 }
+
 /*
 #d1:hover{
 	-webkit-transition: rotateY(-97deg) skewY(10deg);
@@ -331,104 +415,160 @@ h3 {
 }
 */
 #d2 {
-	left: 209px;
-	top: 69px;
-	width: 134px;
-	height: 190px;
-	background-image: url(../images/kueche1_07.jpg);
-	background-size: 137px 190px;
+	left: 165px;
+	top: 3px;
+	width: 135px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_links.jpg);
+	background-size: 142px 182px;
 }
 
-
 #d3 {
-	width: 97px;
-	height: 118px;
-	left: 493px;
-	top: 124px;
-	background-image: url(../images/kueche1_10.jpg);
-	background-size: 97px 119px;
+	left: 307px;
+	top: 3px;
+	width: 135px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_links.jpg);
+	background-size: 142px 182px;
 }
 
 #d4 {
-	width: 139px;
-	height: 96px;
-	left: 604px;
-	top: 60.3px;
-	background-image: url(../images/kueche1_03.jpg);
-	background-size: 138px 95px;
+	width: 135px;
+	left: 450px;
+	top: 3px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_rechts.jpg);
+	background-size: 142px 182px;
 }
 
 #d5 {
-	width: 139px;
-	left: 605px;
-	top: 165px;
-	height: 77px;
-	background-image: url(../images/kueche1_13.jpg);
-	background-size: 139px 77px;
+	left: 597px;
+	top: 3px;
+	width: 135px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_links.jpg);
+	background-size: 142px 182px;
 }
 
-#d6 {
-	width: 140px;
-	left: 605px;
-	top: 248px;
-	height: 243px;
-	background-image: url(../images/kueche1_16.jpg);
-	background-size: 140px 243px;
+#d6-1 {
+	width: 143px;
+	height: 27px;
+	left: 0px;
+	top: 345px;
+	background-image: url(../img/schublade_klein_links.jpg);
+	background-size: 147px 31px;
+}
+
+#d6-2 {
+	width: 143px;
+	height: 27px;
+	left: 0px;
+	top: 376px;
+	background-image: url(../img/schublade_klein_links.jpg);
+	background-size: 147px 31px;
+}
+
+#d6-3 {
+	width: 143px;
+	height: 27px;
+	left: 0px;
+	top: 407px;
+	background-image: url(../img/schublade_klein_links.jpg);
+	background-size: 147px 31px;
+}
+
+#d6-4 {
+	width: 143px;
+	height: 27px;
+	left: 0px;
+	top: 438px;
+	background-image: url(../img/schublade_klein_links.jpg);
+	background-size: 147px 31px;
+}
+
+#d6-5 {
+	width: 144px;
+	height: 54px;
+	left: 0px;
+	top: 468px;
+	background-image: url(../img/schublade_mittel_links.jpg);
+	background-size: 148px 57px;
 }
 
 #d7 {
-	height: 45.5px;
-	left: 605px;
-	top: 499px;
-	width: 137px;
-	background-image: url(../images/kueche1_26.jpg);
-	background-size: 137px 45px;
+	width: 147px;
+	height: 147px;
+	left: 298px;
+	top: 377px;
+	background-image: url(../img/tuer_unten.jpg);
+	background-size: 148px 148px;
 }
 
 #d8 {
-	width: 104px;
+	width: 146px;
+	height: 118px;
+	left: 449px;
+	top: 385px;
+	background-image: url(../img/ofen_tuer.jpg);
+	background-size: 147px 119px;
+}
+
+#d9-1 {
+	width: 143px;
 	height: 27px;
-	left: 493px;
-	top: 391px;
-	background-image: url(../images/kueche1_18.jpg);
-	background-size: 102px 27px;
+	left: 603px;
+	top: 345px;
+	background-image: url(../img/schublade_klein_rechts.jpg);
+	background-size: 151px 30px;
 }
 
-#d9 {
-	left: 493px;
-	top: 422px;
-	width: 104px;
-	height: 123px;
-	background-image: url(../images/kueche1_24.jpg);
-	background-size: 103px 120px;
-}
-
-#d10 {
-	width: 138px;
-	height: 23px;
-	left: 57px;
-	top: 392px;
-	background-image: url(../images/kueche1_02.jpg);
-	background-size: 138px 23px;
-}
-
-#d11 {
-	width: 138px;
-	left: 57px;
-	top: 422px;
-	height: 123px;
-	background-image: url(../images/kueche1_22.jpg);
-	background-size: 137px 121px;
-}
-
-#d12 {
+#d9-2 {
 	width: 144px;
-	height: 104px;
-	left: 346px;
-	top: 416px;
-	background-image: url(../images/kueche1_05.jpg);
-	background-size: 144px 104px;
+	height: 54px;
+	left: 603px;
+	top: 377px;
+	background-image: url(../img/schublade_mittel_rechts.jpg);
+	background-size: 153px 61px;
 }
+
+#d9-3 {
+	height: 83px;
+	left: 603px;
+	top: 437px;
+	width: 146px;
+	background-image: url(../img/schublade_groß_rechts.jpg);
+	background-size: 149px 88px;
+}
+
+#d10-1 {
+	width: 143px;
+	height: 27px;
+	left: 754px;
+	top: 345px;
+	background-image: url(../img/schublade_klein_rechts.jpg);
+	background-size: 147px 31px;
+}
+
+#d10-2 {
+	width: 144px;
+	height: 54px;
+	left: 753px;
+	top: 377px;
+	background-image: url(../img/schublade_mittel_rechts.jpg);
+	background-size: 153px 61px;
+}
+
+#d10-3 {
+	height: 83px;
+	left: 753px;
+	top: 437px;
+	width: 146px;
+	background-image: url(../img/schublade_groß_rechts.jpg);
+	background-size: 149px 88px;
+}
+
+
+
 
 /* shelves */
 .regal {
@@ -442,105 +582,59 @@ h3 {
 	z-index: 4;
 }
 
-#s1-1, #s2-1, #s1-2, #s2-2, #s1-3, #s2-3 {
-	width: 134px;
-	height: 61px;
+/*oberen Schrank-Regale*/
+#sv1-1, #sv2-1, #sv1-2, #sv2-2 , #sv3-1, #sv3-2, #sv4-1, #sv4-2, #sv5-1, #sv5-2{
+	width: 135px;
+	height: 88px;
 	perspective: 30px;
 }
 
-#s1-2, #s2-2 {
-	margin-top: 64px;
+#sv1-2, #sv2-2, #sv3-2, #sv4-2, #sv5-2 {
+	margin-top: 89px;
 }
 
-#s1-3, #s2-3 {
-	margin-top: 128px;
-}
-
-#s3-1 {
-	width: 97px;
-	height: 57px;
-	min-width: 30px;
-	perspective: 30px;
-}
-#s3-2 {
-	margin-top: 60px;
-	width: 97px;
-	height: 58px;
-	min-width: 30px;
-	perspective: 30px;
-}
-#s4-1, #s4-2 {
-	width: 138px;
-	height: 46px;
-}
-#s4-2{
-	margin-top: 49px;
-}
-#s5-1 {
-	width: 138px;
-	height: 76px;
-	min-height: 38px;
-}
-
-#s6-1, #s6-2, #s6-3, #s6-4 {
-	width: 140px;
-	height: 79px;
-	min-height: 40px;
-}
-#s6-2 { margin-top: 81px; }
-#s6-3 { margin-top: 163px; }
-#s6-4 { margin-top: 183px; }
-
-#s7-1 {
-	height: 45.5px;
-	width: 137px;
-	min-height: 10px;
-}
-
-#s8-1 {
-	width: 104px;
+#sv6-1, #sv6-2, #sv6-3, #sv6-4 {
+	width: 143px;
 	height: 27px;
 	min-height: 8px;
+}
+
+#sv6-5 {
+	width: 144px;
+	height: 54px;
+	min-height: 8px;
 	min-width: 30px;
 }
 
-#s9-1 {
-	width: 104px;
-	height: 50px;
-	min-width: 30px;
-}
-#s9-2{
-	margin-top: 53px;
-	width: 104px;
-	height: 70px;
-	min-height: 24px;
-	min-width: 30px;
-}
-
-#s10-1 {
-	width: 138px;
-	height: 23px;
+#sv9-1, #sv10-1 {
+	width: 143px;
+	height: 27px;
 	min-height: 8px;
 }
 
-#s11-1{
-	width: 138px;
-	height: 50px;
-}
-#s11-2{
-	margin-top: 53px;
-	width: 138px;
-	height: 70px;
-	min-height: 24px;
+#sv9-2, #sv10-2 {
+	width: 144px;
+	height: 54px;
+	min-height: 8px;
 }
 
-#s12-1, #s12-2 {
-	width: 144px;
-	height: 50px;
+#sv9-3, #sv10-3 {
+	width: 146px;
+	height: 83px;
+	min-height: 8px;
 }
-#s12-2{
-	margin-top: 53px;
+
+#sv7 {
+	width: 147px;
+	height: 147px;
 }
+
+#sv8 {
+	width: 146px;
+	height: 118px;
+}
+
+
 
 #test {
 	width: 300px;

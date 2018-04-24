@@ -1,19 +1,3 @@
-/*
-Copyright [2017] [Universität Tübingen]
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 // global values
 var countClicks = 0;
 var num_of_clicks_on_obj = 0;
@@ -257,6 +241,7 @@ $(document).ready(function() {
 
 	/* finish the simulation and send user data via ajax */
 	$('#finish').click(function(){
+		
 		row.unshift('save');
 		row.push(timeToString(startTime), timeToString(new Date()), countClicks, num_of_clicks_on_obj);
 
@@ -283,6 +268,23 @@ $(document).ready(function() {
 			}
 		});
 	});
+	
+	//die Scheiße will nicht
+	/*$("#screenshot").click(function() {
+		html2canvas(document.querySelector("#gkitchen")).then(canvas => {
+			document.body.appendChild(canvas)
+		});
+	});*/
+	
+	function genScreenshot(){
+		html2canvas(document.body, {
+			onrendered: function(canvas) {
+				$('#test_ss').attr('href', canvas.toDataURL("image/png"));
+				$('#test_ss').attr('download', 'Test_file.png');
+				$('#test_ss')[0].click();
+			}
+		})
+	}
 
 	$("#distance_table").click(function() {
 		var distance_table = distanceTable();
@@ -303,25 +305,32 @@ $(document).ready(function() {
 		// add relevant class
 		switch (door_id) {
 			case "d1":
-			case "d11":
+			case "d4":
+			case "d7":
 				classname = "opendoorleft";
 				break;
 			case "d2":
 			case "d3":
 			case "d5":
-			case "d6":
-			case "d9":
 				classname = "opendoorright";
 				break;
-			case "d7":
-			case "d8":
-			case "d10":
+			case "d6-1":
+			case "d6-2":
+			case "d6-3":
+			case "d6-4":
+			case "d6-5":
+			case "d9-1":
+			case "d9-2":
+			case "d9-3":
+			case "d10-1":
+			case "d10-2":
+			case "d10-3":
 				classname = "opendrawer";
 				break;
 			case "d4":
 				classname = "opendoorup";
 				break;
-			case "d12":
+			case "d8":
 				classname = "opendoordown";
 				break;
 			default:

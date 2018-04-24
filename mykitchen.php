@@ -1,17 +1,3 @@
-/*Copyright [2017] [Universität Tübingen]
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 <!DOCTYPE html>
 <html>
 
@@ -25,8 +11,8 @@ limitations under the License.
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-  <script type="text/javascript" src="js/html2canvas.js"></script>
-  <script type="text/javascript" src="js/jquery.plugin.html2canvas.js"></script>
+	<script type="text/javascript" src="js/html2canvas.js"></script>
+	<script type="text/javascript" src="js/jquery.plugin.html2canvas.js"></script>
 	<script type="text/javascript" src="js/mykitchen.js"></script>
 
   </head>
@@ -55,10 +41,21 @@ limitations under the License.
           $( '#lupe' ).css({'display': 'none', 'background-image': 'url()'});
         });
       });
+	  
+	function take_screenshot() {
+		html2canvas(document.body, {  
+			onrendered: function(canvas)  {
+				//var img = canvas.toDataURL()
+				//$.post("save_screenshot.php", {data: img}, function (file){
+				//	window.location.href =  "save_screenshot.php?file="+ file
+				});
+			}
+		});
+	}
     </script>
 
     <noscript>Your browser does not support JavaScript!</noscript>
-    <h1>K&uuml;chensimulation</h1>
+    <h1>K&uuml;chensimulation Test</h1>
     <h3 class="hidden">Vielen Dank f&uuml;r Ihre Teilnahme! ;) </h3>
 
   <div class="all">
@@ -71,65 +68,108 @@ limitations under the License.
       <button id="close">Close</button>
       <button id="refresh">Restart</button>
       <button id="finish">Finish</button>
-      <!--
+	  <!--<button id="screenshot" onclick="<?php $img = imagegrabscreen(); imagepng($img, 'test_screen2.png'); ?>"><a id="test_ss">SS</a></button>
+      
       <button id="distance_table">Distance</button>
       -->
     </div>
 
     <div class="kitchen" id="gkitchen">
 			<div class="door" id="d1">S1</div> <!-- ondblclick="openDoor()" -->
+			<div class="door" id="d4">S4</div>
 			<div class="door" id="d2">S2</div>
 			<div class="door" id="d3">S3</div>
-			<div class="door" id="d4">S4</div>
 			<div class="door" id="d5">S5</div>
-			<div class="door" id="d6">S6</div>
+			
+			<div class="door" id="d6-1">S6-1</div>
+			<div class="door" id="d6-2">S6-2</div>
+			<div class="door" id="d6-3">S6-3</div>
+			<div class="door" id="d6-4">S6-4</div>
+			<div class="door" id="d6-5">S6-5</div>
+			
 			<div class="door" id="d7">S7</div>
 			<div class="door" id="d8">S8</div>
-			<div class="door" id="d9">S9</div>
-			<div class="door" id="d10">S10</div>
-			<div class="door" id="d11">S11</div>
-      <div class="door" id="d12">S12</div>
-
+			
+			<div class="door" id="d9-1">S9-1</div>
+			<div class="door" id="d9-2">S9-2</div>
+			<div class="door" id="d9-3">S9-3</div>
+			
+			<div class="door" id="d10-1">S10-1</div>
+			<div class="door" id="d10-2">S10-2</div>
+			<div class="door" id="d10-3">S10-3</div>
+			
+		
 
 			<div class="schrank" id="s1">
-				<div class="regal" id="s1-1"></div>
-				<div class="regal" id="s1-2"></div>
-				<div class="regal" id="s1-3"></div>
+				<div class="regal" id="sv1-1"></div>
+				<div class="regal" id="sv1-2"></div>
 			</div>
+			
 			<div class="schrank" id="s2">
-        <div class="regal" id="s2-1"></div>
-				<div class="regal" id="s2-2"></div>
-				<div class="regal" id="s2-3"></div>
-      </div>
+				<div class="regal" id="sv2-1"></div>
+				<div class="regal" id="sv2-2"></div>
+			</div>
+	  
 			<div class="schrank" id="s3">
-        <div class="regal" id="s3-1"></div>
-        <div class="regal" id="s3-2"></div>
-      </div>
+				<div class="regal" id="sv3-1"></div>
+				<div class="regal" id="sv3-2"></div>
+			</div>
+
 			<div class="schrank" id="s4">
-        <div class="regal" id="s4-1"></div>
-        <div class="regal" id="s4-2"></div>
-      </div>
-			<div class="schrank" id="s5"><div class="regal" id="s5-1"></div></div>
-			<div class="schrank" id="s6">
-        <div class="regal" id="s6-1"></div>
-        <div class="regal" id="s6-2"></div>
-        <div class="regal" id="s6-3"></div>
-      </div>
-			<div class="schrank" id="s7"><div class="regal" id="s7-1"></div></div>
-			<div class="schrank" id="s8"><div class="regal" id="s8-1"></div></div>
-			<div class="schrank" id="s9">
-        <div class="regal" id="s9-1"></div>
-        <div class="regal" id="s9-2"></div>
-      </div>
-			<div class="schrank" id= "s10"><div class="regal" id="s10-1"></div></div>
-			<div class="schrank" id="s11">
-        <div class="regal" id="s11-1"></div>
-        <div class="regal" id="s11-2"></div>
-      </div>
-      <div class="schrank" id="s12">
-        <div class="regal" id="s12-1"></div>
-        <div class="regal" id="s12-2"></div>
-      </div>
+				<div class="regal" id="sv4-1"></div>
+				<div class="regal" id="sv4-2"></div>
+			</div>
+			
+			<div class="schrank" id="s5">
+				<div class="regal" id="sv5-1"></div>
+				<div class="regal" id="sv5-2"></div>
+			</div>
+			
+			
+			<div class="schrank" id="s6-1">
+				<div class="regal" id="sv6-1"></div>
+			</div>
+			<div class="schrank" id="s6-2">
+				<div class="regal" id="sv6-2"></div>
+			</div>
+			<div class="schrank" id="s6-3">
+				<div class="regal" id="sv6-3"></div>
+			</div>
+			<div class="schrank" id="s6-4">
+				<div class="regal" id="sv6-4"></div>
+			</div>
+			<div class="schrank" id="s6-5">
+				<div class="regal" id="sv6-5"></div>
+			</div>
+			
+			<div class="schrank" id="s7">
+				<div class="regal" id="sv7"></div>
+			</div>
+			
+			<div class="schrank" id="s8">
+				<div class="regal" id="sv8"></div>
+			</div>
+			
+			<div class="schrank" id="s9-1">
+				<div class="regal" id="sv9-1"></div>
+			</div>
+			<div class="schrank" id="s9-2">
+				<div class="regal" id="sv9-2"></div>
+			</div>
+			<div class="schrank" id="s9-3">
+				<div class="regal" id="sv9-3"></div>
+			</div>
+			
+			<div class="schrank" id="s10-1">
+				<div class="regal" id="sv10-1"></div>
+			</div>
+			<div class="schrank" id="s10-2">
+				<div class="regal" id="sv10-2"></div>
+			</div>
+			<div class="schrank" id="s10-3">
+				<div class="regal" id="sv10-3"></div>
+			</div>
+			
 
       <div class="regal" id="obfl1"></div>
       <!--
@@ -294,11 +334,16 @@ limitations under the License.
 
         fclose($df);
       }
+	  
+	  # test save screenshot
+				#$img = imagegrabscreen();
+				#imagepng($img, 'test_screen.png');
 
       # delete array and close DB connection
       mysql_free_result($result_mk);
       //mysql_free_result($result_k);
       mysql_close($db_connection);
+	  
 		?>
     </div>
 
