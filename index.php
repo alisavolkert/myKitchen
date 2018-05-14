@@ -1,18 +1,3 @@
-/*Copyright [2017] [Universität Tübingen]
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-
 <!DOCTYPE html>
 <html>
 
@@ -45,7 +30,7 @@ limitations under the License.
         }
 
         if (age < 0 || age > 100) {
-          alert("Sind Sie ernsthaft " + age + " Jahre alt? :O");
+          alert("Sind Sie ernsthaft " + age + " Jahre alt?");
           form.age.focus();
           return false;
         }
@@ -84,7 +69,7 @@ limitations under the License.
   <body onload="document.kontaktformular.name.focus();">
     <h1>K&uuml;chensimulation</h1>
 
-    <p>Bitte helfen Sie uns den Projekt Kuchensimulation zu bewerten. :) </p>
+    <p>Bitte machen Sie folgende Angaben: </p>
     <div class="all">
       <form id="kontaktformular" name="kontaktformular" action="mykitchen.php" method="post" onsubmit="return checkInput(this)">
         <table>
@@ -153,7 +138,7 @@ limitations under the License.
           </tr>
           <tr>
             <td></td>
-            <td class="abstand"><input id="but" type="submit" value="Zu K&uuml;chensimulation" /></td>
+            <td class="abstand"><input id="but" type="submit" value="Zur K&uuml;chensimulation" /></td>
           </tr>
         </table>
       </form>

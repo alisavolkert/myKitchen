@@ -218,7 +218,7 @@ $(document).ready(function() {
 		$(".regal").html("");
 		for (var i = 0; i < daten.length; i++){
 			var offset = setOffset(daten[i][3], daten[i][4], daten[i][5]);
-			$("#obj").append('<img class="objekte" id="' + daten[i][0] + '" src="images/' + daten[i][2] + '" alt="' + daten[i][1] + '" style="' + offset + '"/>')
+			$("#obj").append('<img class="objekte" id="' + daten[i][0] + '" src="150px_Bilder/' + daten[i][2] + '" alt="' + daten[i][1] + '" style="' + offset + '"/>')
 		}
 
 		// close doors
@@ -269,7 +269,7 @@ $(document).ready(function() {
 		});
 	});
 	
-	//die Scheiße will nicht
+	//das will nicht
 	/*$("#screenshot").click(function() {
 		html2canvas(document.querySelector("#gkitchen")).then(canvas => {
 			document.body.appendChild(canvas)

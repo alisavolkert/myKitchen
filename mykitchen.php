@@ -221,8 +221,8 @@
 			mysql_select_db($db, $db_connection) or die(mysql_error());
 
       # SQL-Statements
-			$select_elem_mk = "SELECT name, picture, width, height FROM mykitchen";
-			$select_all_mk = "SELECT * FROM mykitchen";
+			$select_elem_mk = "SELECT name, picture, width, height FROM mykitchen2";
+			$select_all_mk = "SELECT * FROM mykitchen2 ORDER BY RAND()";
 
 
       $result_mk = mysql_query($select_all_mk, $db_connection);
@@ -237,7 +237,7 @@
             $image = "default.jpeg";
           }
           $offset = setOffset($row['height'], $row['width'], $row['depth']);
-					echo "<img class=\"objekte\" id=\"".$row[0]."\" src=\"images/".$image."\" alt=\"".utf8_encode($row['name'])."\" style=\"".$offset."\"/>";
+					echo "<img class=\"objekte\" id=\"".$row[0]."\" src=\"150px_Bilder/".$image."\" alt=\"".utf8_encode($row['name'])."\" style=\"".$offset."\"/>";
           $js_array_mk[] = array($row['id'], utf8_encode($row['name']), $row['picture'], $row['height'], $row['width'], $row['depth']);
         }
 			} else {

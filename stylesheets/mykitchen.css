@@ -19,10 +19,10 @@ body {
 .kitchen{
 	position: absolute;
 	width: 900px;
-	height: 524px;
+	height: 624px;
 	background-color: #F6F6F6;
-	background-image: url(../img/kueche_sand_leer2.jpg);
-	background-size: 900px 524px;
+	background-image: url(../img/kueche_sand_leer_gross.jpg);
+	background-size: 900px 624px;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -223,126 +223,126 @@ h3 {
 	width: 135px;
 	height: 177px;
 	left: 22px;
-	top: 3px;
+	top: 115px;
 }
 
 #s2 {
 	width: 135px;
 	height: 177px;
 	left: 165px;
-	top: 3px;
+	top: 115px;
 }
 
 #s3 {	
 	width: 135px;
 	height: 177px;
 	left: 307px;
-	top: 3px;
+	top: 115px;
 }
 
 #s4 {	
 	width: 135px;
 	height: 177px;
 	left: 450px;
-	top: 3px;
+	top: 115px;
 }
 
 #s5 {	
 	width: 135px;
 	height: 177px;
 	left: 597px;
-	top: 3px;
+	top: 115px;
 }
 
 #s6-1 {	
 	width: 143px;
 	height: 27px;
 	left: 0px;
-	top: 345px;
+	top: 450px;
 }
 
 #s6-2 {	
 	width: 143px;
 	height: 27px;
 	left: 0px;
-	top: 376px;
+	top: 481px;
 }
 
 #s6-3 {	
 	width: 143px;
 	height: 27px;
 	left: 0px;
-	top: 407px;
+	top: 512px;
 }
 
 #s6-4 {	
 	width: 143px;
 	height: 27px;
 	left: 0px;
-	top: 438px;
+	top: 542px;
 }
 
 #s6-5 {	
 	width: 144px;
 	height: 54px;
 	left: 0px;
-	top: 468px;
+	top: 571px;
 }
 
 #s7 {	
 	width: 147px;
 	height: 147px;
 	left: 298px;
-	top: 377px;
+	top: 477px;
 }
 
 #s8 {	
 	width: 146px;
 	height: 118px;
 	left: 449px;
-	top: 385px;
+	top: 490px;
 }
 
 #s9-1 {	
 	width: 143px;
 	height: 27px;
 	left: 603px;
-	top: 345px;
+	top: 450px;
 }
 
 #s9-2 {	
 	width: 144px;
 	height: 54px;
 	left: 603px;
-	top:  377px;
+	top:  482px;
 }
 
 #s9-3 {	
 	width: 146px;
 	height: 83px;
 	left: 603px;
-	top: 437px;
+	top: 442px;
 }
 
 #s10-1 {	
 	width: 143px;
 	height: 27px;
 	left: 754px;
-	top: 345px;
+	top: 450px;
 }
 
 #s10-2 {	
 	width: 144px;
 	height: 54px;
 	left: 753px;
-	top: 377px;
+	top: 482px;
 }
 
 #s10-3 {	
 	width: 146px;
 	height: 83px;
 	left: 753px;
-	top: 437px;
+	top: 542px;
 }
 /*
 #s7 {
@@ -399,7 +399,7 @@ h3 {
 #d1 {
 	width: 135px;
 	left: 22px;
-	top: 3px;
+	top: 115px;
 	height: 177px;
 	background-image: url(../img/tuer_oben_rechts.jpg);
 	background-size: 142px 182px;
@@ -416,7 +416,7 @@ h3 {
 */
 #d2 {
 	left: 165px;
-	top: 3px;
+	top: 115px;
 	width: 135px;
 	height: 177px;
 	background-image: url(../img/tuer_oben_links.jpg);
@@ -425,7 +425,7 @@ h3 {
 
 #d3 {
 	left: 307px;
-	top: 3px;
+	top: 115px;
 	width: 135px;
 	height: 177px;
 	background-image: url(../img/tuer_oben_links.jpg);
@@ -435,7 +435,7 @@ h3 {
 #d4 {
 	width: 135px;
 	left: 450px;
-	top: 3px;
+	top: 115px;
 	height: 177px;
 	background-image: url(../img/tuer_oben_rechts.jpg);
 	background-size: 142px 182px;
@@ -443,7 +443,7 @@ h3 {
 
 #d5 {
 	left: 597px;
-	top: 3px;
+	top: 115px;
 	width: 135px;
 	height: 177px;
 	background-image: url(../img/tuer_oben_links.jpg);
@@ -454,7 +454,7 @@ h3 {
 	width: 143px;
 	height: 27px;
 	left: 0px;
-	top: 345px;
+	top: 450px;
 	background-image: url(../img/schublade_klein_links.jpg);
 	background-size: 147px 31px;
 }
@@ -463,7 +463,7 @@ h3 {
 	width: 143px;
 	height: 27px;
 	left: 0px;
-	top: 376px;
+	top: 481px;
 	background-image: url(../img/schublade_klein_links.jpg);
 	background-size: 147px 31px;
 }
@@ -472,7 +472,7 @@ h3 {
 	width: 143px;
 	height: 27px;
 	left: 0px;
-	top: 407px;
+	top: 512px;
 	background-image: url(../img/schublade_klein_links.jpg);
 	background-size: 147px 31px;
 }
@@ -481,7 +481,7 @@ h3 {
 	width: 143px;
 	height: 27px;
 	left: 0px;
-	top: 438px;
+	top: 542px;
 	background-image: url(../img/schublade_klein_links.jpg);
 	background-size: 147px 31px;
 }
@@ -490,7 +490,7 @@ h3 {
 	width: 144px;
 	height: 54px;
 	left: 0px;
-	top: 468px;
+	top: 571px;
 	background-image: url(../img/schublade_mittel_links.jpg);
 	background-size: 148px 57px;
 }
@@ -499,7 +499,7 @@ h3 {
 	width: 147px;
 	height: 147px;
 	left: 298px;
-	top: 377px;
+	top: 477px;
 	background-image: url(../img/tuer_unten.jpg);
 	background-size: 148px 148px;
 }
@@ -508,7 +508,7 @@ h3 {
 	width: 146px;
 	height: 118px;
 	left: 449px;
-	top: 385px;
+	top: 490px;
 	background-image: url(../img/ofen_tuer.jpg);
 	background-size: 147px 119px;
 }
@@ -517,7 +517,7 @@ h3 {
 	width: 143px;
 	height: 27px;
 	left: 603px;
-	top: 345px;
+	top: 450px;
 	background-image: url(../img/schublade_klein_rechts.jpg);
 	background-size: 151px 30px;
 }
@@ -526,7 +526,7 @@ h3 {
 	width: 144px;
 	height: 54px;
 	left: 603px;
-	top: 377px;
+	top: 482px;
 	background-image: url(../img/schublade_mittel_rechts.jpg);
 	background-size: 153px 61px;
 }
@@ -534,7 +534,7 @@ h3 {
 #d9-3 {
 	height: 83px;
 	left: 603px;
-	top: 437px;
+	top: 542px;
 	width: 146px;
 	background-image: url(../img/schublade_groß_rechts.jpg);
 	background-size: 149px 88px;
@@ -544,7 +544,7 @@ h3 {
 	width: 143px;
 	height: 27px;
 	left: 754px;
-	top: 345px;
+	top: 450px;
 	background-image: url(../img/schublade_klein_rechts.jpg);
 	background-size: 147px 31px;
 }
@@ -553,7 +553,7 @@ h3 {
 	width: 144px;
 	height: 54px;
 	left: 753px;
-	top: 377px;
+	top: 482px;
 	background-image: url(../img/schublade_mittel_rechts.jpg);
 	background-size: 153px 61px;
 }
@@ -561,7 +561,7 @@ h3 {
 #d10-3 {
 	height: 83px;
 	left: 753px;
-	top: 437px;
+	top: 542px;
 	width: 146px;
 	background-image: url(../img/schublade_groß_rechts.jpg);
 	background-size: 149px 88px;
