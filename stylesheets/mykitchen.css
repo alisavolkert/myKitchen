@@ -26,6 +26,7 @@ body {
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	z-index: -1;
 }
 
 #obj{
@@ -43,6 +44,7 @@ body {
 	overflow: auto;
 }
 
+/*Buttons*/
 .but{
 	position: absolute;
 	width: 420px;
@@ -157,7 +159,7 @@ h3 {
 	transform: rotateY(-95deg) skewY(5deg);
 	transform-origin: left bottom;
 	position: absolute;
-	z-index: 5;
+	z-index: -1;
 }
 
 .opendoorright {
@@ -167,7 +169,7 @@ h3 {
 	transform: rotateY(105deg) skewY(-5deg);
 	transform-origin: right;
 	position: absolute;
-	z-index: 5;
+	z-index: -1;
 }
 
 .opendrawer {
@@ -177,7 +179,7 @@ h3 {
 	transform: translate(0,8px) scaleY(0.55);
 	transform-origin: bottom;
 	position: absolute;
-	z-index: 5;
+	z-index: -1;
 }
 
 .opendoordown {
@@ -187,7 +189,7 @@ h3 {
 	transform: rotateX(140deg);
 	transform-origin: bottom;
 	position: absolute;
-	z-index: 5;
+	z-index: -1;
 }
 
 .opendoorup {
@@ -197,8 +199,9 @@ h3 {
 	transform: rotateX(120deg);
 	transform-origin: 0 0;
 	position: absolute;
-	z-index: 5;
+	z-index: -1;
 }
+
 /*
 #close {
 	position:relative;
@@ -344,57 +347,8 @@ h3 {
 	left: 753px;
 	top: 542px;
 }
-/*
-#s7 {
-	height: 83px;
-	left: 603px;
-	top: 437px;
-	width: 146px;
-}
 
-#s8 {
-	width: 104px;
-	height: 27px;
-	left: 493px;
-	top: 391px;
-}
 
- #s9 {
-	left: 493px;
-	top: 422px;
-	width: 104px;
-	height: 123px;
-} 
-
-#s10 {
-	width: 143px;
-	height: 27px;
-	left: 2px;
-	top: 345px;
-}
-
-#s10_2 {
-	width: 143px;
-	height: 27px;
-	left: 2px;
-	top: 376px;
-}
-*/
-
-/* #s11 {
-	width: 138px;
-	left: 57px;
-	top: 422px;
-	height: 123px;
-}
-
-#s12 {
-	width: 144px;
-	height: 104px;
-	left: 346px;
-	top: 416px;
-	background-color: #83878A;
-} */
 
 #d1 {
 	width: 135px;
@@ -582,12 +536,38 @@ h3 {
 	z-index: 4;
 }
 
-/*oberen Schrank-Regale*/
-#sv1-1, #sv2-1, #sv1-2, #sv2-2 , #sv3-1, #sv3-2, #sv4-1, #sv4-2, #sv5-1, #sv5-2{
+/*oberen Schrank-Regale */
+#sv1-1, #sv1-2, #sv2-1, #sv2-2 , #sv3-1, #sv3-2, #sv4-1, #sv4-2, #sv5-1, #sv5-2{
 	width: 135px;
 	height: 88px;
-	perspective: 30px;
 }
+
+
+/* width und height für Pixelgrößen und min-width und min-height und perspective(Tiefe) für reale Größen */
+#sv1-1 {
+	min-width: 57px;
+	min-height: 33,2px;
+	perspective: 32,4px;
+}
+
+#sv1-2 {
+	min-width: 57px;
+	min-height: 33,4px;
+	perspective: 33,7px;
+}
+
+#sv2-1, #sv3-1, #sv4-1, #sv5-1 {
+	min-width: 58px;
+	min-height: 33,2px;
+	perspective: 29,4px;
+}
+
+#sv2-2, #sv3-2, #sv4-2, #sv5-2 {
+	min-width: 58px;
+	min-height: 33,4px;
+	perspective: 33,7px;
+}
+
 
 #sv1-2, #sv2-2, #sv3-2, #sv4-2, #sv5-2 {
 	margin-top: 89px;
@@ -596,42 +576,58 @@ h3 {
 #sv6-1, #sv6-2, #sv6-3, #sv6-4 {
 	width: 143px;
 	height: 27px;
-	min-height: 8px;
+	min-width: 53,2px;
+	min-height: 9,8px;
+	perspective: 48,1px;
 }
 
 #sv6-5 {
 	width: 144px;
 	height: 54px;
-	min-height: 8px;
-	min-width: 30px;
+	min-width: 53,2px;
+	min-height: 20,2px;
+	perspective: 48,1px;
 }
 
 #sv9-1, #sv10-1 {
 	width: 143px;
 	height: 27px;
-	min-height: 8px;
+	min-width: 53,2px;
+	min-height: 9,8px;
+	perspective: 48,1px;
 }
 
 #sv9-2, #sv10-2 {
 	width: 144px;
 	height: 54px;
-	min-height: 8px;
+	min-width: 53,2;
+	min-height: 22,2px;
+	perspective: 48,1px;
 }
 
 #sv9-3, #sv10-3 {
 	width: 146px;
 	height: 83px;
 	min-height: 8px;
+	min-width: 53,2;
+	min-height: 33,1px;
+	perspective: 48,1px;
 }
 
 #sv7 {
 	width: 147px;
 	height: 147px;
+	min-width: 56px;
+	min-height: 61,3px;
+	perspective: 52,6px;
 }
 
 #sv8 {
 	width: 146px;
 	height: 118px;
+	min-width: 50px;
+	min-height: 55px;
+	perspective: 45px;
 }
 
 
@@ -653,33 +649,45 @@ h3 {
 	color: white;
 }
 
+
 #obfl1 {
+	border: 1px solid black;
 	background-color: transparent;
-	width: 300px;
-	height: 60px;
-	left: 290px;
-	top: 310px;
-	min-height: 58px;
-	min-width: 100px;
+	width: 200px;
+	height: 55px;
+	perspective: 50px;
+	left: 10px;
+	top: 390px;
 }
 
 #obfl2 {
-	background-color: red;
-	width: 144px;
-	height: 170px;
-	left: 0px;
-	top: 0px;
-	min-height: 69px;
-	min-width: 150px;
-}
-#obfl3 {
+	border: 1px solid red;
 	background-color: transparent;
-	width: 97px;
-	height: 40px;
-	left: 490px;
-	top: 80px;
-	min-height: 40px;
-	min-width: 30px;
+	width: 700px;
+	height: 55px;
+	perspective: 50px;
+	left: 30px;
+	top: 50px;
+}
+
+#obfl3 {
+	border: 1px solid green;
+	background-color: transparent;
+	width: 270px;
+	height: 55px;
+	perspective: 50px;
+	left: 600px;
+	top: 390px;
+}
+
+#obfl4 {
+	border: 1px solid blue;
+	background-color: transparent;
+	width: 100px;
+	height: 55px;
+	perspective: 50px;
+	left: 220px;
+	top: 390px;
 }
 
 #lupe {
@@ -705,3 +713,20 @@ h3 {
 	opacity: 0.01;
 	filter: alpha(opacity=10);
 }
+
+.bubble {
+	left: 0px;
+	top: 0px;
+	z-index: 4;
+}
+.bubble:hover {
+	transition: all 1s ease-out;
+	background-color: #3e3e3e;
+	left: 100px;
+	top: 400px;
+	z-index: 20;
+	position: relative;
+}
+
+
+

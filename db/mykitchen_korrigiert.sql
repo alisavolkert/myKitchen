@@ -76,25 +76,10 @@ CREATE TABLE mykitchen2(
   material varchar(50)
 );
 
-/* Material:
-1: Glas/ glass
-2: Lebensmittel/ food
-3: Sonstiges / 
-4: Plastik / plastic
-5: Edelstahl / steel
-6: Teflon / 
-7: Holz / wood
-8: Porzellan / china
-9: Emaille / enamel
-10: Blech / 
-11: Lehm / clay
-*/
-
 /*NEW VERSION: fill table mykitchen2*/
 INSERT INTO mykitchen2
   (id, name, picture, height, width, depth, concavity, weight, volume, handle, material)
 VALUES
-
 (1, "plastic cup 1", "001.jpg", 9.3, 7, 7, 9, 2, 0.23, 0, "plastic"),
 (2, "plastic cup 2", "002.jpg", 9.3, 7, 7, 9, 2, 0.23, 0, "plastic"),
 (3, "plastic cup 3", "003.jpg", 9.3, 7, 7, 9, 2, 0.23, 0, "plastic"),

@@ -11,8 +11,6 @@
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-	<script type="text/javascript" src="js/html2canvas.js"></script>
-	<script type="text/javascript" src="js/jquery.plugin.html2canvas.js"></script>
 	<script type="text/javascript" src="js/mykitchen.js"></script>
 
   </head>
@@ -32,6 +30,7 @@
 
 
       // lupe
+	  
       $(document).ready(function() {
         $('.objekte')
         .mouseover(function() {
@@ -42,25 +41,16 @@
         });
       });
 	  
-	function take_screenshot() {
-		html2canvas(document.body, {  
-			onrendered: function(canvas)  {
-				//var img = canvas.toDataURL()
-				//$.post("save_screenshot.php", {data: img}, function (file){
-				//	window.location.href =  "save_screenshot.php?file="+ file
-				});
-			}
-		});
 	}
     </script>
 
     <noscript>Your browser does not support JavaScript!</noscript>
-    <h1>K&uuml;chensimulation Test</h1>
+    
     <h3 class="hidden">Vielen Dank f&uuml;r Ihre Teilnahme! ;) </h3>
 
   <div class="all">
     <div id="lupe"></div>
-
+	<h1>K&uuml;chensimulation Test</h1>
     <div class="but">
       <button id="back" style="font-size: 18px; width: 35px;"><</button>
       <button id="next" style="font-size: 18px; width: 35px;">></button>
@@ -68,10 +58,6 @@
       <button id="close">Close</button>
       <button id="refresh">Restart</button>
       <button id="finish">Finish</button>
-	  <!--<button id="screenshot" onclick="<?php $img = imagegrabscreen(); imagepng($img, 'test_screen2.png'); ?>"><a id="test_ss">SS</a></button>
-      
-      <button id="distance_table">Distance</button>
-      -->
     </div>
 
     <div class="kitchen" id="gkitchen">
@@ -143,7 +129,7 @@
 			</div>
 			
 			<div class="schrank" id="s7">
-				<div class="regal" id="sv7"></div>
+				<div class="regal bubble" id="sv7"></div>
 			</div>
 			
 			<div class="schrank" id="s8">
@@ -170,12 +156,12 @@
 				<div class="regal" id="sv10-3"></div>
 			</div>
 			
+			
 
       <div class="regal" id="obfl1"></div>
-      <!--
       <div class="regal" id="obfl2"></div>
-    -->
       <div class="regal" id="obfl3"></div>
+	  <div class="regal" id="obfl4"></div>
 		</div>
 
     <div id="obj" class="regal">
@@ -221,7 +207,7 @@
 			mysql_select_db($db, $db_connection) or die(mysql_error());
 
       # SQL-Statements
-			$select_elem_mk = "SELECT name, picture, width, height FROM mykitchen2";
+			$select_elem_mk = "SELECT name, picture, width, height, depth FROM mykitchen2";
 			$select_all_mk = "SELECT * FROM mykitchen2 ORDER BY RAND()";
 
 
@@ -334,10 +320,6 @@
 
         fclose($df);
       }
-	  
-	  # test save screenshot
-				#$img = imagegrabscreen();
-				#imagepng($img, 'test_screen.png');
 
       # delete array and close DB connection
       mysql_free_result($result_mk);

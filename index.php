@@ -28,19 +28,19 @@
           form.age.focus();
           return false;
         }
-
+		//alter
         if (age < 0 || age > 100) {
           alert("Sind Sie ernsthaft " + age + " Jahre alt?");
           form.age.focus();
           return false;
         }
-
+		
         if (Number(form.hours1.value) < 0) {
           alert("Zahl soll positiv sein");
           form.hours1.focus();
           return false;
         }
-
+		//wie lange Küche
         var hours2 = form.hours2.value;
         if (isNaN(hours2) || hours2 == "" || Number(hours2) < 0) {
           alert("Bitte geben Sie an, wie viele Stunden die Woche Sie in der K&uuml;che verbringen");

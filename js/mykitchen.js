@@ -4,7 +4,9 @@ var num_of_clicks_on_obj = 0;
 var startTime = new Date();
 var endTime = startTime;
 
-var regal_ids = ["time/ID","s1-1","s1-2","s1-3","s2-1","s2-2","s2-3","s3-1","s3-2","s4-1","s4-2","s5-1","s6-1","s6-2","s6-3","s7-1","s8-1","s9-1","s9-2","s10-1","s11-1","s11-2","s12-1","s12-2","obfl1","obfl3","obj"];
+var regal_ids = ["time/ID","sv1-1","sv1-2","sv2-1","sv2-2","sv3-1","sv3-2","sv4-1","sv4-2","sv5-1",
+				"sv5-2","sv6-1","sv6-2","sv6-3","sv6-4","sv6-5","sv7","sv8","sv9-1","sv9-2","sv9-3",
+				"sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obj","sv11"];
 var results = new Array();
 var index = 0; /* Undo-Redo */
 
@@ -80,13 +82,19 @@ $(document).ready(function() {
 						alert("Passt nicht rein!");
 					} else {
 						if ( regal_volume >= placeholder_volume ) {
-							var ratio = scaleFactor(obj_width, obj_height, 60, 20);
+							//Skalierung der Objekte nachdem sie in die Küche eingefügt wurden
+							//var ratio = scaleFactor(obj_width, obj_height, 60, 20);
 
 							ui.item.css('width', 100);
 							ui.item.css('height', 100);
 
-							ui.item.css('width', ratio);
-							ui.item.css('height', ratio);
+							//alte Angaben
+							//ui.item.css('width', ratio);
+							//ui.item.css('height', ratio);
+							
+							//Skalierung momentan auf 50% der Größe in der Liste
+							ui.item.css('width', 50);
+							ui.item.css('height', 50);
 							ui.item.css('horizontal-align','bottom');
 						} else {
 							$('#' + old_parent_id).append(ui.item);
@@ -269,12 +277,6 @@ $(document).ready(function() {
 		});
 	});
 	
-	//das will nicht
-	/*$("#screenshot").click(function() {
-		html2canvas(document.querySelector("#gkitchen")).then(canvas => {
-			document.body.appendChild(canvas)
-		});
-	});*/
 	
 	function genScreenshot(){
 		html2canvas(document.body, {
@@ -326,9 +328,6 @@ $(document).ready(function() {
 			case "d10-2":
 			case "d10-3":
 				classname = "opendrawer";
-				break;
-			case "d4":
-				classname = "opendoorup";
 				break;
 			case "d8":
 				classname = "opendoordown";
