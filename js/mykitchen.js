@@ -91,7 +91,7 @@ $(document).ready(function() {
 							//alte Angaben
 							//ui.item.css('width', ratio);
 							//ui.item.css('height', ratio);
-							
+
 							//Skalierung momentan auf 50% der Größe in der Liste
 							ui.item.css('width', 50);
 							ui.item.css('height', 50);
@@ -249,7 +249,7 @@ $(document).ready(function() {
 
 	/* finish the simulation and send user data via ajax */
 	$('#finish').click(function(){
-		
+
 		row.unshift('save');
 		row.push(timeToString(startTime), timeToString(new Date()), countClicks, num_of_clicks_on_obj);
 
@@ -268,6 +268,8 @@ $(document).ready(function() {
 		$(".all").addClass("hidden");
 		$("h3").removeClass("hidden");
 
+
+/*
 		// screenshot
 		$('.all').html2canvas({
 			onrendered: function (canvas) {
@@ -275,9 +277,11 @@ $(document).ready(function() {
 			location.href = url;
 			}
 		});
+
+		*/
 	});
-	
-	
+
+
 	function genScreenshot(){
 		html2canvas(document.body, {
 			onrendered: function(canvas) {

@@ -45,7 +45,7 @@ CREATE TABLE kitchen(
 );
 */
 
-CREATE TABLE userscore {
+CREATE TABLE userscore (
   id int NOT NULL AUTO_INCREMENT PRIMARY KEY,
   username varchar(50) NOT NULL,
   gender varchar(10) NOT NULL,
@@ -58,7 +58,7 @@ CREATE TABLE userscore {
   endtime DATE,
   mouseclicks INTEGER, /* number of mouse clicks */
   clicksonobjects INTEGER /* number of mouse clicks on objects*/
-}
+)
 
 /* NEW VERSION */
 DROP TABLE IF EXISTS mykitchen2;
@@ -474,7 +474,7 @@ VALUES
   ("Mikrowelle","",27.9,48.8,39.5,36,0),
   ("Regalfach","",30,57,19.5,33.3,0),
   ("Spuelmaschine","",60,84.5,60,200,0);
-*/  
+*/
 
 
 /* import csv file into table mykitchen

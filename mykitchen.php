@@ -7,7 +7,7 @@
     <meta charset="utf-8">
 
 	<link rel="stylesheet" type="text/css" href="stylesheets/mykitchen.css">
-	<link rel="stylesheet" href="http://code.jquery.com/ui/1.18.4/themes/smoothness/jquery-ui.css"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
 
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
@@ -20,17 +20,13 @@
       var data = <?php echo json_encode($_POST) ?>;
 
       var beruf;
-      if (data.other.length > 0) {
-        beruf = data.other;
-      } else {
-        beruf = data.beruf;
-      }
+
 
       var row = [data.nickname, data.anrede, data.age, data.nationality, data.hours1, data.hours2, beruf];
 
 
       // lupe
-	  
+
       $(document).ready(function() {
         $('.objekte')
         .mouseover(function() {
@@ -40,12 +36,12 @@
           $( '#lupe' ).css({'display': 'none', 'background-image': 'url()'});
         });
       });
-	  
-	}
+
+
     </script>
 
     <noscript>Your browser does not support JavaScript!</noscript>
-    
+
     <h3 class="hidden">Vielen Dank f&uuml;r Ihre Teilnahme! ;) </h3>
 
   <div class="all">
@@ -66,36 +62,36 @@
 			<div class="door" id="d2">S2</div>
 			<div class="door" id="d3">S3</div>
 			<div class="door" id="d5">S5</div>
-			
+
 			<div class="door" id="d6-1">S6-1</div>
 			<div class="door" id="d6-2">S6-2</div>
 			<div class="door" id="d6-3">S6-3</div>
 			<div class="door" id="d6-4">S6-4</div>
 			<div class="door" id="d6-5">S6-5</div>
-			
+
 			<div class="door" id="d7">S7</div>
 			<div class="door" id="d8">S8</div>
-			
+
 			<div class="door" id="d9-1">S9-1</div>
 			<div class="door" id="d9-2">S9-2</div>
 			<div class="door" id="d9-3">S9-3</div>
-			
+
 			<div class="door" id="d10-1">S10-1</div>
 			<div class="door" id="d10-2">S10-2</div>
 			<div class="door" id="d10-3">S10-3</div>
-			
-		
+
+
 
 			<div class="schrank" id="s1">
 				<div class="regal" id="sv1-1"></div>
 				<div class="regal" id="sv1-2"></div>
 			</div>
-			
+
 			<div class="schrank" id="s2">
 				<div class="regal" id="sv2-1"></div>
 				<div class="regal" id="sv2-2"></div>
 			</div>
-	  
+
 			<div class="schrank" id="s3">
 				<div class="regal" id="sv3-1"></div>
 				<div class="regal" id="sv3-2"></div>
@@ -105,13 +101,13 @@
 				<div class="regal" id="sv4-1"></div>
 				<div class="regal" id="sv4-2"></div>
 			</div>
-			
+
 			<div class="schrank" id="s5">
 				<div class="regal" id="sv5-1"></div>
 				<div class="regal" id="sv5-2"></div>
 			</div>
-			
-			
+
+
 			<div class="schrank" id="s6-1">
 				<div class="regal" id="sv6-1"></div>
 			</div>
@@ -127,15 +123,15 @@
 			<div class="schrank" id="s6-5">
 				<div class="regal" id="sv6-5"></div>
 			</div>
-			
+
 			<div class="schrank" id="s7">
 				<div class="regal bubble" id="sv7"></div>
 			</div>
-			
+
 			<div class="schrank" id="s8">
 				<div class="regal" id="sv8"></div>
 			</div>
-			
+
 			<div class="schrank" id="s9-1">
 				<div class="regal" id="sv9-1"></div>
 			</div>
@@ -145,7 +141,7 @@
 			<div class="schrank" id="s9-3">
 				<div class="regal" id="sv9-3"></div>
 			</div>
-			
+
 			<div class="schrank" id="s10-1">
 				<div class="regal" id="sv10-1"></div>
 			</div>
@@ -155,8 +151,8 @@
 			<div class="schrank" id="s10-3">
 				<div class="regal" id="sv10-3"></div>
 			</div>
-			
-			
+
+
 
       <div class="regal" id="obfl1"></div>
       <div class="regal" id="obfl2"></div>
@@ -195,29 +191,18 @@
         return $result;
       }
 
-			# define DB parameter
-			//require_once('connect.php');
-			$host = "localhost";
-			$user = "root";
-			$pass = "";
-			$db = "mykitchen_db";
+      require('connect.php');
 
-      # connection
-			$db_connection = mysql_connect($host, $user, $pass) or die('Verbindung fehlgeschlagen: '.mysql_error());
-			mysql_select_db($db, $db_connection) or die(mysql_error());
 
       # SQL-Statements
-			$select_elem_mk = "SELECT name, picture, width, height, depth FROM mykitchen2";
-			$select_all_mk = "SELECT * FROM mykitchen2 ORDER BY RAND()";
+			$select_elem_mk = $db->query('SELECT name, picture, width, height, depth FROM mykitchen2')->fetchall();
+			$result_mk = $db->query('SELECT * FROM mykitchen2 ORDER BY RAND()');
 
-
-      $result_mk = mysql_query($select_all_mk, $db_connection);
-      //$result_k = mysql_query($select_all_k, $db_connection);
 
       $js_array_mk = array();
 
-			if (mysql_num_rows($result_mk) > 0) {
-				while($row = mysql_fetch_array($result_mk)) {
+			if (sizeof($result_mk) > 0) {
+				while($row = $result_mk->fetch()) {
           $image = $row['picture'];
           if (strlen($image) == 0) {
             $image = "default.jpeg";
@@ -321,11 +306,7 @@
         fclose($df);
       }
 
-      # delete array and close DB connection
-      mysql_free_result($result_mk);
-      //mysql_free_result($result_k);
-      mysql_close($db_connection);
-	  
+
 		?>
     </div>
 
