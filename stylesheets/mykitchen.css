@@ -236,112 +236,112 @@ h3 {
 	top: 115px;
 }
 
-#s3 {	
+#s3 {
 	width: 135px;
 	height: 177px;
 	left: 307px;
 	top: 115px;
 }
 
-#s4 {	
+#s4 {
 	width: 135px;
 	height: 177px;
 	left: 450px;
 	top: 115px;
 }
 
-#s5 {	
+#s5 {
 	width: 135px;
 	height: 177px;
 	left: 597px;
 	top: 115px;
 }
 
-#s6-1 {	
+#s6-1 {
 	width: 143px;
 	height: 27px;
 	left: 0px;
 	top: 450px;
 }
 
-#s6-2 {	
+#s6-2 {
 	width: 143px;
 	height: 27px;
 	left: 0px;
 	top: 481px;
 }
 
-#s6-3 {	
+#s6-3 {
 	width: 143px;
 	height: 27px;
 	left: 0px;
 	top: 512px;
 }
 
-#s6-4 {	
+#s6-4 {
 	width: 143px;
 	height: 27px;
 	left: 0px;
 	top: 542px;
 }
 
-#s6-5 {	
+#s6-5 {
 	width: 144px;
 	height: 54px;
 	left: 0px;
 	top: 571px;
 }
 
-#s7 {	
+#s7 {
 	width: 147px;
 	height: 147px;
 	left: 298px;
 	top: 477px;
 }
 
-#s8 {	
+#s8 {
 	width: 146px;
 	height: 118px;
 	left: 449px;
 	top: 490px;
 }
 
-#s9-1 {	
+#s9-1 {
 	width: 143px;
 	height: 27px;
 	left: 603px;
 	top: 450px;
 }
 
-#s9-2 {	
+#s9-2 {
 	width: 144px;
 	height: 54px;
 	left: 603px;
 	top:  482px;
 }
 
-#s9-3 {	
+#s9-3 {
 	width: 146px;
 	height: 83px;
 	left: 603px;
 	top: 442px;
 }
 
-#s10-1 {	
+#s10-1 {
 	width: 143px;
 	height: 27px;
 	left: 754px;
 	top: 450px;
 }
 
-#s10-2 {	
+#s10-2 {
 	width: 144px;
 	height: 54px;
 	left: 753px;
 	top: 482px;
 }
 
-#s10-3 {	
+#s10-3 {
 	width: 146px;
 	height: 83px;
 	left: 753px;
@@ -546,26 +546,26 @@ h3 {
 /* width und height für Pixelgrößen und min-width und min-height und perspective(Tiefe) für reale Größen */
 #sv1-1 {
 	min-width: 57px;
-	min-height: 33,2px;
-	perspective: 32,4px;
+	min-height: 33.2px;
+	perspective: 32.4px;
 }
 
 #sv1-2 {
 	min-width: 57px;
-	min-height: 33,4px;
-	perspective: 33,7px;
+	min-height: 33.4px;
+	perspective: 33.7px;
 }
 
 #sv2-1, #sv3-1, #sv4-1, #sv5-1 {
 	min-width: 58px;
-	min-height: 33,2px;
-	perspective: 29,4px;
+	min-height: 33.2px;
+	perspective: 29.4px;
 }
 
 #sv2-2, #sv3-2, #sv4-2, #sv5-2 {
 	min-width: 58px;
-	min-height: 33,4px;
-	perspective: 33,7px;
+	min-height: 33.4px;
+	perspective: 33.7px;
 }
 
 
@@ -576,50 +576,50 @@ h3 {
 #sv6-1, #sv6-2, #sv6-3, #sv6-4 {
 	width: 143px;
 	height: 27px;
-	min-width: 53,2px;
-	min-height: 9,8px;
-	perspective: 48,1px;
+	min-width: 53.2px;
+	min-height: 9.8px;
+	perspective: 48.1px;
 }
 
 #sv6-5 {
 	width: 144px;
 	height: 54px;
-	min-width: 53,2px;
-	min-height: 20,2px;
-	perspective: 48,1px;
+	min-width: 53.2px;
+	min-height: 20.2px;
+	perspective: 48.1px;
 }
 
 #sv9-1, #sv10-1 {
 	width: 143px;
 	height: 27px;
-	min-width: 53,2px;
-	min-height: 9,8px;
-	perspective: 48,1px;
+	min-width: 53.2px;
+	min-height: 9.8px;
+	perspective: 48.1px;
 }
 
 #sv9-2, #sv10-2 {
 	width: 144px;
 	height: 54px;
-	min-width: 53,2;
-	min-height: 22,2px;
-	perspective: 48,1px;
+	min-width: 53.2;
+	min-height: 22.2px;
+	perspective: 48.1px;
 }
 
 #sv9-3, #sv10-3 {
 	width: 146px;
 	height: 83px;
 	min-height: 8px;
-	min-width: 53,2;
-	min-height: 33,1px;
-	perspective: 48,1px;
+	min-width: 53.2;
+	min-height: 33.1px;
+	perspective: 48.1px;
 }
 
 #sv7 {
 	width: 147px;
 	height: 147px;
 	min-width: 56px;
-	min-height: 61,3px;
-	perspective: 52,6px;
+	min-height: 61.3px;
+	perspective: 52.6px;
 }
 
 #sv8 {
@@ -649,7 +649,7 @@ h3 {
 	color: white;
 }
 
-
+/* Daria ToDo min-height*/
 #obfl1 {
 	border: 1px solid black;
 	background-color: transparent;
@@ -727,6 +727,3 @@ h3 {
 	z-index: 20;
 	position: relative;
 }
-
-
-

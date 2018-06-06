@@ -147,12 +147,9 @@ $(document).ready(function() {
 
 					if (! isNaN(c)){
 						var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
-						if ( regal_ids[i] == "obj") {
+
 							$("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
-						} else {
-							var ratio = scaleFactor(daten[c-1][4], daten[c-1][3], 60, 20);
-							$("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:'+ ratio +'px;height:'+ ratio +'px;'+ offset +'"/>');
-						}
+
 					}
 				}
 			}
@@ -178,12 +175,10 @@ $(document).ready(function() {
 					var c = parseInt(children[j]);
 					if (! isNaN(c)){
 						var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
-						if ( regal_ids[i] == "obj") {
+
+			
 							$("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
-						} else {
-							var ratio = scaleFactor(daten[c-1][4], daten[c-1][3], 60, 20);
-							$("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:'+ ratio +'px;height:'+ ratio +'px;'+ offset +'"/>');
-						}
+
 					}
 				}
 			}
@@ -363,12 +358,13 @@ var setOffset = function(height, width, depth){
 
 /* calculate object scale factor */
 var scaleFactor = function(obj_width, obj_height, parent_width, parent_height){
+
 	var scale_width = Math.round((obj_width / parent_width) * 100) / 100;
 	var scale_height = Math.round((obj_height / parent_height) * 100) / 100;
 	scale_width = Math.min(scale_width, 0.5);
 	scale_height = Math.min(scale_height, 0.5);
 
-	var scale_factor = Math.round(((+scale_height + +scale_width) / 2) * 100) / 100;
+	var scale_factor = Math.round(((scale_height + +scale_width) / 2) * 100) / 100;
 	scale_factor = Math.min(scale_factor, 0.7);
 	scale_factor = Math.max(scale_factor, 0.15);
 
