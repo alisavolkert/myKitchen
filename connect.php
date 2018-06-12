@@ -1,9 +1,10 @@
 <?php
 
-$host = "x";
-$user = "x";
-$pass = "x";
-$db = "x";
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "mykitchen_db";
+
 
 try
 {
