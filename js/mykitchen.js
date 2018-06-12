@@ -6,9 +6,12 @@ var endTime = startTime;
 
 var regal_ids = ["time/ID","sv1-1","sv1-2","sv2-1","sv2-2","sv3-1","sv3-2","sv4-1","sv4-2","sv5-1",
 				"sv5-2","sv6-1","sv6-2","sv6-3","sv6-4","sv6-5","sv7","sv8","sv9-1","sv9-2","sv9-3",
-				"sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obj","sv11"];
+				"sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obfl5","obj","sv11"];
 var results = new Array();
 var index = 0; /* Undo-Redo */
+var last_open_shelf = "start";
+var all_door_ids = ["d1","d2","d3","d4","d5","d6-1","d6-2","d6-3","d6-4","d6-5",
+					"d7","d8","d9-1","d9-2","d9-3","d10-1","d10-2","d10-3"];
 
 
 $(document).ready(function() {
@@ -82,15 +85,9 @@ $(document).ready(function() {
 						alert("Passt nicht rein!");
 					} else {
 						if ( regal_volume >= placeholder_volume ) {
-							//Skalierung der Objekte nachdem sie in die Küche eingefügt wurden
-							//var ratio = scaleFactor(obj_width, obj_height, 60, 20);
 
 							ui.item.css('width', 100);
 							ui.item.css('height', 100);
-
-							//alte Angaben
-							//ui.item.css('width', ratio);
-							//ui.item.css('height', ratio);
 
 							//Skalierung momentan auf 50% der Größe in der Liste
 							ui.item.css('width', 50);
@@ -122,6 +119,9 @@ $(document).ready(function() {
 			}
 
 			$(".regal").css('opacity', 1);
+			
+			// Objekte unten im Extra-Fenster anzeigen
+			showObjects(last_open_shelf);
     },
   });
 
@@ -147,8 +147,7 @@ $(document).ready(function() {
 
 					if (! isNaN(c)){
 						var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
-
-							$("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+						$("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
 
 					}
 				}
@@ -175,10 +174,7 @@ $(document).ready(function() {
 					var c = parseInt(children[j]);
 					if (! isNaN(c)){
 						var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
-
-			
-							$("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
-
+						$("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
 					}
 				}
 			}
@@ -244,7 +240,7 @@ $(document).ready(function() {
 
 	/* finish the simulation and send user data via ajax */
 	$('#finish').click(function(){
-
+		
 		row.unshift('save');
 		row.push(timeToString(startTime), timeToString(new Date()), countClicks, num_of_clicks_on_obj);
 
@@ -263,8 +259,6 @@ $(document).ready(function() {
 		$(".all").addClass("hidden");
 		$("h3").removeClass("hidden");
 
-
-/*
 		// screenshot
 		$('.all').html2canvas({
 			onrendered: function (canvas) {
@@ -272,11 +266,9 @@ $(document).ready(function() {
 			location.href = url;
 			}
 		});
-
-		*/
 	});
-
-
+	
+	
 	function genScreenshot(){
 		html2canvas(document.body, {
 			onrendered: function(canvas) {
@@ -337,17 +329,38 @@ $(document).ready(function() {
 
 		door_id = "#" + door_id;
 		var schrank_id = door_id.replace("d", "s");
+		var shelf_id = door_id.replace("d", "sv");
 
 		if ($(door_id).hasClass(classname)) {
 			$(door_id).removeClass(classname);
 			$(schrank_id).css('display', 'none');
 			$(door_id).html((schrank_id.substr(1)).toUpperCase());
+
 		} else {
 			$(door_id).addClass(classname);
 			$(schrank_id).css('display', 'block');
 			$(door_id).html("");
+
+			var l_doors = all_door_ids.length;
+			for (var i = 0; i < l_doors; i++) {
+				var curr_d = "#" + all_door_ids[i];
+				var curr_s = curr_d.replace("d", "s");
+
+				if (curr_d != door_id){
+					$(curr_d).removeClass("opendoorleft");
+					$(curr_d).removeClass("opendoorright");
+					$(curr_d).removeClass("opendrawer");
+					$(curr_d).removeClass("opendoordown");
+					$(curr_s).css('display', 'none');
+					$(curr_d).html((curr_s.substr(1)).toUpperCase());
+				}
+			}
+			last_open_shelf = shelf_id;
+			showObjects(last_open_shelf);
 		}
+		
 	});
+	
 });
 
 
@@ -449,4 +462,34 @@ var hideImage = function(id) {
 /* show kitchen object(s) */
 var showImage = function(id) {
 	$(id).removeClass('transparent');
+}
+
+/* zeige Gegenstände unten an*/
+function showObjects(last_shelf) {
+	if ((last_shelf == "#sv1") || (last_shelf == "#sv2") || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")){
+
+		var last_shelf1 = last_shelf + "-1";
+		var last_shelf2 = last_shelf + "-2";
+		
+		$cloned_shelf1 = $(last_shelf1).clone();
+		$cloned_shelf1.css('width', 650).css('height', 245);
+		$("img", $cloned_shelf1).css('height', 100).css('width', 100);
+		$("img", $cloned_shelf1).css('margin', 2);
+		$cloned_shelf1.appendTo("#test2");
+		
+		$cloned_shelf2 = $(last_shelf2).clone();
+		$cloned_shelf2.css('width', 650).css('height', 245).css('left', 652).css('top', -89);
+		$("img", $cloned_shelf2).css('height', 100).css('width', 100);
+		$("img", $cloned_shelf2).css('margin', 2);
+		$cloned_shelf2.appendTo("#test2");
+		
+		$("#test2").children().not($last_shelf1, $last_shelf2).remove();
+	} else {
+		$cloned_shelf = $(last_shelf).clone();
+		$cloned_shelf.css('width', 1300).css('height', 250);
+		$("img", $cloned_shelf).css('height', 100).css('width', 100);
+		$("img", $cloned_shelf).css('margin', 2);
+		$cloned_shelf.appendTo("#test2");
+		$("#test2").children().not(last_shelf).remove();
+	}
 }

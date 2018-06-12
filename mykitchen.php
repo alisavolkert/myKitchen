@@ -20,13 +20,13 @@
       var data = <?php echo json_encode($_POST) ?>;
 
       var beruf;
-
+	  
 
       var row = [data.nickname, data.anrede, data.age, data.nationality, data.hours1, data.hours2, beruf];
 
 
       // lupe
-
+	  /*
       $(document).ready(function() {
         $('.objekte')
         .mouseover(function() {
@@ -36,17 +36,15 @@
           $( '#lupe' ).css({'display': 'none', 'background-image': 'url()'});
         });
       });
-
-
+	  */
     </script>
 
     <noscript>Your browser does not support JavaScript!</noscript>
-
+    
     <h3 class="hidden">Vielen Dank f&uuml;r Ihre Teilnahme! ;) </h3>
 
   <div class="all">
     <div id="lupe"></div>
-	<h1>K&uuml;chensimulation Test</h1>
     <div class="but">
       <button id="back" style="font-size: 18px; width: 35px;"><</button>
       <button id="next" style="font-size: 18px; width: 35px;">></button>
@@ -79,7 +77,6 @@
 			<div class="door" id="d10-1">S10-1</div>
 			<div class="door" id="d10-2">S10-2</div>
 			<div class="door" id="d10-3">S10-3</div>
-
 
 
 			<div class="schrank" id="s1">
@@ -125,7 +122,7 @@
 			</div>
 
 			<div class="schrank" id="s7">
-				<div class="regal bubble" id="sv7"></div>
+				<div class="regal" id="sv7"></div>
 			</div>
 
 			<div class="schrank" id="s8">
@@ -153,12 +150,12 @@
 			</div>
 
 
-
-      <div class="regal" id="obfl1"></div>
-      <div class="regal" id="obfl2"></div>
-      <div class="regal" id="obfl3"></div>
-	  <div class="regal" id="obfl4"></div>
-		</div>
+      <div class="regal" id="obfl1">Obfl1</div>
+      <div class="regal" id="obfl2">Obfl2</div>
+      <div class="regal" id="obfl3">Obfl3</div>
+	  <div class="regal" id="obfl4">Obfl4</div>
+	  <div class="regal" id="obfl5">Obfl5</div>
+	</div>
 
     <div id="obj" class="regal">
     <?php
@@ -191,15 +188,13 @@
         return $result;
       }
 
-      require('connect.php');
+	  require('connect.php');
 
-
-      # SQL-Statements
+	        # SQL-Statements
 			$select_elem_mk = $db->query('SELECT name, picture, width, height, depth FROM mykitchen2')->fetchall();
 			$result_mk = $db->query('SELECT * FROM mykitchen2 ORDER BY RAND()');
 
-
-      $js_array_mk = array();
+	  $js_array_mk = array();
 
 			if (sizeof($result_mk) > 0) {
 				while($row = $result_mk->fetch()) {
@@ -214,7 +209,6 @@
 			} else {
         echo "Datenbanktabelle ist leer";
       }
-
 
       # create writable directory if not exists
       $dir = "userdaten/";
@@ -304,9 +298,7 @@
         }
 
         fclose($df);
-      }
-
-
+      } 
 		?>
     </div>
 
@@ -320,6 +312,7 @@
       <ul class="resultate-list"></ul>
     </div>
     <div id="test"></div>
+	<div id="test2"></div>
   </div>
 
 	</body>
