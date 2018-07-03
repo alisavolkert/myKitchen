@@ -466,6 +466,8 @@ var showImage = function(id) {
 
 /* zeige Gegenstände unten an*/
 function showObjects(last_shelf) {
+	// Durch das if werden die oberen Schränke abgefangen, da diese nur eine Tür aber zwei Regale
+	// besitzen. Um beide darzustellen wird der Kasten unten aufgeteilt.
 	if ((last_shelf == "#sv1") || (last_shelf == "#sv2") || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")){
 
 		var last_shelf1 = last_shelf + "-1";
@@ -485,6 +487,9 @@ function showObjects(last_shelf) {
 		
 		$("#test2").children().not($last_shelf1, $last_shelf2).remove();
 	} else {
+		// bei den restlichen Regalen gilt: klone den inhalt des divs, verändere seine 
+		// css-Attribute width, height und vergrößere die images innerhalb des divs
+		// füge anschließend den kopierten und modifizierten div dem Kasten hinzu
 		$cloned_shelf = $(last_shelf).clone();
 		$cloned_shelf.css('width', 1300).css('height', 250);
 		$("img", $cloned_shelf).css('height', 100).css('width', 100);

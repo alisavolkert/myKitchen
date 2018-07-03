@@ -10,7 +10,7 @@ body {
 	/*position: absolute;
 	margin-left: 60px;
 	*/
-	width: 1400px;
+	width: 1345px;
 	margin: auto;
 	margin-top: 60px;
 	font-family: Helvetica, Arial, sans-serif;
@@ -21,7 +21,7 @@ body {
 	width: 900px;
 	height: 624px;
 	background-color: #F6F6F6;
-	background-image: url(../img/kueche_sand_leer_gross.jpg);
+	background-image: url(../img/kueche_sand_leer_gross_schw_obfl.jpg);
 	background-size: 900px 624px;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -34,7 +34,7 @@ body {
 	margin-left: 920px;
 	margin-top: 80px;
 	width: 420px;
-	height: 515px;
+	height: 542px;
 	background-color: #fff;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -159,7 +159,7 @@ h3 {
 	transform: rotateY(-95deg) skewY(5deg);
 	transform-origin: left bottom;
 	position: absolute;
-	z-index: -1;
+	z-index: 5;
 }
 
 .opendoorright {
@@ -169,7 +169,7 @@ h3 {
 	transform: rotateY(105deg) skewY(-5deg);
 	transform-origin: right;
 	position: absolute;
-	z-index: -1;
+	z-index: 5;
 }
 
 .opendrawer {
@@ -179,7 +179,7 @@ h3 {
 	transform: translate(0,8px) scaleY(0.55);
 	transform-origin: bottom;
 	position: absolute;
-	z-index: -1;
+	z-index: 5;
 }
 
 .opendoordown {
@@ -189,7 +189,7 @@ h3 {
 	transform: rotateX(140deg);
 	transform-origin: bottom;
 	position: absolute;
-	z-index: -1;
+	z-index: 5;
 }
 
 .opendoorup {
@@ -199,7 +199,7 @@ h3 {
 	transform: rotateX(120deg);
 	transform-origin: 0 0;
 	position: absolute;
-	z-index: -1;
+	z-index: 5;
 }
 
 /*
@@ -324,7 +324,7 @@ h3 {
 	width: 146px;
 	height: 83px;
 	left: 603px;
-	top: 442px;
+	top: 542px;
 }
 
 #s10-1 {
@@ -543,7 +543,7 @@ h3 {
 }
 
 
-/* width und height für Pixelgrößen und min-width und min-height und perspective(Tiefe) für reale Größen */
+/* width und height für Pixelgrößen und min-width, min-height und perspective(Tiefe) für reale Größen */
 #sv1-1 {
 	min-width: 57px;
 	min-height: 33.2px;
@@ -654,41 +654,52 @@ h3 {
 	border: 1px solid black;
 	background-color: transparent;
 	width: 200px;
-	height: 55px;
+	height: 150px;
 	perspective: 50px;
 	left: 10px;
-	top: 390px;
+	top: 295px;
 }
 
 #obfl2 {
-	border: 1px solid red;
+	border: 1px solid blue;
 	background-color: transparent;
-	width: 700px;
-	height: 55px;
+	width: 250px;
+	height: 150px;
 	perspective: 50px;
-	left: 30px;
-	top: 50px;
+	left: 220px;
+	top: 295px;
 }
 
 #obfl3 {
-	border: 1px solid green;
+	border: 1px solid orange;
 	background-color: transparent;
-	width: 270px;
-	height: 55px;
+	width: 85px;
+	height: 150px;
 	perspective: 50px;
-	left: 600px;
-	top: 390px;
+	left: 500px;
+	top: 295px;
 }
 
 #obfl4 {
-	border: 1px solid blue;
+	border: 1px solid green;
 	background-color: transparent;
-	width: 100px;
-	height: 55px;
+	width: 270px;
+	height: 150px;
 	perspective: 50px;
-	left: 220px;
-	top: 390px;
+	left: 600px;
+	top: 295px;
 }
+
+#obfl5 {
+	border: 1px solid red;
+	background-color: transparent;
+	width: 700px;
+	height: 80px;
+	perspective: 50px;
+	left: 30px;
+	top: 30px;
+}
+
 
 #lupe {
 	width: 100px;
@@ -714,16 +725,12 @@ h3 {
 	filter: alpha(opacity=10);
 }
 
-.bubble {
-	left: 0px;
-	top: 0px;
-	z-index: 4;
-}
-.bubble:hover {
-	transition: all 1s ease-out;
-	background-color: #3e3e3e;
-	left: 100px;
-	top: 400px;
-	z-index: 20;
-	position: relative;
+#test2 {
+	width: 1345px;
+	height: 250px;
+	position: absolute;
+	top: 700px;
+	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 }
