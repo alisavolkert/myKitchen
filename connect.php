@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $user = "root";
-$pass = "";
+$pass = "Shakey1985";
 $db = "mykitchen_db";
 
 
@@ -15,5 +15,5 @@ try
 catch(PDOException $e)
 {
     error_log($e->getMessage());
-    die("Ein Datenbankfehler ist aufgetreten.");
+    die("Ein Datenbankfehler ist aufgetreten." . $e->getMessage());
 }
