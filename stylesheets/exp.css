@@ -1,0 +1,78 @@
+body	{ 
+	font-family: Sans, Arial;
+	margin: 0 auto;
+	width: 900px;
+}
+button {
+	padding: 5px 10px;
+}
+ul {
+	padding-bottom:10px;
+}
+
+ol li {
+	padding-bottom:18px;
+	
+}
+
+
+ul li {
+	padding-bottom:5px;
+	padding-top:5px;
+}
+
+form {
+	border: 1px solid lightgrey;
+	background-color: #fff4e5;
+	margin: 20px;
+	padding: 10px;
+
+}
+
+.todo {
+
+	background-color: yellow;
+
+}
+
+.mailadr {
+
+	font-style: italic;
+}
+
+.tnnummer_b {
+	font-weight; bold;
+	font-size: 20px;
+	padding-top:30px;
+	padding-bottom:30px;
+	padding:10px;
+}
+
+.error {
+	color:	red;
+}
+
+#logo {
+	float: right;
+	padding-top:40px;
+	padding-bottom: 60px;
+} 
+
+#expstart {
+	clear: right;
+} 
+
+#logo_alt {
+	position: absolute;
+	top: 20px;
+	right: -20px;
+	padding-top:40px;
+	padding-bottom: 60px;
+} 
+
+#expstart_alt {
+	position:absolute;
+	top: 20px;
+	left: 20px;
+	max-width: 1200px;
+} 

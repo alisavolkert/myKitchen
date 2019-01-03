@@ -683,7 +683,7 @@ h3 {
 #sv9-2, #sv10-2 {
 	width: 144px;
 	height: 54px;
-	min-width: 53.2;
+	min-width: 53.2px;
 	min-height: 22.2px;
 	perspective: 48.1px;
 }
@@ -692,7 +692,7 @@ h3 {
 	width: 146px;
 	height: 83px;
 	min-height: 8px;
-	min-width: 53.2;
+	min-width: 53.2px;
 	min-height: 33.1px;
 	perspective: 48.1px;
 }
@@ -809,11 +809,13 @@ h3 {
 }
 
 #test2 {
-	width: 1345px;
+	width: 900px;
 	height: 250px;
 	position: absolute;
 	top: 700px;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	transition: all 0.5s;
+	display: none;
 }

@@ -121,7 +121,14 @@ $(document).ready(function() {
             $(".regal").css('opacity', 1);
 
             // Objekte unten im Extra-Fenster anzeigen
-            showObjects(last_open_shelf);
+            showObjects("#" + new_parent_id);
+            console.log("pid" + "#" + new_parent_id);
+
+            if ($('#obj').find('img.objekte').length === 0) {
+                document.getElementById('finish').disabled = false;
+            } else {
+                document.getElementById('finish').disabled = true;
+            }
         },
     });
 
@@ -185,26 +192,30 @@ $(document).ready(function() {
 
     /* open doors */
     $("#open").click(function() {
-        $(".door").animate({opacity:'0'})
-        $(".door").css('z-index', '0')
+        $(".door").animate({opacity:'0'});
+        $(".door").css('z-index', '0');
 
-        $(".schrank").css('z-index', '1')
-        $(".schrank").css('display', 'block')
+        $(".schrank").css('z-index', '1');
+        $(".schrank").css('display', 'block');
+
+        $('#test2').css('display', 'block');
     });
 
     /* close doors */
     $("#close").click(function() {
-        $(".door").animate({opacity:'1'})
-        $(".door").css('z-index', '1')
+        $(".door").animate({opacity:'1'});
+        $(".door").css('z-index', '1');
 
-        $(".door").removeClass("opendoorleft")
-        $(".door").removeClass("opendoorright")
-        $(".door").removeClass("opendrawer")
-        $(".door").removeClass("opendoorup")
-        $(".door").removeClass("opendoordown")
+        $(".door").removeClass("opendoorleft");
+        $(".door").removeClass("opendoorright");
+        $(".door").removeClass("opendrawer");
+        $(".door").removeClass("opendoorup");
+        $(".door").removeClass("opendoordown");
 
-        $(".schrank").css('z-index', '0')
-        $(".schrank").css('display', 'none')
+        $(".schrank").css('z-index', '0');
+        $(".schrank").css('display', 'none');
+
+        $('#test2').css('display', 'none');
     });
 
     /* reload the kitchen */
@@ -346,7 +357,9 @@ $(document).ready(function() {
             $(door_id).removeClass(classname);
             $(schrank_id).css('display', 'none');
             $(door_id).html((schrank_id.substr(1)).toUpperCase());
+            // $('#test2').css('display', 'none');
 
+            $('#test2').hide();
         } else {
             $(door_id).addClass(classname);
             $(schrank_id).css('display', 'block');
@@ -367,7 +380,9 @@ $(document).ready(function() {
                 }
             }
             last_open_shelf = shelf_id;
-            showObjects(last_open_shelf);
+            // showObjects(last_open_shelf);
+            // $('#test2').css('display', 'block');
+            $('#test2').show();
         }
 
     });
@@ -477,35 +492,60 @@ var showImage = function(id) {
 
 /* zeige Gegenstände unten an*/
 function showObjects(last_shelf) {
+        $('#test2').show();
     // Durch das if werden die oberen Schränke abgefangen, da diese nur eine Tür aber zwei Regale
     // besitzen. Um beide darzustellen wird der Kasten unten aufgeteilt.
-    if ((last_shelf == "#sv1") || (last_shelf == "#sv2") || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")){
-
-        var last_shelf1 = last_shelf + "-1";
-        var last_shelf2 = last_shelf + "-2";
-
-        $cloned_shelf1 = $(last_shelf1).clone();
-        $cloned_shelf1.css('width', 650).css('height', 245);
-        $("img", $cloned_shelf1).css('height', 100).css('width', 100);
-        $("img", $cloned_shelf1).css('margin', 2);
-        $cloned_shelf1.appendTo("#test2");
-
-        $cloned_shelf2 = $(last_shelf2).clone();
-        $cloned_shelf2.css('width', 650).css('height', 245).css('left', 652).css('top', -89);
-        $("img", $cloned_shelf2).css('height', 100).css('width', 100);
-        $("img", $cloned_shelf2).css('margin', 2);
-        $cloned_shelf2.appendTo("#test2");
-
-        $("#test2").children().not($last_shelf1, $last_shelf2).remove();
-    } else {
+    // if ((last_shelf == "#sv1") || (last_shelf == "#sv2") || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")){
+    //
+    //     var last_shelf1 = last_shelf + "-1";
+    //     var last_shelf2 = last_shelf + "-2";
+    //
+    //     $cloned_shelf1 = $(last_shelf1).clone();
+    //     $cloned_shelf1.css('width', 650).css('height', 245);
+    //     $("img", $cloned_shelf1).css('height', 100).css('width', 100);
+    //     $("img", $cloned_shelf1).css('margin', 2);
+    //     $cloned_shelf1.appendTo("#test2");
+    //
+    //     $cloned_shelf2 = $(last_shelf2).clone();
+    //     $cloned_shelf2.css('width', 650).css('height', 245).css('left', 652).css('top', -89);
+    //     $("img", $cloned_shelf2).css('height', 100).css('width', 100);
+    //     $("img", $cloned_shelf2).css('margin', 2);
+    //     $cloned_shelf2.appendTo("#test2");
+    //
+    //     $("#test2").children().not($last_shelf1, $last_shelf2).remove();
+    // } else {
         // bei den restlichen Regalen gilt: klone den inhalt des divs, verändere seine
         // css-Attribute width, height und vergrößere die images innerhalb des divs
         // füge anschließend den kopierten und modifizierten div dem Kasten hinzu
-        $cloned_shelf = $(last_shelf).clone();
-        $cloned_shelf.css('width', 1300).css('height', 250);
+        var $cloned_shelf;
+        if ($(last_shelf).hasClass('obfl')) {
+            if (last_shelf === "#obfl3") {
+                console.log("last shelf: " + last_shelf);
+                // $cloned_shelf = $(last_shelf).clone();
+                $cloned_shelf = $(last_shelf).clone();
+
+            // .prop({ id: "obfl33"})
+            } else {
+                return;
+            }
+        } else if (!$(last_shelf).hasClass('obfl')){
+            $cloned_shelf = $(last_shelf).clone();
+        }
+
+        $cloned_shelf.css('width', 900).css('height', 250);
         $("img", $cloned_shelf).css('height', 100).css('width', 100);
         $("img", $cloned_shelf).css('margin', 2);
         $cloned_shelf.appendTo("#test2");
         $("#test2").children().not(last_shelf).remove();
-    }
+        
+        if (last_shelf === "#obfl3") {
+            $cloned_shelf.prop("id", "obfl33");
+        }
+
+        if($(last_shelf).hasClass('oben')) {
+            $("#test2").css('top', '436px');
+        } else if($(last_shelf).hasClass('unten')) {
+            $("#test2").css('top','60px');
+        }
+    // }
 }

@@ -51,7 +51,7 @@
         <button id="open">Open</button>
         <button id="close">Close</button>
         <button id="refresh">Restart</button>
-        <button id="finish">Finish</button>
+        <button id="finish" disabled>Finish</button>
     </div>
 
     <div class="kitchen" id="gkitchen">
@@ -92,95 +92,95 @@
 
 
         <div class="schrank" id="s1-1">
-            <div class="regal" id="sv1-1"></div>
+            <div class="regal oben" id="sv1-1"></div>
         </div>
         <div class="schrank" id="s1-2">
-            <div class="regal" id="sv1-2"></div>
+            <div class="regal oben" id="sv1-2"></div>
         </div>
 
         <div class="schrank" id="s2-1">
-            <div class="regal" id="sv2-1"></div>
+            <div class="regal oben" id="sv2-1"></div>
         </div>
         <div class="schrank" id="s2-2">
-            <div class="regal" id="sv2-2"></div>
+            <div class="regal oben" id="sv2-2"></div>
         </div>
 
         <div class="schrank" id="s3-1">
-            <div class="regal" id="sv3-1"></div>
+            <div class="regal oben" id="sv3-1"></div>
         </div>
         <div class="schrank" id="s3-2">
-            <div class="regal" id="sv3-2"></div>
+            <div class="regal oben" id="sv3-2"></div>
         </div>
 
         <div class="schrank" id="s4-1">
-            <div class="regal" id="sv4-1"></div>
+            <div class="regal oben" id="sv4-1"></div>
         </div>
         <div class="schrank" id="s4-2">
-            <div class="regal" id="sv4-2"></div>
+            <div class="regal oben" id="sv4-2"></div>
         </div>
 
         <div class="schrank" id="s5-1">
-            <div class="regal" id="sv5-1"></div>
+            <div class="regal oben" id="sv5-1"></div>
         </div>
         <div class="schrank" id="s5-2">
-            <div class="regal" id="sv5-2"></div>
+            <div class="regal oben" id="sv5-2"></div>
         </div>
 
 
         <div class="schrank" id="s6-1">
-            <div class="regal" id="sv6-1"></div>
+            <div class="regal unten" id="sv6-1"></div>
         </div>
         <div class="schrank" id="s6-2">
-            <div class="regal" id="sv6-2"></div>
+            <div class="regal unten" id="sv6-2"></div>
         </div>
         <div class="schrank" id="s6-3">
-            <div class="regal" id="sv6-3"></div>
+            <div class="regal unten" id="sv6-3"></div>
         </div>
         <div class="schrank" id="s6-4">
-            <div class="regal" id="sv6-4"></div>
+            <div class="regal unten" id="sv6-4"></div>
         </div>
         <div class="schrank" id="s6-5">
-            <div class="regal" id="sv6-5"></div>
+            <div class="regal unten" id="sv6-5"></div>
         </div>
 
         <div class="schrank" id="s7">
-            <div class="regal" id="sv7"></div>
+            <div class="regal unten" id="sv7"></div>
         </div>
 
         <div class="schrank" id="s8">
-            <div class="regal" id="sv8"></div>
+            <div class="regal unten" id="sv8"></div>
         </div>
 
         <div class="schrank" id="s9-1">
-            <div class="regal" id="sv9-1"></div>
+            <div class="regal unten" id="sv9-1"></div>
         </div>
         <div class="schrank" id="s9-2">
-            <div class="regal" id="sv9-2"></div>
+            <div class="regal unten" id="sv9-2"></div>
         </div>
         <div class="schrank" id="s9-3">
-            <div class="regal" id="sv9-3"></div>
+            <div class="regal unten" id="sv9-3"></div>
         </div>
 
         <div class="schrank" id="s10-1">
-            <div class="regal" id="sv10-1"></div>
+            <div class="regal unten" id="sv10-1"></div>
         </div>
         <div class="schrank" id="s10-2">
-            <div class="regal" id="sv10-2"></div>
+            <div class="regal unten" id="sv10-2"></div>
         </div>
         <div class="schrank" id="s10-3">
-            <div class="regal" id="sv10-3"></div>
+            <div class="regal unten" id="sv10-3"></div>
         </div>
 
 
-        <div class="regal" id="obfl1">Obfl1</div>
-        <div class="regal" id="obfl2">Obfl2</div>
-        <div class="regal" id="obfl3">Obfl3</div>
-        <div class="regal" id="obfl4">Obfl4</div>
-        <div class="regal" id="obfl5">Obfl5</div>
+        <div class="regal unten obfl" id="obfl1">Obfl1</div>
+        <div class="regal unten obfl" id="obfl2">Obfl2</div>
+        <div class="regal unten obfl" id="obfl3">Obfl3</div>
+        <div class="regal unten obfl" id="obfl4">Obfl4</div>
+        <div class="regal oben obfl" id="obfl5">Obfl5</div>
     </div>
 
     <div id="obj" class="regal">
-        <?php
+      <?php
         //mb_internal_encoding('UTF-8');
         function setOffset($height, $width, $depth){
             $height = round(number_format($height));
@@ -226,9 +226,9 @@
 
         if (count($result_mk) > 0) {
 //            echo "Datenbanktabelle ist nicht leer";
-//    print_r($result_mk);
+//              print_r($result_mk);
 //            while($row = $result_mk->fetch()) {
-            foreach ($result_mk as $row) {
+             foreach ($result_mk as $row) {
                 $image = $row['picture'];
                 if ($image === 0) {
                     $image = "default.jpeg";
@@ -241,6 +241,8 @@
 
 //                echo "img set";
                 $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
+
+
             }
         } else {
             echo "Datenbanktabelle ist leer";
