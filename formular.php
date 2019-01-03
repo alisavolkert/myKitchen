@@ -1,3 +1,16 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION["email"]))
+{
+    $email = $_SESSION["email"];
+} else {
+    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="./index.php">erneut</a>.';
+    die();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -66,7 +79,7 @@
 				Nickname:
 			</td>
             <td class="abstand">
-				<input type="text" name="nickname" id="name"/>
+				<input type="text" name="nickname" id="name" required/>
 			</td>
           </tr>
           <tr>
@@ -74,27 +87,27 @@
 				Anrede:
 			</td>
             <td class="abstand">
-              <select id="anrede" name="anrede" size="1">
-                <option>Herr</option>
-                <option>Frau</option>
+              <select id="anrede" name="anrede" size="1" required>
+                  <option value="" disabled selected>Wählen Sie eine Option</option>
+                  <option>Frau</option>
+                  <option>Herr</option>
               </select>
-            </td>
           </tr>
           <tr>
             <td>
 				Alter:
 			</td>
             <td class="abstand">
-				<input type="text" name="age" id="age"/>
+				<input type="number" min="18" max="100" name="age" id="age" required/>
 			</td>
           </tr>
 		  
 		  <tr>
             <td>
-				K&ouml;rpergr&ouml;&szlig;e:
+				K&ouml;rpergr&ouml;&szlig;e (cm):
 			</td>
             <td class="abstand">
-				<input type="text" name="bodyheight" id="bodyheight"/>
+				<input type="number" min="0" max="250" name="bodyheight" id="bodyheight" required/>
 			</td>
           </tr>
 		  
@@ -122,15 +135,15 @@
 		  
           <tr>
             <td>Wie viele Stunden haben Sie an dem letzten Werktag in <br />der K&uuml;che verbracht?</td>
-            <td class="abstand"><input type="text" id="hours1" name="hours1"/></td>
+            <td class="abstand"><input type="number" min="0" id="hours1" name="hours1"/></td>
           </tr>
           <tr>
             <td>Wie viele Stunden haben Sie nach eigener Einsch&aumltzung <br />vergangene Woche in Ihrer K&uuml;che zu Hause gearbeitet?</td>
-            <td class="abstand"><input type="text" id="hours2" name="hours2"/></td>
+            <td class="abstand"><input type="number" min="0" id="hours2" name="hours2" required/></td>
           </tr>
           <tr>
             <td></td>
-            <td class="abstand"><input id="but" type="submit" value="Zur K&uuml;chensimulation" /></td>
+            <td class="abstand"><input id="but" type="submit" value="Zur K&uuml;chensimulation" required/></td>
           </tr>
         </table>
       </form>

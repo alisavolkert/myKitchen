@@ -1,3 +1,16 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (isset($_SESSION["email"]))
+{
+    $email = $_SESSION["email"];
+} else {
+    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="./index.php">erneut</a>.';
+    die();
+}
+?>
+
 <!DOCTYPE html>
 <html>
 	<head>

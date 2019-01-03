@@ -132,7 +132,7 @@ h3 {
 	border: 1px solid #726c5d;
 	text-align: center;
 	overflow: hidden;
-	background-color: #c0ad8c; /*REGAL LEISTE */
+	/*background-color: #c0ad8c; !*REGAL LEISTE *!*/
 }
 
 .schrank.border {
@@ -219,42 +219,84 @@ h3 {
 	top:10px;
 }
 */
-
+/* gray area*/
+#gray {
+	background: #dedede;
+	width: 147px;
+	height: 174px;
+	position: absolute;
+	top: 450px;
+	left: 148px;
+}
 
 /* cupboards */
-#s1{
+#s1-1{
 	width: 135px;
-	height: 177px;
+	height: 88px;
 	left: 22px;
 	top: 115px;
 }
+#s1-2{
+    width: 135px;
+    height: 88px;
+    left: 22px;
+    top: 204px;
+}
 
-#s2 {
+#s2-1 {
 	width: 135px;
-	height: 177px;
+	height: 88px;
 	left: 165px;
 	top: 115px;
 }
 
-#s3 {
+#s2-2 {
+    width: 135px;
+    height: 88px;
+    left: 165px;
+    top: 204px;
+}
+
+#s3-1 {
 	width: 135px;
-	height: 177px;
+	height: 88px;
 	left: 307px;
 	top: 115px;
 }
+#s3-2 {
+    width: 135px;
+    height: 88px;
+    left: 307px;
+    top: 204px;
+}
 
-#s4 {
+
+#s4-1 {
 	width: 135px;
-	height: 177px;
+	height: 88px;
 	left: 450px;
 	top: 115px;
 }
 
-#s5 {
+#s4-2 {
+    width: 135px;
+    height: 88px;
+    left: 450px;
+    top: 204px;
+}
+
+
+#s5-1 {
 	width: 135px;
-	height: 177px;
+	height: 88px;
 	left: 597px;
 	top: 115px;
+}
+#s5-2 {
+    width: 135px;
+    height: 88px;
+    left: 597px;
+    top: 204px;
 }
 
 #s6-1 {
@@ -350,13 +392,22 @@ h3 {
 
 
 
-#d1 {
+#d1-1 {
 	width: 135px;
 	left: 22px;
 	top: 115px;
-	height: 177px;
-	background-image: url(../img/tuer_oben_rechts.jpg);
-	background-size: 142px 182px;
+	height: 88px;
+	background-image: url(../img/tuer_oben_rechts_halb.jpg);
+	/*background-size: 142px 182px;*/
+}
+
+#d1-2 {
+	width: 135px;
+	left: 22px;
+	top: 204px;
+	height: 89px;
+	background-image: url(../img/tuer_oben_rechts_halb.jpg);
+	/*background-size: 142px 182px;*/
 }
 
 /*
@@ -368,40 +419,72 @@ h3 {
 	left 10;
 }
 */
-#d2 {
+#d2-1 {
 	left: 165px;
 	top: 115px;
 	width: 135px;
-	height: 177px;
-	background-image: url(../img/tuer_oben_links.jpg);
-	background-size: 142px 182px;
+	height: 88px;
+	background-image: url(../img/tuer_oben_links_halb.jpg);
+	/*background-size: 142px 182px;*/
+}
+#d2-2 {
+    left: 165px;
+    top: 204px;
+    width: 135px;
+    height: 88px;
+    background-image: url(../img/tuer_oben_links_halb.jpg);
+    /*background-size: 142px 182px;*/
 }
 
-#d3 {
+#d3-1 {
 	left: 307px;
 	top: 115px;
 	width: 135px;
-	height: 177px;
-	background-image: url(../img/tuer_oben_links.jpg);
-	background-size: 142px 182px;
+	height: 88px;
+	background-image: url(../img/tuer_oben_links_halb.jpg);
+	/*background-size: 142px 182px;*/
+}
+#d3-2 {
+    left: 307px;
+    top: 204px;
+    width: 135px;
+    height: 88px;
+    background-image: url(../img/tuer_oben_links_halb.jpg);
+    /*background-size: 142px 182px;*/
 }
 
-#d4 {
+#d4-1 {
 	width: 135px;
 	left: 450px;
 	top: 115px;
-	height: 177px;
-	background-image: url(../img/tuer_oben_rechts.jpg);
-	background-size: 142px 182px;
+	height: 88px;
+	background-image: url(../img/tuer_oben_rechts_halb.jpg);
+	/*background-size: 142px 182px;*/
+}
+#d4-2 {
+    width: 135px;
+    left: 450px;
+    top: 204px;
+    height: 88px;
+    background-image: url(../img/tuer_oben_rechts_halb.jpg);
+    /*background-size: 142px 182px;*/
 }
 
-#d5 {
+#d5-1 {
 	left: 597px;
 	top: 115px;
 	width: 135px;
-	height: 177px;
-	background-image: url(../img/tuer_oben_links.jpg);
-	background-size: 142px 182px;
+	height: 88px;
+	background-image: url(../img/tuer_oben_links_halb.jpg);
+	/*background-size: 142px 182px;*/
+}
+#d5-2 {
+    left: 597px;
+    top: 204px;
+    width: 135px;
+    height: 88px;
+    background-image: url(../img/tuer_oben_links_halb.jpg);
+    /*background-size: 142px 182px;*/
 }
 
 #d6-1 {
@@ -569,9 +652,9 @@ h3 {
 }
 
 
-#sv1-2, #sv2-2, #sv3-2, #sv4-2, #sv5-2 {
-	margin-top: 89px;
-}
+/*#sv1-2, #sv2-2, #sv3-2, #sv4-2, #sv5-2 {*/
+	/*margin-top: 89px;*/
+/*}*/
 
 #sv6-1, #sv6-2, #sv6-3, #sv6-4 {
 	width: 143px;
