@@ -47,8 +47,8 @@
 <div class="all">
     <div id="lupe"></div>
     <div class="but">
-        <button id="back" style="font-size: 18px; width: 35px;"><</button>
-        <button id="next" style="font-size: 18px; width: 35px;">></button>
+        <button id="back" style="font-size: 18px; width: 35px;" disabled><</button>
+        <button id="next" style="font-size: 18px; width: 35px;" disabled>></button>
         <button id="open">Open</button>
         <button id="close">Close</button>
         <button id="refresh">Restart</button>
@@ -61,35 +61,59 @@
 <!--        			<div class="door" id="d2">S2</div>-->
 <!--        			<div class="door" id="d3">S3</div>-->
 <!--        			<div class="door" id="d5">S5</div> -->
-        <div class="door" id="d1-1">S1-1</div>
-        <div class="door" id="d1-2">S1-2</div>
-        <div class="door" id="d2-1">S2-1</div>
-        <div class="door" id="d2-2">S2-2</div>
-        <div class="door" id="d3-1">S3-1</div>
-        <div class="door" id="d3-2">S3-2</div>
-        <div class="door" id="d4-1">S4-1</div>
-        <div class="door" id="d4-2">S4-2</div>
-        <div class="door" id="d5-1">S5-1</div>
-        <div class="door" id="d5-2">S5-2</div>
+        <!--S1-1-->
+        <!--S1-2-->
+        <!--S2-1-->
+        <!--S2-2-->
+        <!--S3-1-->
+        <!--S3-2-->
+        <!--S4-1-->
+        <!--S4-2-->
+        <!--S5-1-->
+        <!--S5-2-->
+        <div class="door" id="d1-1"></div>
+        <div class="door" id="d1-2"></div>
 
-        <div class="door" id="d6-1">S6-1</div>
-        <div class="door" id="d6-2">S6-2</div>
-        <div class="door" id="d6-3">S6-3</div>
-        <div class="door" id="d6-4">S6-4</div>
-        <div class="door" id="d6-5">S6-5</div>
+        <div class="door" id="d2-1"></div>
+        <div class="door" id="d2-2"></div>
+
+        <div class="door" id="d3-1"></div>
+        <div class="door" id="d3-2"></div>
+
+        <div class="door" id="d4-1"></div>
+        <div class="door" id="d4-2"></div>
+
+        <div class="door" id="d5-1"></div>
+        <div class="door" id="d5-2"></div>
+
+        <!--S6-1-->
+        <!--S6-2-->
+        <!--S6-3-->
+        <!--S6-4-->
+        <!--S6-5-->
+        <div class="door" id="d6-1"></div>
+        <div class="door" id="d6-2"></div>
+        <div class="door" id="d6-3"></div>
+        <div class="door" id="d6-4"></div>
+        <div class="door" id="d6-5"></div>
 
         <div id="gray"></div>
-
-        <div class="door" id="d7">S7</div>
-        <div class="door" id="d8">S8</div>
-
-        <div class="door" id="d9-1">S9-1</div>
-        <div class="door" id="d9-2">S9-2</div>
-        <div class="door" id="d9-3">S9-3</div>
-
-        <div class="door" id="d10-1">S10-1</div>
-        <div class="door" id="d10-2">S10-2</div>
-        <div class="door" id="d10-3">S10-3</div>
+        <!--S7-->
+        <!--S8-->
+        <div class="door" id="d7"></div>
+        <div class="door" id="d8"></div>
+        <!--S9-1-->
+        <!--S9-2-->
+        <!--S9-3-->
+        <div class="door" id="d9-1"></div>
+        <div class="door" id="d9-2"></div>
+        <div class="door" id="d9-3"></div>
+        <!--S10-1-->
+        <!--S10-2-->
+        <!--S10-3-->
+        <div class="door" id="d10-1"></div>
+        <div class="door" id="d10-2"></div>
+        <div class="door" id="d10-3"></div>
 
 
         <div class="schrank" id="s1-1">
@@ -172,12 +196,16 @@
             <div class="regal unten" id="sv10-3"></div>
         </div>
 
-
-        <div class="regal unten obfl" id="obfl1">Obfl1</div>
-        <div class="regal unten obfl" id="obfl2">Obfl2</div>
-        <div class="regal unten obfl" id="obfl3">Obfl3</div>
-        <div class="regal unten obfl" id="obfl4">Obfl4</div>
-        <div class="regal oben obfl" id="obfl5">Obfl5</div>
+        <!--Obfl1-->
+        <!--Obfl2-->
+        <!--Obfl3-->
+        <!--Obfl4-->
+        <!--Obfl5-->
+        <div class="regal unten obfl" id="obfl1"></div>
+        <div class="regal unten obfl" id="obfl2"></div>
+        <div class="regal unten obfl" id="obfl3"></div>
+        <div class="regal unten obfl" id="obfl4"></div>
+        <div class="regal oben obfl" id="obfl5"></div>
     </div>
 
     <div id="obj" class="regal">

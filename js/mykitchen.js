@@ -4,9 +4,12 @@ var num_of_clicks_on_obj = 0;
 var startTime = new Date();
 var endTime = startTime;
 
+// var regal_ids = ["time/ID","sv1-1","sv1-2","sv2-1","sv2-2","sv3-1","sv3-2","sv4-1","sv4-2","sv5-1",
+//     "sv5-2","sv6-1","sv6-2","sv6-3","sv6-4","sv6-5","sv7","sv8","sv9-1","sv9-2","sv9-3",
+//     "sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obfl5","obj","sv11"];
 var regal_ids = ["time/ID","sv1-1","sv1-2","sv2-1","sv2-2","sv3-1","sv3-2","sv4-1","sv4-2","sv5-1",
     "sv5-2","sv6-1","sv6-2","sv6-3","sv6-4","sv6-5","sv7","sv8","sv9-1","sv9-2","sv9-3",
-    "sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obfl5","obj","sv11"];
+    "sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obfl5","obj"];
 var results = new Array();
 var index = 0; /* Undo-Redo */
 var last_open_shelf = "start";
@@ -100,7 +103,6 @@ $(document).ready(function() {
                     }
                 }
             }
-            index = results.length;
 
 
             // save current state in results - array
@@ -117,59 +119,113 @@ $(document).ready(function() {
                 });
                 results[n][i] = children.toString();
             }
-
+            index = results.length-1;
+            // console.log("index after adding " + index);
+            // console.log("results" + JSON.stringify(results));
             $(".regal").css('opacity', 1);
 
             // Objekte unten im Extra-Fenster anzeigen
             showObjects("#" + new_parent_id);
-            console.log("pid" + "#" + new_parent_id);
 
             if ($('#obj').find('img.objekte').length === 0) {
                 document.getElementById('finish').disabled = false;
             } else {
                 document.getElementById('finish').disabled = true;
             }
+            document.getElementById('back').disabled = false;
         },
     });
+
+    /* wenn 'back' solange gedrückt wurde, bis keine Gegenstände mehr in den Regalen/auf den Oberflächen sind*/
+    function allImagesRightInObjClearAllShelves() {
+        for (let j = 1; j < regal_ids.length-1; j++) {
+            $("#" + regal_ids[j]).empty();
+        }
+
+        for (let i = 0; i < daten.length -1; i++) {
+            let offset = setOffset(daten[i][3], daten[i][4], daten[i][5]);
+            $("#obj").append('<img class="objekte" id="' + daten[i][0] + '" src="150px_Bilder/' + daten[i][2]
+                + '" alt="' + daten[i][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+        }
+
+    }
 
     /* Undo */
     $("#back").click(function() {
         //window.history.back();
-        if ( index > 0 ) {
-            index--;
 
+        document.getElementById('next').disabled = false;
+        if (index <1) {
+            document.getElementById('back').disabled = true;
+        }
+
+        if ( index > 0 ) {
+            // console.log("index right after click " + index);
+            index--;
+            if (index <= 0) {index = 0}
+            // console.log("index right after decr " + index);
             $(".regal").html("");
             var l = regal_ids.length;
-            while (results[index][1] == "RESTART") {
+            while (results[index][1] === "RESTART") {
                 index--;
             }
 
+            // console.log("\n daten " + JSON.stringify(daten));
             for ( var i = 1; i < l; i++ ) {
+
                 var children = results[index][i];
+                // console.log("children before split " +JSON.stringify(children));
                 children = children.split(",");
                 var l2 = children.length;
+                // console.log("\n children after split " +JSON.stringify(children));
 
                 for (var j = 0; j < l2; j++) {
-                    var c = parseInt(children[j]);
 
-                    if (! isNaN(c)){
-                        var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
-                        // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
-                        $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="150px_Bilder/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                    if (! isNaN(children[j]) && children[j] !== "") {
+                        // console.log("children j " + children[j]);
+                        let c = children[j];
+                        var found = $.grep(daten, function (v) {
+                            return v[0] === c;
+                        });
+                        // console.log("\n found " + JSON.stringify(found));
+
+                        // var c = parseInt(children[j]);
+                        // let c = found[0];
+                        let offset = setOffset(found[0][3], found[0][4], found[0][5]);
+
+                        if (i === (regal_ids.length-1)) {
+                            $("#" + regal_ids[i]).append('<img class="objekte" id="' + found[0][0] + '" src="150px_Bilder/' + found[0][2] + '" alt="' + found[0][1] + '" style="width:100px;height:100px;' + offset + '"/>');
+                        } else {
+                            $("#" + regal_ids[i]).append('<img class="objekte" id="' + found[0][0] + '" src="150px_Bilder/' + found[0][2] + '" alt="' + found[0][1] + '" style="width:50px;height:50px;' + offset + '"/>');
+                        }
 
                     }
+                    // if (! isNaN(c)){
+                        // var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
+                        // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                        // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="150px_Bilder/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+
+                    // }
                 }
             }
+        } else if (index === 0 ) {
+            allImagesRightInObjClearAllShelves();
         }
     });
 
     /* Redo */
     $("#next").click(function() {
-        if ( index < results.length -1 ) {
-            index++;
+        document.getElementById('back').disabled = false;
+        if ( index < results.length ) {
+            // console.log("next, index right after click " + index);
+
+            if (index >= results.length-1) {
+                document.getElementById('next').disabled = true;
+            }
+
             $(".regal").html("");
             var l = regal_ids.length;
-            while (results[index][1] == "RESTART") {
+            while (results[index][1] === "RESTART") {
                 index++;
             }
 
@@ -179,15 +235,42 @@ $(document).ready(function() {
                 var l2 = children.length;
 
                 for (var j = 0; j < l2; j++) {
-                    var c = parseInt(children[j]);
-                    if (! isNaN(c)){
-                        var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
-                        // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
-                        $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="150px_Bilder/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+
+
+                    // var c = parseInt(children[j]);
+                    // if (! isNaN(c)){
+                    //     var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
+                    //     // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                    //     $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="150px_Bilder/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                    // }
+
+
+
+                    if (! isNaN(children[j]) && children[j] !== "") {
+                        // console.log("children j " + children[j]);
+                        let c = children[j];
+                        var found = $.grep(daten, function (v) {
+                            return v[0] === c;
+                        });
+                        // console.log("\n found " + JSON.stringify(found));
+
+                        // var c = parseInt(children[j]);
+                        // let c = found[0];
+                        let offset = setOffset(found[0][3], found[0][4], found[0][5]);
+
+                        if (i === (regal_ids.length-1)) {
+                            $("#" + regal_ids[i]).append('<img class="objekte" id="' + found[0][0] + '" src="150px_Bilder/' + found[0][2] + '" alt="' + found[0][1] + '" style="width:100px;height:100px;' + offset + '"/>');
+                        } else {
+                            $("#" + regal_ids[i]).append('<img class="objekte" id="' + found[0][0] + '" src="150px_Bilder/' + found[0][2] + '" alt="' + found[0][1] + '" style="width:50px;height:50px;' + offset + '"/>');
+                        }
+
                     }
                 }
             }
+            index++;
+            // console.log("next, index right after incr " + index);
         }
+        if (index >= results.length){index--;}
     });
 
     /* open doors */
@@ -350,13 +433,13 @@ $(document).ready(function() {
         var schrank_id = door_id.replace("d", "s");
 
 
-        console.log("schrank_id " + schrank_id);
+        // console.log("schrank_id " + schrank_id);
         var shelf_id = door_id.replace("d", "sv");
 
         if ($(door_id).hasClass(classname)) {
             $(door_id).removeClass(classname);
             $(schrank_id).css('display', 'none');
-            $(door_id).html((schrank_id.substr(1)).toUpperCase());
+            // $(door_id).html((schrank_id.substr(1)).toUpperCase());
             // $('#test2').css('display', 'none');
 
             $('#test2').hide();
@@ -376,7 +459,7 @@ $(document).ready(function() {
                     $(curr_d).removeClass("opendrawer");
                     $(curr_d).removeClass("opendoordown");
                     $(curr_s).css('display', 'none');
-                    $(curr_d).html((curr_s.substr(1)).toUpperCase());
+                    // $(curr_d).html((curr_s.substr(1)).toUpperCase());
                 }
             }
             last_open_shelf = shelf_id;
@@ -561,6 +644,6 @@ $(document).on('click', '.closeAnzeige', function(){
 
 $(document).on('click', '.regal', function(){
     showObjects("#" + this.id);
-    console.log(this.id);
+    // console.log(this.id);
     // $("#test2").show();
 });
