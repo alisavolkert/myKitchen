@@ -818,4 +818,19 @@ h3 {
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	transition: all 0.5s;
 	display: none;
+	background: #fff;
 }
+
+#test2 .closeAnzeige {
+	padding: 5px 10px;
+	background: #fff;
+	border-radius: 3px;
+	position: absolute;
+	right: 0;
+	z-index: 10;
+}
+#test2 .closeAnzeige:hover {
+	cursor: pointer;
+}
+
+#test2 .closeAnzeige h4 {margin: 0}

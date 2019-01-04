@@ -198,7 +198,7 @@ $(document).ready(function() {
         $(".schrank").css('z-index', '1');
         $(".schrank").css('display', 'block');
 
-        $('#test2').css('display', 'block');
+
     });
 
     /* close doors */
@@ -380,9 +380,9 @@ $(document).ready(function() {
                 }
             }
             last_open_shelf = shelf_id;
-            // showObjects(last_open_shelf);
+            showObjects(last_open_shelf);
             // $('#test2').css('display', 'block');
-            $('#test2').show();
+            // $('#test2').show();
         }
 
     });
@@ -492,7 +492,7 @@ var showImage = function(id) {
 
 /* zeige Gegenstände unten an*/
 function showObjects(last_shelf) {
-        $('#test2').show();
+
     // Durch das if werden die oberen Schränke abgefangen, da diese nur eine Tür aber zwei Regale
     // besitzen. Um beide darzustellen wird der Kasten unten aufgeteilt.
     // if ((last_shelf == "#sv1") || (last_shelf == "#sv2") || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")){
@@ -517,14 +517,14 @@ function showObjects(last_shelf) {
         // bei den restlichen Regalen gilt: klone den inhalt des divs, verändere seine
         // css-Attribute width, height und vergrößere die images innerhalb des divs
         // füge anschließend den kopierten und modifizierten div dem Kasten hinzu
+        $("#test2").empty();
+
         var $cloned_shelf;
         if ($(last_shelf).hasClass('obfl')) {
-            if (last_shelf === "#obfl3") {
-                console.log("last shelf: " + last_shelf);
+            if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
+                // console.log("last shelf: " + last_shelf);
                 // $cloned_shelf = $(last_shelf).clone();
                 $cloned_shelf = $(last_shelf).clone();
-
-            // .prop({ id: "obfl33"})
             } else {
                 return;
             }
@@ -537,15 +537,30 @@ function showObjects(last_shelf) {
         $("img", $cloned_shelf).css('margin', 2);
         $cloned_shelf.appendTo("#test2");
         $("#test2").children().not(last_shelf).remove();
-        
-        if (last_shelf === "#obfl3") {
-            $cloned_shelf.prop("id", "obfl33");
+
+        if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
+            $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
         }
+
+        let $buttonClose = ' <button class="closeAnzeige"><h4>X</h4></button>';
+        $('#test2').append($buttonClose);
 
         if($(last_shelf).hasClass('oben')) {
             $("#test2").css('top', '436px');
         } else if($(last_shelf).hasClass('unten')) {
             $("#test2").css('top','60px');
         }
+        $('#test2').show();
     // }
 }
+
+
+$(document).on('click', '.closeAnzeige', function(){
+    $("#test2").hide();
+});
+
+$(document).on('click', '.regal', function(){
+    showObjects("#" + this.id);
+    console.log(this.id);
+    // $("#test2").show();
+});
