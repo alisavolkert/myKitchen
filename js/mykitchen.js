@@ -10,10 +10,15 @@ var endTime = startTime;
 var regal_ids = ["time/ID","sv1-1","sv1-2","sv2-1","sv2-2","sv3-1","sv3-2","sv4-1","sv4-2","sv5-1",
     "sv5-2","sv6-1","sv6-2","sv6-3","sv6-4","sv6-5","sv7","sv8","sv9-1","sv9-2","sv9-3",
     "sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obfl5","obj"];
+// speihert aktuellen Zustand (Elemente werden bei back-Button NICHT entfernt)
 var results = new Array();
+// speichert aktuellen Zustand (Elemente werden bei back-Button entfernt)
+var results_history_change = [];
 var index = 0; /* Undo-Redo */
 var last_open_shelf = "start";
-var all_door_ids = ["d1-1","d1-2","d2-1","d2-2","d3-1","d3-2","d4-1","d4-2","d5-1","d5-1","d6-1","d6-2","d6-3","d6-4","d6-5",
+// var all_door_ids = ["d1-1","d1-2","d2-1","d2-2","d3-1","d3-2","d4-1","d4-2","d5-1","d5-1","d6-1","d6-2","d6-3","d6-4","d6-5",
+//     "d7","d8","d9-1","d9-2","d9-3","d10-1","d10-2","d10-3"];
+var all_door_ids = ["d1", "d2", "d3","d4","d5","d6-1","d6-2","d6-3","d6-4","d6-5",
     "d7","d8","d9-1","d9-2","d9-3","d10-1","d10-2","d10-3"];
 
 
@@ -103,7 +108,6 @@ $(document).ready(function() {
                     }
                 }
             }
-            index = results.length;
 
 
             // save current state in results - array
@@ -121,60 +125,137 @@ $(document).ready(function() {
                 results[n][i] = children.toString();
             }
 
+
+            if(results[n] !== null) {results_history_change[n] = results[n];}
+
+            // wurde der back-button gedrückt, und dann ein Element hinzugefügt?
+            //
+            if (JSON.stringify(results) !== JSON.stringify(results_history_change)) {
+                results = results_history_change.filter(arr=>arr!==null).map(arr => arr.slice());
+                // results = results_history_change;
+            }
+
+            index = results.length-1;
+            // console.log("index after adding " + index);
+            // console.log("results" + JSON.stringify(results));
             $(".regal").css('opacity', 1);
 
             // Objekte unten im Extra-Fenster anzeigen
-            showObjects("#" + new_parent_id);
-            console.log("pid" + "#" + new_parent_id);
+            if(new_parent_id !== 'obj') {
+                showObjects("#" + new_parent_id);
+            }
+            // console.log("new_parent_id " + new_parent_id);
+            // console.log("\n this.id " + this.id);
+
 
             if ($('#obj').find('img.objekte').length === 0) {
                 document.getElementById('finish').disabled = false;
             } else {
                 document.getElementById('finish').disabled = true;
             }
+            document.getElementById('back').disabled = false;
         },
     });
+
+    /* wenn 'back' solange gedrückt wurde, bis keine Gegenstände mehr in den Regalen/auf den Oberflächen sind*/
+    function allImagesRightInObjClearAllShelves() {
+        for (let j = 1; j < regal_ids.length-1; j++) {
+            $("#" + regal_ids[j]).empty();
+        }
+
+        for (let i = 0; i < daten.length -1; i++) {
+            let offset = setOffset(daten[i][3], daten[i][4], daten[i][5]);
+            $("#obj").append('<img class="objekte" id="' + daten[i][0] + '" src="150px_Bilder/' + daten[i][2]
+                + '" alt="' + daten[i][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+        }
+
+    }
 
     /* Undo */
     $("#back").click(function() {
         //window.history.back();
-        if ( index > 0 ) {
-            index--;
 
+        document.getElementById('next').disabled = false;
+        if (index <1) {
+            document.getElementById('back').disabled = true;
+        }
+
+        if (results_history_change.length > 0 ) {
+            results_history_change.splice(-1,1);
+        }
+
+        if ( index > 0 ) {
+            // console.log("index right after click " + index);
+            index--;
+            if (index <= 0) {index = 0}
+            // console.log("index right after decr " + index);
             $(".regal").html("");
             var l = regal_ids.length;
-            while (results[index][1] == "RESTART") {
+            while (results[index][1] === "RESTART") {
                 index--;
             }
 
+
+            // console.log("\n daten " + JSON.stringify(daten));
             for ( var i = 1; i < l; i++ ) {
+
                 var children = results[index][i];
+                // console.log("children before split " +JSON.stringify(children));
                 children = children.split(",");
                 var l2 = children.length;
+                // console.log("\n children after split " +JSON.stringify(children));
 
                 for (var j = 0; j < l2; j++) {
-                    var c = parseInt(children[j]);
 
-                    if (! isNaN(c)){
-                        var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
-                        // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
-                        $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="150px_Bilder/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                    if (! isNaN(children[j]) && children[j] !== "") {
+                        // console.log("children j " + children[j]);
+                        let c = children[j];
+                        var found = $.grep(daten, function (v) {
+                            return v[0] === c;
+                        });
+                        // console.log("\n found " + JSON.stringify(found));
+
+                        // var c = parseInt(children[j]);
+                        // let c = found[0];
+                        let offset = setOffset(found[0][3], found[0][4], found[0][5]);
+
+                        if (i === (regal_ids.length-1)) {
+                            $("#" + regal_ids[i]).append('<img class="objekte" id="' + found[0][0] + '" src="150px_Bilder/' + found[0][2] + '" alt="' + found[0][1] + '" style="width:100px;height:100px;' + offset + '"/>');
+                        } else {
+                            $("#" + regal_ids[i]).append('<img class="objekte" id="' + found[0][0] + '" src="150px_Bilder/' + found[0][2] + '" alt="' + found[0][1] + '" style="width:50px;height:50px;' + offset + '"/>');
+                        }
 
                     }
+                    // if (! isNaN(c)){
+                        // var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
+                        // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                        // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="150px_Bilder/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+
+                    // }
                 }
             }
+        } else if (index === 0 ) {
+            allImagesRightInObjClearAllShelves();
         }
     });
 
     /* Redo */
     $("#next").click(function() {
-        if ( index < results.length -1 ) {
-            index++;
+        document.getElementById('back').disabled = false;
+        if ( index < results.length ) {
+            // console.log("next, index right after click " + index);
+
+            if (index >= results.length-1) {
+                document.getElementById('next').disabled = true;
+            }
+
             $(".regal").html("");
             var l = regal_ids.length;
-            while (results[index][1] == "RESTART") {
+            while (results[index][1] === "RESTART") {
                 index++;
             }
+
+            if(results[index] !== null) {results_history_change[index] = results[index];}
 
             for ( var i = 1; i < l; i++ ) {
                 var children = results[index][i];
@@ -182,15 +263,42 @@ $(document).ready(function() {
                 var l2 = children.length;
 
                 for (var j = 0; j < l2; j++) {
-                    var c = parseInt(children[j]);
-                    if (! isNaN(c)){
-                        var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
-                        // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
-                        $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="150px_Bilder/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+
+
+                    // var c = parseInt(children[j]);
+                    // if (! isNaN(c)){
+                    //     var offset = setOffset(daten[c-1][3], daten[c-1][4], daten[c-1][5]);
+                    //     // $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="images/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                    //     $("#" + regal_ids[i]).append('<img class="objekte" id="' + daten[c-1][0] + '" src="150px_Bilder/' + daten[c-1][2] + '" alt="' + daten[c-1][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                    // }
+
+
+
+                    if (! isNaN(children[j]) && children[j] !== "") {
+                        // console.log("children j " + children[j]);
+                        let c = children[j];
+                        var found = $.grep(daten, function (v) {
+                            return v[0] === c;
+                        });
+                        // console.log("\n found " + JSON.stringify(found));
+
+                        // var c = parseInt(children[j]);
+                        // let c = found[0];
+                        let offset = setOffset(found[0][3], found[0][4], found[0][5]);
+
+                        if (i === (regal_ids.length-1)) {
+                            $("#" + regal_ids[i]).append('<img class="objekte" id="' + found[0][0] + '" src="150px_Bilder/' + found[0][2] + '" alt="' + found[0][1] + '" style="width:100px;height:100px;' + offset + '"/>');
+                        } else {
+                            $("#" + regal_ids[i]).append('<img class="objekte" id="' + found[0][0] + '" src="150px_Bilder/' + found[0][2] + '" alt="' + found[0][1] + '" style="width:50px;height:50px;' + offset + '"/>');
+                        }
+
                     }
                 }
             }
+            index++;
+            // console.log("next, index right after incr " + index);
         }
+        if (index >= results.length){index--;}
     });
 
     /* open doors */
@@ -313,20 +421,25 @@ $(document).ready(function() {
 
         // add relevant class
         switch (door_id) {
-            case "d1-1":
+        /*    case "d1-1":
             case "d1-2":
             case "d4-1":
-            case "d4-2":
+            case "d4-2":*/
+            case "d1":
+            case "d4":
             case "d7":
                 classname = "opendoorleft";
                 break;
-            case "d2-1":
+           /* case "d2-1":
             case "d2-2":
             case "d3-1":
             case "d3-2":
-            case "d2-2":
             case "d5-1":
-            case "d5-2":
+            case "d5-2":*/
+            case "d2":
+            case "d3":
+            case "d5":
+            // case "d8":
                 classname = "opendoorright";
                 break;
             case "d6-1":
@@ -353,13 +466,13 @@ $(document).ready(function() {
         var schrank_id = door_id.replace("d", "s");
 
 
-        console.log("schrank_id " + schrank_id);
+        // console.log("schrank_id " + schrank_id);
         var shelf_id = door_id.replace("d", "sv");
 
         if ($(door_id).hasClass(classname)) {
             $(door_id).removeClass(classname);
             $(schrank_id).css('display', 'none');
-            $(door_id).html((schrank_id.substr(1)).toUpperCase());
+            // $(door_id).html((schrank_id.substr(1)).toUpperCase());
             // $('#test2').css('display', 'none');
 
             $('#test2').hide();
@@ -379,11 +492,11 @@ $(document).ready(function() {
                     $(curr_d).removeClass("opendrawer");
                     $(curr_d).removeClass("opendoordown");
                     $(curr_s).css('display', 'none');
-                    $(curr_d).html((curr_s.substr(1)).toUpperCase());
+                    // $(curr_d).html((curr_s.substr(1)).toUpperCase());
                 }
             }
             last_open_shelf = shelf_id;
-            showObjects(last_open_shelf);
+            // showObjects(last_open_shelf);
             // $('#test2').css('display', 'block');
             // $('#test2').show();
         }
@@ -498,25 +611,30 @@ function showObjects(last_shelf) {
 
     // Durch das if werden die oberen Schränke abgefangen, da diese nur eine Tür aber zwei Regale
     // besitzen. Um beide darzustellen wird der Kasten unten aufgeteilt.
-    // if ((last_shelf == "#sv1") || (last_shelf == "#sv2") || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")){
-    //
-    //     var last_shelf1 = last_shelf + "-1";
-    //     var last_shelf2 = last_shelf + "-2";
-    //
-    //     $cloned_shelf1 = $(last_shelf1).clone();
-    //     $cloned_shelf1.css('width', 650).css('height', 245);
-    //     $("img", $cloned_shelf1).css('height', 100).css('width', 100);
-    //     $("img", $cloned_shelf1).css('margin', 2);
-    //     $cloned_shelf1.appendTo("#test2");
-    //
-    //     $cloned_shelf2 = $(last_shelf2).clone();
-    //     $cloned_shelf2.css('width', 650).css('height', 245).css('left', 652).css('top', -89);
-    //     $("img", $cloned_shelf2).css('height', 100).css('width', 100);
-    //     $("img", $cloned_shelf2).css('margin', 2);
-    //     $cloned_shelf2.appendTo("#test2");
-    //
-    //     $("#test2").children().not($last_shelf1, $last_shelf2).remove();
-    // } else {
+    if ( last_shelf.match(/(\#sv\-[1-5])/g)
+        // (last_shelf == "#sv1") || (last_shelf == "#sv2")
+        // || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")
+        ){
+
+        console.log(' in ' + last_shelf.match(/(\#sv\-[1-5])/g) + " + " + last_shelf);
+        var last_shelf1 = last_shelf + "-1";
+        var last_shelf2 = last_shelf + "-2";
+
+        $cloned_shelf1 = $(last_shelf1).clone();
+        $cloned_shelf1.css('width', 650).css('height', 245);
+        $("img", $cloned_shelf1).css('height', 100).css('width', 100);
+        $("img", $cloned_shelf1).css('margin', 2);
+        $cloned_shelf1.appendTo("#test2");
+
+        $cloned_shelf2 = $(last_shelf2).clone();
+        $cloned_shelf2.css('width', 650).css('height', 245).css('left', 652).css('top', -89);
+        $("img", $cloned_shelf2).css('height', 100).css('width', 100);
+        $("img", $cloned_shelf2).css('margin', 2);
+        $cloned_shelf2.appendTo("#test2");
+
+        $("#test2").children().not($last_shelf1, $last_shelf2).remove();
+    } else {
+        console.log('out ' + last_shelf.match(/(\#sv\-[1-5])/g) + " + " + last_shelf);
         // bei den restlichen Regalen gilt: klone den inhalt des divs, verändere seine
         // css-Attribute width, height und vergrößere die images innerhalb des divs
         // füge anschließend den kopierten und modifizierten div dem Kasten hinzu
@@ -536,6 +654,7 @@ function showObjects(last_shelf) {
         }
 
         $cloned_shelf.css('width', 900).css('height', 250);
+        $cloned_shelf.css('margin-top', 0);
         $("img", $cloned_shelf).css('height', 100).css('width', 100);
         $("img", $cloned_shelf).css('margin', 2);
         $cloned_shelf.appendTo("#test2");
@@ -545,7 +664,7 @@ function showObjects(last_shelf) {
             $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
         }
 
-        let $buttonClose = ' <button class="closeAnzeige"><h4>X</h4></button>';
+        let $buttonClose = ' <button class="closeAnzeige" id="close-anzeige"><h4>X</h4></button>';
         $('#test2').append($buttonClose);
 
         if($(last_shelf).hasClass('oben')) {
@@ -554,16 +673,22 @@ function showObjects(last_shelf) {
             $("#test2").css('top','60px');
         }
         $('#test2').show();
-    // }
+    }
 }
 
 
-$(document).on('click', '.closeAnzeige', function(){
+$(document).on('click', '.closeAnzeige#close-anzeige', function(){
     $("#test2").hide();
 });
+$(document).on('click', '.closeAnzeige#close-hilfe', function(){
+    $("#info").hide();
+});
+$(document).on('click', '#help', function(){
+    $("#info").show();
+});
 
-$(document).on('click', '.regal', function(){
+$(document).on('click', '#gkitchen .regal', function(){
     showObjects("#" + this.id);
-    console.log(this.id);
+    // console.log(this.id);
     // $("#test2").show();
 });

@@ -49,42 +49,65 @@
     <div class="but">
         <button id="back" style="font-size: 18px; width: 35px;" disabled><</button>
         <button id="next" style="font-size: 18px; width: 35px;" disabled>></button>
+        <button id="help" style="font-size: 18px; width: 35px;">?</button>
         <button id="open">Open</button>
         <button id="close">Close</button>
         <button id="refresh">Restart</button>
         <button id="finish" disabled>Finish</button>
     </div>
 
+
     <div class="kitchen" id="gkitchen">
-<!--        <div class="door" id="d1">S1</div>  ondblclick="openDoor()"-->
-<!--        			<div class="door" id="d4">S4</div>-->
-<!--        			<div class="door" id="d2">S2</div>-->
-<!--        			<div class="door" id="d3">S3</div>-->
-<!--        			<div class="door" id="d5">S5</div> -->
-        <!--S1-1-->
-        <!--S1-2-->
-        <!--S2-1-->
-        <!--S2-2-->
-        <!--S3-1-->
-        <!--S3-2-->
-        <!--S4-1-->
-        <!--S4-2-->
-        <!--S5-1-->
-        <!--S5-2-->
-        <div class="door" id="d1-1"></div>
-        <div class="door" id="d1-2"></div>
+        <div id="info">
+            <button class="closeAnzeige" id="close-hilfe">
+                <h4>X</h4>
+            </button>
+            <h4>Hilfe</h4>
+            Im folgenden Versuch finden Sie mehrere Kisten mit verschiedenen Küchengegenständen vor.
+            Ihre Aufgabe wird es sein, diese in die gegebenen Regale einzuordnen (siehe Abbildung).
+            Sie dürfen dabei auch Gegenstände auf den Arbeitsflächen abstellen.
+            Räumen Sie die Küche so ein, wie Sie es auch bei Ihnen zu Hause tun würden: Es gibt dabei kein Richtig oder Falsch.
+            Gern dürfen Sie während des Versuchs Gegenstände umplatzieren.
+            Der Versuch ist beendet, sobald alle Gegenstände in der Küche platziert wurden. Es gibt kein Zeitlimit.
+            Außerdem muss nicht jedes Regal gefüllt werden.
+            <br><br>
+            Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände
+            <div id="info-bild"></div>
+        </div>
+      <!--  S1
+        S2
+        S3
+        S4
+        S5-->
+<!--        <div class="door" id="d1"></div>  ondblclick="openDoor()"-->
+        <div class="door" id="d2"></div>
+        <div class="door" id="d3"></div>
+        <div class="door" id="d4"></div>
+        <div class="door" id="d5"></div>
+        <!--S1-1
+        S1-2
+        S2-1
+        S2-2
+        S3-1
+        S3-2
+        S4-1
+        S4-2
+        S5-1
+        S5-2-->
+<!--        <div class="door" id="d1-1"></div>-->
+<!--        <div class="door" id="d1-2"></div>-->
 
-        <div class="door" id="d2-1"></div>
-        <div class="door" id="d2-2"></div>
-
-        <div class="door" id="d3-1"></div>
-        <div class="door" id="d3-2"></div>
-
-        <div class="door" id="d4-1"></div>
-        <div class="door" id="d4-2"></div>
-
-        <div class="door" id="d5-1"></div>
-        <div class="door" id="d5-2"></div>
+<!--        <div class="door" id="d2-1"></div>-->
+<!--        <div class="door" id="d2-2"></div>-->
+<!---->
+<!--        <div class="door" id="d3-1"></div>-->
+<!--        <div class="door" id="d3-2"></div>-->
+<!---->
+<!--        <div class="door" id="d4-1"></div>-->
+<!--        <div class="door" id="d4-2"></div>-->
+<!---->
+<!--        <div class="door" id="d5-1"></div>-->
+<!--        <div class="door" id="d5-2"></div>-->
 
         <!--S6-1-->
         <!--S6-2-->
@@ -116,40 +139,45 @@
         <div class="door" id="d10-3"></div>
 
 
-        <div class="schrank" id="s1-1">
+        <div class="schrank" id="s1">
             <div class="regal oben" id="sv1-1"></div>
-        </div>
-        <div class="schrank" id="s1-2">
             <div class="regal oben" id="sv1-2"></div>
         </div>
+        <!--<div class="schrank" id="s1-2">
+            <div class="regal oben" id="sv1-2"></div>
+        </div>-->
 
-        <div class="schrank" id="s2-1">
+        <div class="schrank" id="s2">
             <div class="regal oben" id="sv2-1"></div>
-        </div>
-        <div class="schrank" id="s2-2">
             <div class="regal oben" id="sv2-2"></div>
         </div>
+<!--        <div class="schrank" id="s2-2">-->
+<!--            <div class="regal oben" id="sv2-2"></div>-->
+<!--        </div>-->
 
-        <div class="schrank" id="s3-1">
+        <div class="schrank" id="s3">
             <div class="regal oben" id="sv3-1"></div>
-        </div>
-        <div class="schrank" id="s3-2">
             <div class="regal oben" id="sv3-2"></div>
         </div>
+<!--        <div class="schrank" id="s3-2">
+            <div class="regal oben" id="sv3-2"></div>
+        </div>-->
 
-        <div class="schrank" id="s4-1">
+        <div class="schrank" id="s4">
             <div class="regal oben" id="sv4-1"></div>
-        </div>
-        <div class="schrank" id="s4-2">
             <div class="regal oben" id="sv4-2"></div>
         </div>
+        <!--<div class="schrank" id="s4-2">
+            <div class="regal oben" id="sv4-2"></div>
+        </div>-->
 
-        <div class="schrank" id="s5-1">
+        <div class="schrank" id="s5">
             <div class="regal oben" id="sv5-1"></div>
-        </div>
-        <div class="schrank" id="s5-2">
             <div class="regal oben" id="sv5-2"></div>
         </div>
+       <!-- <div class="schrank" id="s5-2">
+            <div class="regal oben" id="sv5-2"></div>
+        </div>-->
 
 
         <div class="schrank" id="s6-1">
@@ -206,6 +234,8 @@
         <div class="regal unten obfl" id="obfl3"></div>
         <div class="regal unten obfl" id="obfl4"></div>
         <div class="regal oben obfl" id="obfl5"></div>
+
+        <div id="arbeitsflache"></div>
     </div>
 
     <div id="obj" class="regal">
@@ -381,11 +411,11 @@
     </div>
     <div id="test"></div>
     <div id="test2">
-        <button class="closeAnzeige">
+        <button class="closeAnzeige" id="close-anzeige">
             <h4>X</h4>
         </button>
     </div>
-
+    <p id="foto-src"><small>Fotos: Vanessa Bernath</small></p>
 </div>
 
 </body>

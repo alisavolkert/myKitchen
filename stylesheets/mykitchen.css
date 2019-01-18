@@ -21,7 +21,7 @@ body {
 	width: 900px;
 	height: 624px;
 	background-color: #F6F6F6;
-	background-image: url(../img/kueche_sand_leer_gross_schw_obfl.jpg);
+	/*background-image: url(../img/kueche_sand_leer_gross_schw_obfl.jpg);*/
 	background-size: 900px 624px;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -116,14 +116,52 @@ h3 {
 
 /* Buttons */
 
-#open, #close, #refresh, #finish, #back, #next, #distance_table, #screenshot{
+#open, #close, #refresh, #finish, #back, #next, #help, #distance_table, #screenshot{
 	position:relative;
-	width: 75px;
+	/*width: 75px;*/
 	height: 40px;
 	margin-right: 6px;
 	left:10px;
 	top: 10px;
 	float:left;
+	padding: 0;
+}
+#open:hover, #close:hover, #refresh:hover, #finish:hover, #back:hover, #next:hover, #help:hover{
+	cursor: pointer;
+}
+#info {
+	width: 800px;
+	height: 600px;
+	background: #fff;
+	z-index: 1000;
+	position: absolute;
+	margin-top: 11px;
+	margin-left: 50px;
+	padding: 10px;
+	box-sizing: border-box;
+	display: none;
+	-webkit-box-shadow: 2px 2px 5px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 2px 2px 5px 0px rgba(110,110,110,1);
+	box-shadow: 2px 2px 5px 0px rgba(110,110,110,1);
+}
+#info-bild {
+	background: url("../img/Kuechenschema_900.jpg") no-repeat;
+	background-size: contain;
+	height: 300px;
+}
+#info .closeAnzeige {
+	padding: 5px 10px;
+	background: #fff;
+	border-radius: 3px;
+	position: absolute;
+	right: 10px;
+	z-index: 10;
+}
+#info .closeAnzeige:hover {
+	cursor: pointer;
+}
+#info .closeAnzeige h4 {
+	margin: 0;
 }
 
 .schrank {
@@ -148,7 +186,7 @@ h3 {
 	transition: transform .5s;
 	transform-style: preserve-3d;
 	transform-origin: left center;
-	border: 1px solid #adbeac;
+	border: 1px solid #bfbfbf;
 	/*z-index: 2;*/
 }
 
@@ -229,14 +267,54 @@ h3 {
 	left: 148px;
 }
 
+
 /* cupboards */
-#s1-1{
+#s1{
+	width: 135px;
+	height: 177px;
+	left: 22px;
+	top: 115px;
+	display:  block !important;
+}
+
+#s2 {
+	width: 135px;
+	height: 177px;
+	left: 165px;
+	top: 115px;
+}
+
+#s3 {
+	width: 135px;
+	height: 177px;
+	left: 307px;
+	top: 115px;
+}
+
+#s4 {
+	width: 135px;
+	height: 177px;
+	left: 450px;
+	top: 115px;
+}
+
+#s5 {
+	width: 135px;
+	height: 177px;
+	left: 597px;
+	top: 115px;
+}
+
+/* cupboards */
+/*#s1-1{
+	display: block;
 	width: 135px;
 	height: 88px;
 	left: 22px;
 	top: 115px;
 }
 #s1-2{
+	display: block;
     width: 135px;
     height: 88px;
     left: 22px;
@@ -297,7 +375,7 @@ h3 {
     height: 88px;
     left: 597px;
     top: 204px;
-}
+}*/
 
 #s6-1 {
 	width: 143px;
@@ -336,16 +414,27 @@ h3 {
 
 #s7 {
 	width: 147px;
-	height: 147px;
 	left: 298px;
-	top: 477px;
+	/* ↓↓ kleine Tuere*/
+	/*height: 147px;*/
+	/*top: 477px;*/
+
+	/* ↓↓ grosse Tuere*/
+	height: 172px;
+	top: 450px;
 }
 
 #s8 {
 	width: 146px;
-	height: 118px;
 	left: 449px;
+
+	/* ↓↓ Backofen*/
+	height: 118px;
 	top: 490px;
+
+	/* ↓↓ grosse Tuere*/
+	/*height: 172px;*/
+	/*top: 450px;*/
 }
 
 #s9-1 {
@@ -391,24 +480,14 @@ h3 {
 }
 
 
-
-#d1-1 {
+/*#d1 {
 	width: 135px;
 	left: 22px;
 	top: 115px;
-	height: 88px;
-	background-image: url(../img/tuer_oben_rechts_halb.jpg);
-	/*background-size: 142px 182px;*/
-}
-
-#d1-2 {
-	width: 135px;
-	left: 22px;
-	top: 204px;
-	height: 89px;
-	background-image: url(../img/tuer_oben_rechts_halb.jpg);
-	/*background-size: 142px 182px;*/
-}
+	height: 177px;
+	background-image: url(../img/tuer_oben_rechts.jpg);
+	background-size: 142px 182px;
+}*/
 
 /*
 #d1:hover{
@@ -419,13 +498,76 @@ h3 {
 	left 10;
 }
 */
+#d2 {
+	left: 165px;
+	top: 115px;
+	width: 135px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_links.jpg);
+	background-size: 142px 182px;
+}
+
+#d3 {
+	left: 307px;
+	top: 115px;
+	width: 135px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_links.jpg);
+	background-size: 142px 182px;
+}
+
+#d4 {
+	width: 135px;
+	left: 450px;
+	top: 115px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_rechts.jpg);
+	background-size: 142px 182px;
+}
+
+#d5 {
+	left: 597px;
+	top: 115px;
+	width: 135px;
+	height: 177px;
+	background-image: url(../img/tuer_oben_links.jpg);
+	background-size: 142px 182px;
+}
+
+/*#d1-1 {
+	width: 135px;
+	left: 22px;
+	top: 115px;
+	height: 88px;
+	background-image: url(../img/tuer_oben_rechts_halb.jpg);
+	!*background-size: 142px 182px;*!
+}
+
+#d1-2 {
+	width: 135px;
+	left: 22px;
+	top: 204px;
+	height: 89px;
+	background-image: url(../img/tuer_oben_rechts_halb.jpg);
+	!*background-size: 142px 182px;*!
+}
+
+!*
+#d1:hover{
+	-webkit-transition: rotateY(-97deg) skewY(10deg);
+	-moz-transition: rotateY(-97deg) skewY(10deg);
+  -o-transition: rotateY(-97deg) skewY(10deg);
+	transform: rotateY(-97deg) skewY(10deg);
+	left 10;
+}
+*!
 #d2-1 {
 	left: 165px;
 	top: 115px;
 	width: 135px;
 	height: 88px;
 	background-image: url(../img/tuer_oben_links_halb.jpg);
-	/*background-size: 142px 182px;*/
+	!*background-size: 142px 182px;*!
 }
 #d2-2 {
     left: 165px;
@@ -433,7 +575,7 @@ h3 {
     width: 135px;
     height: 88px;
     background-image: url(../img/tuer_oben_links_halb.jpg);
-    /*background-size: 142px 182px;*/
+    !*background-size: 142px 182px;*!
 }
 
 #d3-1 {
@@ -442,7 +584,7 @@ h3 {
 	width: 135px;
 	height: 88px;
 	background-image: url(../img/tuer_oben_links_halb.jpg);
-	/*background-size: 142px 182px;*/
+	!*background-size: 142px 182px;*!
 }
 #d3-2 {
     left: 307px;
@@ -450,7 +592,7 @@ h3 {
     width: 135px;
     height: 88px;
     background-image: url(../img/tuer_oben_links_halb.jpg);
-    /*background-size: 142px 182px;*/
+    !*background-size: 142px 182px;*!
 }
 
 #d4-1 {
@@ -459,7 +601,7 @@ h3 {
 	top: 115px;
 	height: 88px;
 	background-image: url(../img/tuer_oben_rechts_halb.jpg);
-	/*background-size: 142px 182px;*/
+	!*background-size: 142px 182px;*!
 }
 #d4-2 {
     width: 135px;
@@ -467,7 +609,7 @@ h3 {
     top: 204px;
     height: 88px;
     background-image: url(../img/tuer_oben_rechts_halb.jpg);
-    /*background-size: 142px 182px;*/
+    !*background-size: 142px 182px;*!
 }
 
 #d5-1 {
@@ -476,7 +618,7 @@ h3 {
 	width: 135px;
 	height: 88px;
 	background-image: url(../img/tuer_oben_links_halb.jpg);
-	/*background-size: 142px 182px;*/
+	!*background-size: 142px 182px;*!
 }
 #d5-2 {
     left: 597px;
@@ -484,8 +626,8 @@ h3 {
     width: 135px;
     height: 88px;
     background-image: url(../img/tuer_oben_links_halb.jpg);
-    /*background-size: 142px 182px;*/
-}
+    !*background-size: 142px 182px;*!
+}*/
 
 #d6-1 {
 	width: 143px;
@@ -534,20 +676,36 @@ h3 {
 
 #d7 {
 	width: 147px;
-	height: 147px;
 	left: 298px;
-	top: 477px;
-	background-image: url(../img/tuer_unten.jpg);
-	background-size: 148px 148px;
+	/* ↓↓ kleine Tür */
+	/*height: 147px;*/
+	/*top: 477px;*/
+	/*background-image: url(../img/tuer_unten.jpg);*/
+	/*background-size: contain;*/
+
+	/* ↓↓ grosse Tür */
+	height: 174px;
+	top: 450px;
+	background-image: url(../img/tuer_unten_gross_rechts.jpg);
+	background-size: auto;
 }
 
 #d8 {
 	width: 146px;
-	height: 118px;
-	left: 449px;
-	top: 490px;
-	background-image: url(../img/ofen_tuer.jpg);
-	background-size: 147px 119px;
+
+	/* ↓↓ kleine Tür */
+	/*left: 449px;*/
+	/*height: 118px;*/
+	/*top: 490px;*/
+	/*background-image: url(../img/ofen_tuer.jpg);*/
+	/*background-size: contain;*/
+
+	/*↓↓ grosse Tür*/
+	left: 451px;
+	height: 174px;
+	top: 450px;
+	background-image: url(../img/tuer_unten_gross_links.jpg);
+	background-size: auto;
 }
 
 #d9-1 {
@@ -618,13 +776,18 @@ h3 {
 	perspective: 40px;
 	z-index: 4;
 }
+.regal:hover {
+	cursor: pointer;
+}
 
 /*oberen Schrank-Regale */
 #sv1-1, #sv1-2, #sv2-1, #sv2-2 , #sv3-1, #sv3-2, #sv4-1, #sv4-2, #sv5-1, #sv5-2{
 	width: 135px;
 	height: 88px;
 }
-
+#sv1-1, #sv2-1,  #sv3-1, #sv4-1,  #sv5-1 {
+	border-bottom: 1px solid #b6afaf;
+}
 
 /* width und height für Pixelgrößen und min-width, min-height und perspective(Tiefe) für reale Größen */
 #sv1-1 {
@@ -652,9 +815,9 @@ h3 {
 }
 
 
-/*#sv1-2, #sv2-2, #sv3-2, #sv4-2, #sv5-2 {*/
-	/*margin-top: 89px;*/
-/*}*/
+#sv1-2, #sv2-2, #sv3-2, #sv4-2, #sv5-2 {
+	margin-top: 89px;
+}
 
 #sv6-1, #sv6-2, #sv6-3, #sv6-4 {
 	width: 143px;
@@ -699,18 +862,27 @@ h3 {
 
 #sv7 {
 	width: 147px;
-	height: 147px;
+	/*height: 147px;*/
 	min-width: 56px;
 	min-height: 61.3px;
 	perspective: 52.6px;
+
+	/* ↓↓ grosse Tuere*/
+	height: 172px;
 }
 
 #sv8 {
 	width: 146px;
-	height: 118px;
+
 	min-width: 50px;
 	min-height: 55px;
 	perspective: 45px;
+
+	/* ↓↓ Backofen*/
+	height: 118px;
+
+	/* ↓↓ grosse Tuere*/
+	/*height: 172px;*/
 }
 
 
@@ -783,6 +955,14 @@ h3 {
 	top: 30px;
 }
 
+#arbeitsflache {
+	background: url("../img/arbeitsflaeche.jpg") no-repeat;
+	opacity: 0.5;
+	width: 900px;
+	height: 152px;
+	position: absolute;
+	top: 295px;
+}
 
 #lupe {
 	width: 100px;
@@ -834,3 +1014,9 @@ h3 {
 }
 
 #test2 .closeAnzeige h4 {margin: 0}
+
+#foto-src {
+	position: absolute;
+	margin-top: 626px;
+	margin-left: 1205px;
+}
