@@ -57,7 +57,9 @@
     </div>
 
 
+
     <div class="kitchen" id="gkitchen">
+
         <div id="info">
             <button class="closeAnzeige" id="close-hilfe">
                 <h4>X</h4>
@@ -239,6 +241,11 @@
     </div>
 
     <div id="obj" class="regal">
+        <div id="myModalObj" class="modal">
+            <span class="close" id="close2">&times;</span>
+            <img class="modal-content" id="img02">
+            <div id="caption2"></div>
+        </div>
       <?php
         //mb_internal_encoding('UTF-8');
         function setOffset($height, $width, $depth){
@@ -415,6 +422,14 @@
             <h4>X</h4>
         </button>
     </div>
+
+    <div id="myModalKitchen" class="modal">
+        <span class="close" id="close1">&times;</span>
+        <img class="modal-content" id="img01">
+        <div id="caption1"></div>
+    </div>
+
+
     <p id="foto-src"><small>Fotos: Vanessa Bernath</small></p>
 </div>
 

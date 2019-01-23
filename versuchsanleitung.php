@@ -17,8 +17,8 @@ if (isset($_SESSION["email"]))
 		<title>myKitchen</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="stylesheets/style2.css">
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
-		<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<!--		<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
+<!--		<script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
 	</head>
 
 	<body>

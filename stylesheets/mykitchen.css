@@ -189,6 +189,9 @@ h3 {
 	border: 1px solid #bfbfbf;
 	/*z-index: 2;*/
 }
+.door:hover {
+	cursor: pointer;
+}
 
 .opendoorleft {
 	-webkit-transform: rotateY(-95deg) skewY(5deg);
@@ -694,18 +697,18 @@ h3 {
 	width: 146px;
 
 	/* ↓↓ kleine Tür */
-	/*left: 449px;*/
-	/*height: 118px;*/
-	/*top: 490px;*/
-	/*background-image: url(../img/ofen_tuer.jpg);*/
-	/*background-size: contain;*/
+	left: 449px;
+	height: 118px;
+	top: 490px;
+	background-image: url(../img/ofen_tuer.jpg);
+	background-size: contain;
 
 	/*↓↓ grosse Tür*/
-	left: 451px;
-	height: 174px;
-	top: 450px;
-	background-image: url(../img/tuer_unten_gross_links.jpg);
-	background-size: auto;
+	/*left: 451px;*/
+	/*height: 174px;*/
+	/*top: 450px;*/
+	/*background-image: url(../img/tuer_unten_gross_links.jpg);*/
+	/*background-size: auto;*/
 }
 
 #d9-1 {
@@ -786,7 +789,10 @@ h3 {
 	height: 88px;
 }
 #sv1-1, #sv2-1,  #sv3-1, #sv4-1,  #sv5-1 {
-	border-bottom: 1px solid #b6afaf;
+	box-sizing: border-box;
+	border-bottom: solid #b6afaf;
+	border-width: 3px;
+	/*border-bottom: 1px solid #b6afaf;*/
 }
 
 /* width und height für Pixelgrößen und min-width, min-height und perspective(Tiefe) für reale Größen */
@@ -1020,3 +1026,82 @@ h3 {
 	margin-top: 626px;
 	margin-left: 1205px;
 }
+
+/* adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp */
+/* The Modal (background) */
+.modal {
+	display: none;
+	position: relative;
+	z-index: 100;
+	left: 0;
+	top: 0;
+	overflow: hidden;
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.9);
+}
+#myModalKitchen {
+	padding-top: 100px;
+	width: 900px;
+	height: 526px;
+}
+#myModalObj {
+	padding-top: 100px;
+	width: 408px;
+	height: 540px;
+}
+
+/* Modal Content (Image) */
+.modal-content {
+	margin: auto;
+	display: block;
+	width: 80%;
+}
+
+#myModalKitchen .modal-content {
+	max-width: 400px;
+}
+#myModalObj .modal-content {
+	max-width: 300px;
+}
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+#caption1, #caption2 {
+	margin: auto;
+	display: block;
+	width: 80%;
+	max-width: 300px;
+	text-align: center;
+	color: #ccc;
+	padding: 10px 0;
+	height: 150px;
+}
+
+/* Add Animation - Zoom in the Modal */
+.modal-content, #caption1, #caption2 {
+	animation-name: zoom;
+	animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+	from {transform:scale(0)}
+	to {transform:scale(1)}
+}
+
+/* The Close Button */
+.close {
+	position: absolute;
+	top: 15px;
+	right: 35px;
+	color: #f1f1f1;
+	font-size: 40px;
+	font-weight: bold;
+	transition: 0.3s;
+}
+
+.close:hover,
+.close:focus {
+	color: #bbb;
+	text-decoration: none;
+	cursor: pointer;
+}
+

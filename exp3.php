@@ -10,6 +10,14 @@ function redirect($url, $statusCode = 303)
    header('Location: ' . $url, true, $statusCode);
    die();
 }
+// Check if email is set, otherwise something went wrong:
+if (isset($_SESSION["email"]))
+{
+    $email = $_SESSION["email"];
+} else {
+    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="./index.php">erneut</a>.';
+    die();
+}
 
 function form_is_correct()
 {
