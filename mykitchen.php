@@ -244,16 +244,16 @@
         <div id="myModalObj" class="modal">
             <span class="close" id="close2">&times;</span>
             <img class="modal-content" id="img02">
-            <div id="caption2"></div>
+<!--            <div id="caption2"></div>-->
         </div>
-      <?php
+<?php
         //mb_internal_encoding('UTF-8');
         function setOffset($height, $width, $depth){
             $height = round(number_format($height));
             $width = round(number_format($width));
             $depth = round(number_format($depth));
 
-            $result = "min-height:".$height."px;"."min-width:".$width."px;"."perspective:".$depth."px;";
+            $result = 'min-height:'.$height.'px;'.'min-width:'.$width.'px;'.'perspective:'.$depth.'px;';
 
             return $result;
         }
@@ -294,22 +294,24 @@
 //            echo "Datenbanktabelle ist nicht leer";
 //              print_r($result_mk);
 //            while($row = $result_mk->fetch()) {
+           // $i=0;
              foreach ($result_mk as $row) {
-                $image = $row['picture'];
-                if ($image === 0) {
-                    $image = "default.jpeg";
-                }
-                $offset = setOffset($row['height'], $row['width'], $row['depth']);
+                 //if ($i < 5) {
+                     $image = $row['picture'];
+                     if ($image === 0) {
+                         $image = "default.jpeg";
+                     }
+                     $offset = setOffset($row['height'], $row['width'], $row['depth']);
 
-                echo '<img class="objekte" id="'.$row['id'].'" src="150px_Bilder/'.$image.'" alt="'.$row['name'].'" style="'.$offset.'"/>';
+                     echo '<img class="objekte" id="' . $row['id'] . '" src="150px_Bilder/' . $image . '" alt="' . $row['name'] . '" style="' . $offset . '"/>';
 
 //                echo "<img class=\"objekte\" id=\"".$row[0]."\" src=\"150px_Bilder/".$image."\" alt=\"".utf8_encode($row['name'])."\" style=\"".$offset."\"/>";
 
 //                echo "img set";
-                $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
-
-
-            }
+                     $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
+                 //}
+                // $i++;
+             }
         } else {
             echo "Datenbanktabelle ist leer";
         }
@@ -354,8 +356,11 @@
                     $oldmask = umask(0); // for linux Server
                     mkdir($dir, 0755);
                 }
-
-                $fp = fopen($dir.nicknameToFile($arr[0]).'__'.$datum.'__'.nicknameToFile($arr[7]).'.csv', 'w');
+                $userid= 00000000;
+                if(isset($_SESSION['user_id'])) {
+                    $userid = $_SESSION['user_id'];
+                }
+                $fp = fopen($dir.$userid.'__'.nicknameToFile($arr[0]).'__'.$datum.'__'.nicknameToFile($arr[7]).'.csv', 'w');
                 chmod($fp, 0755);
                 fputcsv($fp, $arr3);
 
@@ -367,7 +372,7 @@
                 fclose($fp);
 
                 if ($l > 0){
-                    $fpf = fopen($dir.nicknameToFile($arr[0]).'__'.$datum.'__'.nicknameToFile($arr[7]).'_finish.csv', 'w');
+                    $fpf = fopen($dir.$userid.'__'.nicknameToFile($arr[0]).'__'.$datum.'__'.nicknameToFile($arr[7]).'_finish.csv', 'w');
                     chmod($fpf, 0755);
 
                     $a1 = array_shift($arr3);
@@ -426,7 +431,18 @@
     <div id="myModalKitchen" class="modal">
         <span class="close" id="close1">&times;</span>
         <img class="modal-content" id="img01">
-        <div id="caption1"></div>
+<!--        <div id="caption1"></div>-->
+    </div>
+
+    <div id="myModalAlert" class="modal">
+<!--        <span class="close" id="close3">&times;</span>-->
+        <div>
+            <p id="alertText"></p>
+            <button id="closeAlert">Ok</button>
+        </div>
+
+<!--        <img class="modal-content" id="img01">-->
+        <!--        <div id="caption1"></div>-->
     </div>
 
 

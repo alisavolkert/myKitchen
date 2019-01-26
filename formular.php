@@ -5,6 +5,61 @@ if (session_status() === PHP_SESSION_NONE) {
 if (isset($_SESSION["email"]))
 {
     $email = $_SESSION["email"];
+}
+
+if(isset($_SESSION["email"],$_SESSION["dtkenntn"],$_SESSION["vollj"])){
+    $servername = "localhost";
+    $user = 'root';
+    $pass = 'Shakey1985';
+    $dbname = "mykitchen_db";
+    // Create connection
+    $conn = new mysqli($servername, $user, $pass, $dbname);
+    // Check connection
+    if ($conn->connect_error) {
+        die("Connection failed: " . $conn->connect_error);
+
+    }
+    $email = $_SESSION["email"];
+
+    $dk = (int) $_SESSION["dtkenntn"];
+    $vj = (int) $_SESSION["vollj"];
+
+    // Insert user data
+//        $sql = "INSERT INTO participants(deutschkenntnisse,volljaehrig)
+//              VALUES (?)";
+//        $stmt = $conn->prepare("INSERT INTO participants(deutschkenntnisse,volljaehrig) VALUES (?,?)");
+//        $stmt->bind_param("ii",$dk,$vj);
+    if ($stmt = $conn->prepare("INSERT INTO participants(email,deutschkenntnisse,volljaehrig) VALUES (?,?,?)")) {
+
+        $stmt->bind_param("sii",$email,$dk,$vj);
+
+        if (!$stmt->execute()) {
+//            $last_id = $conn->insert_id;
+//            echo "Error: " . $sql . "<br>" . $conn->error;
+            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+            die("Errormessage: ". $conn->error);
+        } else {
+            $stmt = $conn->prepare("SELECT userid FROM participants WHERE email =?");
+            $stmt->bind_param("s",$email);
+            if (!$stmt->execute()) {
+//            $last_id = $conn->insert_id;
+//            echo "Error: " . $sql . "<br>" . $conn->error;
+                echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
+                die("Errormessage: " . $conn->error);
+            } else {
+                $stmt->bind_result($userid);
+
+                while ($stmt->fetch()) {
+                    $_SESSION['user_id'] = $userid;
+                }
+
+                $stmt->close();
+            }
+            echo "saved";
+        }
+    } else {
+        die("Errormessage: ". $conn->error);
+    }
 } else {
     echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="./index.php">erneut</a>.';
     die();
@@ -21,8 +76,8 @@ if (isset($_SESSION["email"]))
 
 	  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
 
-    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
-  	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
+  	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script type="text/javascript">
       // Eingabefelder überprüfen
       function checkInput(form){

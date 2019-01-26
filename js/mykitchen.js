@@ -67,6 +67,7 @@ $(document).ready(function() {
         stop: function(event, ui) {
             /* put and scale object */
 
+            let curObjTooLargeOrFull = false;
             var old_parent_id = $(event.target).attr("id");
             var new_parent_id = ui.item.parent().attr("id");
 
@@ -90,7 +91,10 @@ $(document).ready(function() {
                 } else {
                     if (obj_height > parent_height) {
                         $('#' + old_parent_id).append(ui.item);
-                        alert("Passt nicht rein!");
+                        document.getElementById('myModalAlert').style.display = "block";
+                        $('#myModalAlert #alertText').html("Passt nicht rein!");
+                        curObjTooLargeOrFull = true;
+                        // alert("Passt nicht rein!");
                     } else {
                         if ( regal_volume >= placeholder_volume ) {
 
@@ -103,7 +107,10 @@ $(document).ready(function() {
                             ui.item.css('horizontal-align','bottom');
                         } else {
                             $('#' + old_parent_id).append(ui.item);
-                            alert("Kein Platz mehr!");
+                            document.getElementById('myModalAlert').style.display = "block";
+                            $('#myModalAlert #alertText').html("Kein Platz mehr!");
+                            curObjTooLargeOrFull = true;
+                            // alert("Kein Platz mehr!");
                         }
                     }
                 }
@@ -143,7 +150,7 @@ $(document).ready(function() {
             $(".regal").css('opacity', 1);
 
             // Objekte unten im Extra-Fenster anzeigen
-            if(new_parent_id !== 'obj') {
+            if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
                 showObjects("#" + new_parent_id);
             }
             // console.log("new_parent_id " + new_parent_id);
@@ -689,37 +696,37 @@ function showObjects(last_shelf) {
     }
     // Durch das if werden die oberen Schränke abgefangen, da diese nur eine Tür aber zwei Regale
     // besitzen. Um beide darzustellen wird der Kasten unten aufgeteilt.
-    if ((last_shelf.search("#sv1") !== -1) || (last_shelf.search("#sv2") !== -1) ||
-        (last_shelf.search("#sv3") !== -1) || (last_shelf.search("#sv4") !== -1) ||
-            (last_shelf.search("#sv5") !== -1)
-        // (last_shelf == "#sv1") ||    (last_shelf == "#sv2")
-        // || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")
-        ){
-        $("#test2").empty();
-        last_shelf = last_shelf.substr(0,4);
-        // console.log(' last shelf in ' + last_shelf);
-        var last_shelf1 = last_shelf + "-1";
-        var last_shelf2 = last_shelf + "-2";
-        // console.log(' last shelf2 in ' + last_shelf2);
-        let $cloned_shelf1 = $(last_shelf1).clone();
-        // console.log("$(last_shelf1).clone() " + JSON.stringify($(last_shelf1).clone()));
-        $cloned_shelf1.css('width', 900).css('height', 125).css('margin-top', 0);
-        $("img", $cloned_shelf1).css('height', 100).css('width', 100);
-        $("img", $cloned_shelf1).css('margin', 2);
-        $cloned_shelf1.appendTo("#test2");
-
-        let $cloned_shelf2 = $(last_shelf2).clone();
-        // console.log("typeof $(last_shelf2).clone() " + typeof $(last_shelf2).clone());
-        // console.log("$(last_shelf2).clone() " + JSON.stringify($(last_shelf2).clone()));
-        $cloned_shelf2.css('width', 900).css('height', 125).css('top', 125).css('margin-top', 0);
-        $("img", $cloned_shelf2).css('height', 100).css('width', 100);
-        $("img", $cloned_shelf2).css('margin', 2);
-        $cloned_shelf2.appendTo("#test2");
-        // $("#test2").append($cloned_shelf2);
-
-        // $("#test2").children().not(last_shelf1, last_shelf2).remove();
-        // $('#test2').show();
-    } else {
+    // if ((last_shelf.search("#sv1") !== -1) || (last_shelf.search("#sv2") !== -1) ||
+    //     (last_shelf.search("#sv3") !== -1) || (last_shelf.search("#sv4") !== -1) ||
+    //         (last_shelf.search("#sv5") !== -1)
+    //     // (last_shelf == "#sv1") ||    (last_shelf == "#sv2")
+    //     // || (last_shelf == "#sv3") || (last_shelf == "#sv4") || (last_shelf == "#sv5")
+    //     ){
+    //     $("#test2").empty();
+    //     last_shelf = last_shelf.substr(0,4);
+    //     // console.log(' last shelf in ' + last_shelf);
+    //     var last_shelf1 = last_shelf + "-1";
+    //     var last_shelf2 = last_shelf + "-2";
+    //     // console.log(' last shelf2 in ' + last_shelf2);
+    //     let $cloned_shelf1 = $(last_shelf1).clone();
+    //     // console.log("$(last_shelf1).clone() " + JSON.stringify($(last_shelf1).clone()));
+    //     $cloned_shelf1.css('width', 900).css('height', 125).css('margin-top', 0);
+    //     $("img", $cloned_shelf1).css('height', 100).css('width', 100);
+    //     $("img", $cloned_shelf1).css('margin', 2);
+    //     $cloned_shelf1.appendTo("#test2");
+    //
+    //     let $cloned_shelf2 = $(last_shelf2).clone();
+    //     // console.log("typeof $(last_shelf2).clone() " + typeof $(last_shelf2).clone());
+    //     // console.log("$(last_shelf2).clone() " + JSON.stringify($(last_shelf2).clone()));
+    //     $cloned_shelf2.css('width', 900).css('height', 125).css('top', 125).css('margin-top', 0);
+    //     $("img", $cloned_shelf2).css('height', 100).css('width', 100);
+    //     $("img", $cloned_shelf2).css('margin', 2);
+    //     $cloned_shelf2.appendTo("#test2");
+    //     // $("#test2").append($cloned_shelf2);
+    //
+    //     // $("#test2").children().not(last_shelf1, last_shelf2).remove();
+    //     // $('#test2').show();
+    // } else {
         // console.log('out ' + last_shelf.match(/(\#sv\-[1-5])/g) + " + " + last_shelf);
         // bei den restlichen Regalen gilt: klone den inhalt des divs, verändere seine
         // css-Attribute width, height und vergrößere die images innerhalb des divs
@@ -759,7 +766,7 @@ function showObjects(last_shelf) {
         //     $("#test2").css('top','60px');
         // }
         // $('#test2').show();
-    }
+    // }
     let $buttonClose = ' <button class="closeAnzeige" id="close-anzeige"><h4>X</h4></button>';
     $('#test2').append($buttonClose);
 
@@ -792,7 +799,7 @@ $(document).on('click', '#test2 .objekte', function(){
     var captionText = document.getElementById("caption1");
         modal.style.display = "block";
         modalImg.src = this.src;
-        captionText.innerHTML = this.alt;
+        // captionText.innerHTML = this.alt;
     var span = document.getElementById("close1");
     span.onclick = function() {
         modal.style.display = "none";
@@ -807,11 +814,16 @@ $(document).on('click', '#obj .objekte', function(){
 
     modal.style.display = "block";
     modalImg.src = this.src;
-    captionText.innerHTML = this.alt;
+    // captionText.innerHTML = this.alt;
     var span = document.getElementById("close2");
     span.onclick = function() {
         modal.style.display = "none";
     };
+});
+
+$(document).on('click', '#closeAlert', function(){
+    document.getElementById('myModalAlert').style.display ="none";
+
 });
 
 

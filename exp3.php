@@ -27,15 +27,23 @@ function form_is_correct()
     if(!isset($_REQUEST["dtkenntn"]))
     {
       $errorstring.= "Um am Versuch teilnehmen zu können, muss Ihre Muttersprache Deutsch sein. Sollte dies nicht der Fall sein, schließen Sie bitte jetzt das Fenster. Vielen Dank.<br>";
+        return FALSE;
+    } else {
+        $_SESSION['dtkenntn'] = $_REQUEST["dtkenntn"];
     }
     if(!isset($_REQUEST["vollj"]))
     {
         $errorstring.= "Um am Versuch teilnehmen zu können, muss Sie volljährig sein. Sollte dies nicht der Fall sein, schließen Sie bitte jetzt das Fenster. Vielen Dank.<br>";
+        return FALSE;
+    } else {
+        $_SESSION['vollj'] = $_REQUEST["vollj"];
     }
-    if ($errorstring=="")
+
+
+//    if ($errorstring=="")
       return TRUE;
-    else
-      return FALSE;
+//    else
+//      return FALSE;
 }
 
 function get_form($errorstring = "")
@@ -64,11 +72,11 @@ function get_form($errorstring = "")
                 <span class="error">' . $errorstring . '</span>
                 <input type="hidden" name="demogr" value="">
                 <p>
-                  <input type="checkbox" name="dtkenntn" id="dtkenntn" required>
+                  <input type="checkbox" name="dtkenntn" id="dtkenntn" value="1" required>
                   <label for="dtkenntn">Deutsch ist meine Muttersprache</label>
                 </p>
                 <p>
-                  <input type="checkbox" name="vollj" id="vollj" required>
+                  <input type="checkbox" name="vollj" id="vollj" value="1" required>
                   <label for="dtkenntn">Ich bin volljährig</label>
                 </p>
                 <button type="submit">Weiter</button>

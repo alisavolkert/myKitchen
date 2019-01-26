@@ -43,6 +43,9 @@ body {
 	border: 2px solid white;
 	overflow: auto;
 }
+#obj img:hover {
+	cursor: pointer;
+}
 
 /*Buttons*/
 .but{
@@ -779,7 +782,7 @@ h3 {
 	perspective: 40px;
 	z-index: 4;
 }
-.regal:hover {
+#gkitchen .regal:hover {
 	cursor: pointer;
 }
 
@@ -1021,6 +1024,9 @@ h3 {
 
 #test2 .closeAnzeige h4 {margin: 0}
 
+#test2 img:hover {
+	cursor: pointer;
+}
 #foto-src {
 	position: absolute;
 	margin-top: 626px;
@@ -1039,7 +1045,7 @@ h3 {
 	background-color: rgb(0,0,0);
 	background-color: rgba(0,0,0,0.9);
 }
-#myModalKitchen {
+#myModalKitchen, #myModalAlert {
 	padding-top: 100px;
 	width: 900px;
 	height: 526px;
@@ -1048,6 +1054,29 @@ h3 {
 	padding-top: 100px;
 	width: 408px;
 	height: 540px;
+}
+
+#myModalAlert {
+	background-color: rgb(0,0,0);
+	background-color: rgba(0,0,0,0.4);
+
+}
+
+#myModalAlert div {
+	width: 200px;
+	height: 150px;
+	background: #fff;
+	margin: 0 auto;
+	text-align: center;
+	padding: 10px;
+	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+}
+#myModalAlert button {
+	padding: 10px 20px;
+	position: relative;
+	top: 20px;
 }
 
 /* Modal Content (Image) */

@@ -164,6 +164,7 @@ function get_form($errorstring = "", $email = "")
                 <form action="exp2.php#personaldata" method="POST" id="personaldata" class="hl">
                       <h3>Einwilligung zur Erklärung zur Erhebung und Verarbeitung personenbezogener Daten</h3>
                       <p>Zur Verknüpfung Ihrer Entscheidung mit Ihrer Person benötigen wir Ihre Mailadresse.</p>
+                      <p>Bitte beachten Sie, dass Sie nur an der Verlosung teilnehmen können, wenn Sie eine gültige Mailadresse angeben.</p>
                       <span class="error">' . $errorstring . '</span>
                       <p>
                         <label for="email" >Mailadresse:</label>
