@@ -1,4 +1,10 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL|E_STRICT);
+require_once('./db/database.php');
+$db = new Database();
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -8,57 +14,26 @@ if (isset($_SESSION["email"]))
 }
 
 if(isset($_SESSION["email"],$_SESSION["dtkenntn"],$_SESSION["vollj"])){
-    $servername = "localhost";
-    $user = 'root';
-    $pass = 'Shakey1985';
-    $dbname = "mykitchen_db";
-    // Create connection
-    $conn = new mysqli($servername, $user, $pass, $dbname);
-    // Check connection
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
 
-    }
+
     $email = $_SESSION["email"];
-
+//    setcookie("email", $email, time() + 7200);
     $dk = (int) $_SESSION["dtkenntn"];
     $vj = (int) $_SESSION["vollj"];
 
-    // Insert user data
-//        $sql = "INSERT INTO participants(deutschkenntnisse,volljaehrig)
-//              VALUES (?)";
-//        $stmt = $conn->prepare("INSERT INTO participants(deutschkenntnisse,volljaehrig) VALUES (?,?)");
-//        $stmt->bind_param("ii",$dk,$vj);
-    if ($stmt = $conn->prepare("INSERT INTO participants(email,deutschkenntnisse,volljaehrig) VALUES (?,?,?)")) {
 
-        $stmt->bind_param("sii",$email,$dk,$vj);
+    if ($db->saveUserData($email,$dk,$vj)) {
 
-        if (!$stmt->execute()) {
-//            $last_id = $conn->insert_id;
-//            echo "Error: " . $sql . "<br>" . $conn->error;
-            echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-            die("Errormessage: ". $conn->error);
-        } else {
-            $stmt = $conn->prepare("SELECT userid FROM participants WHERE email =?");
-            $stmt->bind_param("s",$email);
-            if (!$stmt->execute()) {
-//            $last_id = $conn->insert_id;
-//            echo "Error: " . $sql . "<br>" . $conn->error;
-                echo "Execute failed: (" . $stmt->errno . ") " . $stmt->error;
-                die("Errormessage: " . $conn->error);
-            } else {
-                $stmt->bind_result($userid);
 
-                while ($stmt->fetch()) {
-                    $_SESSION['user_id'] = $userid;
-                }
+        $userid = $db->getLastUserId($email);
+        $_SESSION['user_id'] = $userid;
+        $_COOKIE['user_id'] = $userid;
+        setcookie("userID", $userid, time() + 7200);
 
-                $stmt->close();
-            }
-            echo "saved";
-        }
+//            echo "saved";
+//        }
     } else {
-        die("Errormessage: ". $conn->error);
+        die("Errormessage: ". $db->saveUserData($email,$dk,$vj));
     }
 } else {
     echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="./index.php">erneut</a>.';
@@ -82,11 +57,11 @@ if(isset($_SESSION["email"],$_SESSION["dtkenntn"],$_SESSION["vollj"])){
       // Eingabefelder überprüfen
       function checkInput(form){
         // Name - kein leeres Feld
-        if (form.name.value == "") {
-          alert("Bitte geben Sie Ihren Nicknamen ein!");
-          form.name.focus();
-          return false;
-        }
+        // if (form.name.value == "") {
+        //   alert("Bitte geben Sie Ihren Nicknamen ein!");
+        //   form.name.focus();
+        //   return false;
+        // }
 
         // Ã„lter soll ein Zahl zwischen 0 und 100 sein
         var age = form.age.value;
@@ -129,14 +104,14 @@ if(isset($_SESSION["email"],$_SESSION["dtkenntn"],$_SESSION["vollj"])){
     <div class="all">
       <form id="kontaktformular" name="kontaktformular" action="mykitchen.php" method="post" onsubmit="return checkInput(this)">
         <table>
-          <tr>
-            <td>
-				Nickname:
-			</td>
-            <td class="abstand">
-				<input type="text" name="nickname" id="name" required/>
-			</td>
-          </tr>
+<!--          <tr>-->
+<!--            <td>-->
+<!--				Nickname:-->
+<!--			</td>-->
+<!--            <td class="abstand">-->
+<!--				<input type="text" name="nickname" id="name" required/>-->
+<!--			</td>-->
+<!--          </tr>-->
           <tr>
             <td>
 				Anrede:

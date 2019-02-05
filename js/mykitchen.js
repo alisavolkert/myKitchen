@@ -91,7 +91,13 @@ $(document).ready(function() {
                 } else {
                     if (obj_height > parent_height) {
                         $('#' + old_parent_id).append(ui.item);
-                        document.getElementById('myModalAlert').style.display = "block";
+                        // document.getElementById('myModalAlert').style.display = "block";
+
+                        $("#myModalAlert").css('opacity', '0');
+                        $('#myModalAlert').css('display','block');
+                        $("#myModalAlert").css('opacity', '1');
+                        // $('#myModalAlert').animate({opacity: 1}, 100);
+
                         $('#myModalAlert #alertText').html("Passt nicht rein!");
                         curObjTooLargeOrFull = true;
                         // alert("Passt nicht rein!");
@@ -107,7 +113,16 @@ $(document).ready(function() {
                             ui.item.css('horizontal-align','bottom');
                         } else {
                             $('#' + old_parent_id).append(ui.item);
-                            document.getElementById('myModalAlert').style.display = "block";
+                            // document.getElementById('myModalAlert').style.display = "block";
+                            // $('#myModalAlert').fadeIn(300);
+                            // $('#myModalAlert').css('opacity', '1').css('display', 'block');
+                            // $('#myModalAlert').css('visibility','visible');
+                            // $('#myModalAlert').css('opacity','1');
+                            $('#myModalAlert').css('opacity','1');
+                            $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                                function(e) {
+                                    $('#myModalAlert').css('display','block');
+                                });
                             $('#myModalAlert #alertText').html("Kein Platz mehr!");
                             curObjTooLargeOrFull = true;
                             // alert("Kein Platz mehr!");
@@ -383,11 +398,16 @@ $(document).ready(function() {
         $(".schrank").css('z-index', '0');
         $(".schrank").css('display', 'none');
 
-        $('#test2').css('display', 'none');
+        // $('#test2').css('display', 'none');
+        $('#test2').fadeOut(300);
     });
 
     /* reload the kitchen */
     $('#refresh').click(function() {
+        window.location.reload(false);
+    });
+    /* OLD version, where page is not reloaded*/
+    $('#refresh_old').click(function() {
         // var l = regal_ids.length;
         allImagesRightInObjClearAllShelves();
 
@@ -464,12 +484,22 @@ $(document).ready(function() {
         $("h3").removeClass("hidden");
 
         // screenshot
-        $('.all').html2canvas({
-            onrendered: function (canvas) {
-                var url = canvas.toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
-                location.href = url;
-            }
-        });
+        // $('.all').html2canvas({
+        //     onrendered: function (canvas) {
+        //         var url = canvas.toDataURL("image/png").replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+        //         location.href = url;
+        //     }
+        // });
+
+
+        // html2canvas(document.querySelector(".all")[0]).then(canvas => {
+        //     // document.body.appendChild(canvas);
+        //     let url = canvas.toDataURL("image/png");
+        //         // .replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+        //     location.href = url;
+        // });
+
+
     });
 
 
@@ -497,8 +527,8 @@ $(document).ready(function() {
     /* open or close a door severally */
     $(".door").click(function() {
         var door_id = $(this).attr('id');
-        var classname = "";
-
+        let classname = "";
+        let classClosed = '';
         // add relevant class
         switch (door_id) {
         /*    case "d1-1":
@@ -521,6 +551,7 @@ $(document).ready(function() {
             case "d5":
             // case "d8":
                 classname = "opendoorright";
+                classClosed = "opendoorrightClosed";
                 break;
             case "d6-1":
             case "d6-2":
@@ -537,6 +568,7 @@ $(document).ready(function() {
                 break;
             case "d8":
                 classname = "opendoordown";
+                classClosed ="opendoordownClosed";
                 break;
             default:
                 classname = "";
@@ -551,14 +583,19 @@ $(document).ready(function() {
 
         if ($(door_id).hasClass(classname)) {
             $(door_id).removeClass(classname);
-            $(schrank_id).css('display', 'none');
+            $(door_id).addClass(classClosed);
+            // $(schrank_id).css('display', 'none');
+            $(schrank_id).fadeOut(700);
             // $(door_id).html((schrank_id.substr(1)).toUpperCase());
             // $('#test2').css('display', 'none');
 
-            $('#test2').hide();
+            // $('#test2').hide();
+            $('#test2').css('opacity', '0').css('display', 'none');
         } else {
+            $(door_id).removeClass(classClosed);
             $(door_id).addClass(classname);
-            $(schrank_id).css('display', 'block');
+            // $(schrank_id).css('display', 'block');
+            $(schrank_id).fadeIn(300);
             $(door_id).html("");
 
             var l_doors = all_door_ids.length;
@@ -690,9 +727,9 @@ var showImage = function(id) {
 function showObjects(last_shelf) {
 
     if($(last_shelf).hasClass('oben')) {
-        $("#test2").css('top', '436px');
+        $("#test2").css('top', '376px');
     } else if($(last_shelf).hasClass('unten')) {
-        $("#test2").css('top','60px');
+        $("#test2").css('top','0');
     }
     // Durch das if werden die oberen Schränke abgefangen, da diese nur eine Tür aber zwei Regale
     // besitzen. Um beide darzustellen wird der Kasten unten aufgeteilt.
@@ -767,22 +804,27 @@ function showObjects(last_shelf) {
         // }
         // $('#test2').show();
     // }
+
     let $buttonClose = ' <button class="closeAnzeige" id="close-anzeige"><h4>X</h4></button>';
-    $('#test2').append($buttonClose);
+    $('#test2').append($buttonClose).css('opacity', '1').css('display', 'block');
 
 
-    $('#test2').show();
+
+    // $('#test2').show();
+
 }
 
 
 $(document).on('click', '.closeAnzeige#close-anzeige', function(){
-    $("#test2").hide();
+    // $("#test2").css('opacity');
+    // $("#test2").css('display');
+    $("#test2").css('opacity', '0').css('display', 'none');
 });
 $(document).on('click', '.closeAnzeige#close-hilfe', function(){
-    $("#info").hide();
+    $("#info").fadeOut(300);
 });
 $(document).on('click', '#help', function(){
-    $("#info").show();
+    $("#info").fadeIn(300);
 });
 
 $(document).on('click', '#gkitchen .regal', function(){
@@ -822,7 +864,17 @@ $(document).on('click', '#obj .objekte', function(){
 });
 
 $(document).on('click', '#closeAlert', function(){
-    document.getElementById('myModalAlert').style.display ="none";
+    // document.getElementById('myModalAlert').style.display ="none";
+    // $('#myModalAlert').fadeOut(300);
+    // $('#myModalAlert').css('opacity', '0').css('display', 'none');
+    $('#myModalAlert').css('opacity','0');
+    $('#myModalAlert').one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+        function(e) {
+            $('#myModalAlert').css('display','none');
+        });
+
+    // $('#myModalAlert').css('display','none');
+    // $('#myModalAlert').css('visibility','hidden');
 
 });
 

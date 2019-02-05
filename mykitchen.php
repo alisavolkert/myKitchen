@@ -1,3 +1,11 @@
+<?php
+date_default_timezone_set('Europe/Berlin');
+
+require_once('./db/database.php');
+$db = new Database();
+
+?>
+
 <!DOCTYPE html>
 <html>
 
@@ -12,6 +20,8 @@
 <!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="js/html2canvas.min.js"></script>
     <script type="text/javascript" src="js/mykitchen.js"></script>
 
 </head>
@@ -47,13 +57,13 @@
 <div class="all">
     <div id="lupe"></div>
     <div class="but">
-        <button id="back" style="font-size: 18px; width: 35px;" disabled><</button>
-        <button id="next" style="font-size: 18px; width: 35px;" disabled>></button>
-        <button id="help" style="font-size: 18px; width: 35px;">?</button>
-        <button id="open">Open</button>
-        <button id="close">Close</button>
-        <button id="refresh">Restart</button>
-        <button id="finish" disabled>Finish</button>
+        <button id="back" class="small" style="font-size: 18px; width: 35px;" disabled><</button>
+        <button id="next" class="small" style="font-size: 18px; width: 35px;" disabled>></button>
+        <button id="help" class="small" style="font-size: 18px; width: 35px;">?</button>
+        <button id="open"  class="big">Open</button>
+        <button id="close" class="big">Close</button>
+        <button id="refresh" class="big">Restart</button>
+        <button id="finish" class="big" disabled>Finish</button>
     </div>
 
 
@@ -76,16 +86,21 @@
             Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände
             <div id="info-bild"></div>
         </div>
+        <div id="test2">
+            <button class="closeAnzeige" id="close-anzeige">
+                <h4>X</h4>
+            </button>
+        </div>
       <!--  S1
         S2
         S3
         S4
         S5-->
 <!--        <div class="door" id="d1"></div>  ondblclick="openDoor()"-->
-        <div class="door" id="d2"></div>
-        <div class="door" id="d3"></div>
+        <div class="door opendoorrightClosed" id="d2"></div>
+        <div class="door opendoorrightClosed" id="d3"></div>
         <div class="door" id="d4"></div>
-        <div class="door" id="d5"></div>
+        <div class="door opendoorrightClosed" id="d5"></div>
         <!--S1-1
         S1-2
         S2-1
@@ -126,7 +141,7 @@
         <!--S7-->
         <!--S8-->
         <div class="door" id="d7"></div>
-        <div class="door" id="d8"></div>
+        <div class="door opendoordownClosed" id="d8"></div>
         <!--S9-1-->
         <!--S9-2-->
         <!--S9-3-->
@@ -247,13 +262,15 @@
 <!--            <div id="caption2"></div>-->
         </div>
 <?php
+
+
         //mb_internal_encoding('UTF-8');
         function setOffset($height, $width, $depth){
             $height = round(number_format($height));
             $width = round(number_format($width));
             $depth = round(number_format($depth));
 
-            $result = 'min-height:'.$height.'px;'.'min-width:'.$width.'px;'.'perspective:'.$depth.'px;';
+            $result = "min-height:" .$height. "px; min-width:" .$width."px; perspective:".$depth."px;";
 
             return $result;
         }
@@ -276,17 +293,22 @@
             return $result;
         }
 
-        require('connect.php');
+
+
+        //require('connect.php');
 
         # SQL-Statements
-        $select_elem_mk = $db->query('SELECT name, picture, width, height, depth FROM mykitchen2')->fetchAll();
+        //$select_elem_mk = $db->query('SELECT name, picture, width, height, depth FROM mykitchen2')->fetchAll();
 
-//        print_r($select_elem_mk);
+$select_elem_mk = $db->getAllImages();
+$result_mk = $db->getAllImagesWithData();
+
+        //print_r($select_elem_mk);
 //        $result_mk = $db->query('SELECT * FROM mykitchen2 ORDER BY RAND()');
 
-        $stmt = $db->query('SELECT * FROM mykitchen2 ORDER BY RAND()');
-        $stmt->execute();
-        $result_mk  = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+       // $stmt = $db->query('SELECT * FROM mykitchen2 ORDER BY RAND()');
+        //$stmt->execute();
+        //$result_mk  = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 
         $js_array_mk = array();
 
@@ -294,7 +316,7 @@
 //            echo "Datenbanktabelle ist nicht leer";
 //              print_r($result_mk);
 //            while($row = $result_mk->fetch()) {
-           // $i=0;
+           //$i=0;
              foreach ($result_mk as $row) {
                  //if ($i < 5) {
                      $image = $row['picture'];
@@ -309,9 +331,9 @@
 
 //                echo "img set";
                      $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
-                 //}
-                // $i++;
-             }
+                 }
+                //$i++;
+             //}
         } else {
             echo "Datenbanktabelle ist leer";
         }
@@ -321,13 +343,30 @@
         $dir = "userdaten/";
         if (!file_exists($dir)){
             $oldmask = umask(0); // for linux Server
-            mkdir($dir, 0755);
+            mkdir($dir, 0775);
         }
 
         $datum = date("d_m_Y");
 
         # add new row(array) in csv-file
         if (isset($_POST["arr1"])) {
+
+           // $userid = $db->query("SELECT userid FROM participants WHERE completed = 0 ORDER BY userid DESC LIMIT 1")->fetch();
+           // $stmt->execute();
+           // $stmt->bind_result($uid);
+           // $userid=0;
+           // while ($stmt->fetch()) {
+           //     $userid= $uid;
+           // }
+
+           // $stmt->close();
+
+           // $stmt = $db->query("UPDATE participants SET completed= 1 WHERE userid =:userid");
+            //$stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
+            //$stmt->execute();
+            //$stmt->close();
+
+
             $arr = $_POST["arr1"];
             $arr2 = $_POST["arr2"];
             $arr3 = $_POST["arr3"];
@@ -338,30 +377,37 @@
                 chmod($results, 0755);
                 $userscore = fopen($results, 'a');
                 if (trim(file_get_contents($results)) == false) {
-                    $first = array('Nickname','Anrede','Alter','Nationalitaet','Stunden am Tag','Stunden in der Woche','Beruf','Startzeit','Endzeit','Gesamte Mouseclicks','Klicks auf Gegenstaende');
+                    $first = array('Anrede','Alter','Nationalitaet','Stunden am Tag','Stunden in der Woche','Beruf','Startzeit','Endzeit','Gesamte Mouseclicks','Klicks auf Gegenstaende');
                     fputcsv($userscore, $first);
                 }
                 fputcsv($userscore, $arr);
                 fclose($userscore);
 
                 // if ($db_connection) {
-                //   $db_connection->exec("INSERT INTO userscore (username, gender, age, nationality, hoursday, hourswheek, jobtitle, starttime, endtime, mouseclicks, clicksonobjects)
-                //   VALUES ($arr[0],$arr[1],$arr[2],$arr[3], $arr[4],$arr[5],$arr[6],$arr[7],$arr[8],$arr[9],$arr[10])");
+                //   $db_connection->exec("INSERT INTO userscore (gender, age, nationality, hoursday, hourswheek, jobtitle, starttime, endtime, mouseclicks, clicksonobjects)
+                //   VALUES ($arr[0],$arr[1],$arr[2],$arr[3], $arr[4],$arr[5],$arr[6],$arr[7],$arr[8],$arr[9])");
                 // }
             }
 
             if (isset($_POST["arr2"])){
-                $dir = $dir.nicknameToFile($arr[0]).'/';
-                if (!file_exists($dir)){
-                    $oldmask = umask(0); // for linux Server
-                    mkdir($dir, 0755);
-                }
                 $userid= 00000000;
                 if(isset($_SESSION['user_id'])) {
                     $userid = $_SESSION['user_id'];
                 }
-                $fp = fopen($dir.$userid.'__'.nicknameToFile($arr[0]).'__'.$datum.'__'.nicknameToFile($arr[7]).'.csv', 'w');
-                chmod($fp, 0755);
+                if(isset($_COOKIE['userID'])) {
+                    $userid = $_COOKIE['userID'];
+                }
+
+                $dir = $dir.$userid.'/';
+
+                if (!file_exists($dir) && !mkdir($dir, 0755) && !is_dir($dir)){
+                    $oldmask = umask(0); // for linux Server
+                    mkdir($dir, 0755);
+                }
+
+
+                $fp = fopen($dir.$userid.'__'.$datum.'__'.nicknameToFile($arr[6]).'.csv', 'w');
+                chmod($fp, 0775);
                 fputcsv($fp, $arr3);
 
                 $l = count($arr2);
@@ -372,18 +418,18 @@
                 fclose($fp);
 
                 if ($l > 0){
-                    $fpf = fopen($dir.$userid.'__'.nicknameToFile($arr[0]).'__'.$datum.'__'.nicknameToFile($arr[7]).'_finish.csv', 'w');
-                    chmod($fpf, 0755);
+                    $fpf = fopen($dir.$userid.'__'.$datum.'__'.nicknameToFile($arr[6]).'_finish.csv', 'w');
+                    chmod($fpf, 0775);
 
                     $a1 = array_shift($arr3);
                     $al = array_pop($arr3);
                     fputcsv($fpf, $arr3);
 
-                    if ($arr2[$l - 1][1] == "FINISH") {
+                    if ($arr2[$l - 1][1] === "FINISH") {
                         $l--;
                     }
 
-                    while ( $arr2[$l - 1][1] == "RESTART" && $l > 1){
+                    while ( $arr2[$l - 1][1] === "RESTART" && $l > 1){
                         $l--;
                     }
                     $a1 = array_shift($arr2[$l - 1]);
@@ -401,7 +447,7 @@
             $l = count($dist[0]);
 
             $df = fopen($dir.'distances_'.$datum.'.csv', 'w');
-            chmod($fp, 0755);
+            chmod($fp, 0775);
 
             for ($i = 0; $i < $l; $i++) {
                 fputcsv($df, $dist[$i]);
@@ -409,7 +455,8 @@
 
             fclose($df);
         }
-        ?>
+
+?>
     </div>
 
     <script type="text/javascript">
@@ -422,11 +469,11 @@
         <ul class="resultate-list"></ul>
     </div>
     <div id="test"></div>
-    <div id="test2">
-        <button class="closeAnzeige" id="close-anzeige">
-            <h4>X</h4>
-        </button>
-    </div>
+<!--    <div id="test2">-->
+<!--        <button class="closeAnzeige" id="close-anzeige">-->
+<!--            <h4>X</h4>-->
+<!--        </button>-->
+<!--    </div>-->
 
     <div id="myModalKitchen" class="modal">
         <span class="close" id="close1">&times;</span>
