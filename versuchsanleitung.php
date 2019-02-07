@@ -14,7 +14,7 @@ if (isset($_SESSION["email"]))
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>myKitchen</title>
+		<title>Einräumen einer simulierten Küche</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" type="text/css" href="stylesheets/style2.css">
 <!--		<script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
@@ -23,22 +23,18 @@ if (isset($_SESSION["email"]))
 
 	<body>
 		<h1>Versuchsablauf</h1> <br/>
-		<h3>Titel der Studie: Psychologisch inspirierte Wissensrepräsentation</h3> <br/>
-		<p>Im folgenden Versuch finden Sie mehrere Kisten mit verschiedenen Küchengegenständen
-vor. Ihre Aufgabe wird es sein, diese in die gegebenen Regale einzuordnen (siehe Abbildung).
-Sie dürfen dabei auch Gegenstände auf den Arbeitsflächen abstellen. Räumen Sie die Küche
-so ein, wie Sie es auch bei Ihnen zu Hause tun würden: Es gibt dabei kein Richtig oder
+		<h3>Titel der Studie: Einräumen einer simulierten Küche im Rahmen des Forschungsprojekts "Psychologisch inspirierte Wissensrepräsentation"</h3> <br/>
+		<p>Sie sind soeben in eine neue Wohnung eingezogen, und stehen nun vor der Aufgabe, die noch leere Küche einzuräumen (siehe Abbildung). All Ihre Küchengegenstände befinden sich auf der rechten Seite des Browserfensters.
+Sie dürfen dabei auch Gegenstände auf den Arbeitsflächen abstellen. Beim Einräumen Ihrer neuen Küche gibt es kein Richtig oder
 Falsch. Gern dürfen Sie während des Versuchs Gegenstände umplatzieren.
-Der Versuch ist beendet, sobald alle Gegenstände in der Küche platziert wurden. Es gibt kein
-Zeitlimit. Außerdem muss nicht jedes Regal gefüllt werden.
+Der Versuch ist beendet, sobald alle Gegenstände in der Küche platziert wurden. Der Versuch wird spätestens nach 90 Minuten abgebrochen. <!-- TODO: nach Pilottest Zeitlimit von 90 min ggf. anpassen.-->
+            Außerdem muss nicht jedes Regal gefüllt werden.
 		</p>
 		<p>Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände <br />
 		<img src="img/versuch.jpg" />
 		</p>
-		<p>Wenn Sie alles gelesen haben, melden Sie sich bitte beim Versuchsleiter. Da während des
-Versuchs keine Fragen beantwortet werden können, sollten Sie diese jetzt stellen. Eventuelle
-Fragen zum Hintergrund der Studie werden Ihnen gern nach dem Versuch beantwortet.</p>
-<p> Vielen Dank für ihre Teilnahme!</p>
+		<p>Wenn Sie Ihre Aufgabe verstanden haben, klicken Sie bitte auf "Weiter". </p>
+<p> Vielen Dank für Ihre Teilnahme!</p> <!-- TODO: Das auch auf die letzte Seite verschieben! -->
 		
 		<a href="formular.php"><button>Weiter</button></a>
 	</body>

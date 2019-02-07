@@ -56,12 +56,12 @@ function get_form($errorstring = "")
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <link rel="stylesheet" href="exp.css" />
             <link rel="stylesheet" href="stylesheets/exp.css" />
-            <title>Studie Gruppierung von Küchengegenständen</title>
+            <title>Einräumen einer simulierten Küche</title>
           </head>
           <body>
             <p>Bitte führen Sie dieses Experiment nur am PC oder Laptop durch.</p>
 
-            <p>Ihre Aufgabe ist, an einem einfachen Experiment teilzunehmen, in welchem Sie Bilder, die verschiedene Küchengegenstände zeigen, in Gruppen sortieren sollen. Anschließend sollen Sie jede Gruppe kurz beschreiben. Um an dieser Studie teilnehmen zu können, müssen Sie ein kleines Java-Programm herunterladen und auf Ihrem Computer ausführen. Der Screenshot unten zeigt das Programm.</p>
+            <p>Ihre Aufgabe ist, an einem einfachen Experiment teilzunehmen, in welchem Sie Bilder, die verschiedene Küchengegenstände zeigen, in eine simulierte Küche einräumen sollen. Anschließend sollen Sie den Inhalt jedes gefüllten Fachs kurz beschreiben. Der Screenshot unten zeigt die simulierte Küche.</p>
 
             
             <img width="1093" height="600" src="img/CatScan_Main-Trial_web.png" alt="Software-Screenshot Abbildung Küchengegenstände">
