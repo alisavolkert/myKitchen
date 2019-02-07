@@ -4,10 +4,10 @@
   error_reporting(E_ALL);
   session_start();
 
-  $servername = "localhost";
-  $user = 'prokrep';
-  $pass = 'ShRdLu1968';
-  $dbname = "prokrepdb";
+//  $servername = "localhost";
+//  $user = 'prokrep';
+//  $pass = 'ShRdLu1968';
+//  $dbname = "prokrepdb";
 
   // Check if email is set, otherwise something went wrong:
   if (isset($_SESSION["email"]))

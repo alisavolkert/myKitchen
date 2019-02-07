@@ -42,6 +42,7 @@ body {
 	display: inline-block;
 	border: 2px solid white;
 	overflow: auto;
+	overflow-x: hidden;
 }
 #obj img:hover {
 	cursor: pointer;
@@ -57,6 +58,12 @@ body {
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+}
+.but .small{
+	min-width: 7.11111%;
+}
+.but .big {
+	min-width: 15.4%;
 }
 
 .resultate-kueche{
@@ -190,7 +197,7 @@ h3 {
 	transform-style: preserve-3d;
 	transform-origin: left center;
 	border: 1px solid #bfbfbf;
-	/*z-index: 2;*/
+	z-index: 4;
 }
 .door:hover {
 	cursor: pointer;
@@ -215,6 +222,14 @@ h3 {
 	position: absolute;
 	z-index: 5;
 }
+.opendoorrightClosed {
+	-webkit-transform: rotateY(0) skewY(0);
+	-moz-transform: rotateY(0) skewY(0);
+	-o-transform: rotateY(0) skewY(0);
+	transform: rotateY(0) skewY(0);
+	transform-origin: right;
+	position: absolute;
+}
 
 .opendrawer {
 	-webkit-transform: translate(0,8px) scaleY(0.55);
@@ -234,6 +249,14 @@ h3 {
 	transform-origin: bottom;
 	position: absolute;
 	z-index: 5;
+}
+.opendoordownClosed {
+	-webkit-transform: rotateX(0);
+	-moz-transform: rotateX(0);
+	-moz-transform: rotateX(0);
+	transform: rotateX(0);
+	transform-origin: bottom;
+	position: absolute;
 }
 
 .opendoorup {
@@ -1000,14 +1023,20 @@ h3 {
 #test2 {
 	width: 900px;
 	height: 250px;
-	position: absolute;
-	top: 700px;
+	position: relative;
+	top: 0;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
-	transition: all 0.5s;
+	-webkit-transition: all .3s;
+	-moz-transition: all .3s;
+	-ms-transition: all .3s;
+	-o-transition: all .3s;
+	transition: all .3s;
 	display: none;
 	background: #fff;
+	opacity: 0;
+	z-index: 15;
 }
 
 #test2 .closeAnzeige {
@@ -1028,15 +1057,18 @@ h3 {
 	cursor: pointer;
 }
 #foto-src {
-	position: absolute;
-	margin-top: 626px;
-	margin-left: 1205px;
+	position: relative;
+	/*margin-top: 626px;*/
+	/*margin-left: 1205px;*/
+	float: right;
+	top: 615px;
 }
 
 /* adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp */
 /* The Modal (background) */
 .modal {
 	display: none;
+	/*visibility: hidden;*/
 	position: relative;
 	z-index: 100;
 	left: 0;
@@ -1044,6 +1076,12 @@ h3 {
 	overflow: hidden;
 	background-color: rgb(0,0,0);
 	background-color: rgba(0,0,0,0.9);
+	-webkit-transition: all 0.3s;
+	-moz-transition: all 0.3s;
+	-ms-transition: all 0.3s;
+	-o-transition: all 0.3s;
+	transition: all 0.3s;
+
 }
 #myModalKitchen, #myModalAlert {
 	padding-top: 100px;
@@ -1057,9 +1095,14 @@ h3 {
 }
 
 #myModalAlert {
+	opacity: 0;
 	background-color: rgb(0,0,0);
 	background-color: rgba(0,0,0,0.4);
-
+	-webkit-transition: all 0.5s;
+	-moz-transition: all 0.5s;
+	-ms-transition: all 0.5s;
+	-o-transition: all 0.5s;
+	transition: all 0.5s;
 }
 
 #myModalAlert div {
@@ -1079,6 +1122,9 @@ h3 {
 	top: 20px;
 }
 
+#myModalAlert #alertText {
+	margin-top: 32px;
+}
 /* Modal Content (Image) */
 .modal-content {
 	margin: auto;
