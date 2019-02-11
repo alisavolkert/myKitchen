@@ -2,11 +2,9 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-if (isset($_SESSION["email"]))
+if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 {
-    $email = $_SESSION["email"];
-} else {
-    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="./index.php">erneut</a>.';
+    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
     die();
 }
 ?>
@@ -34,7 +32,7 @@ Der Versuch ist beendet, sobald alle Gegenstände in der Küche platziert wurden
 		<img src="img/versuch.jpg" />
 		</p>
 		<p>Wenn Sie Ihre Aufgabe verstanden haben, klicken Sie bitte auf "Weiter". </p>
-<p> Vielen Dank für Ihre Teilnahme!</p> <!-- TODO: Das auch auf die letzte Seite verschieben! -->
+
 		
 		<a href="formular.php"><button>Weiter</button></a>
 	</body>

@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL & ~E_NOTICE);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+ini_set('display_errors', '1');
 date_default_timezone_set('Europe/Berlin');
 
 require_once('./db/database.php');
@@ -316,9 +319,9 @@ $result_mk = $db->getAllImagesWithData();
 //            echo "Datenbanktabelle ist nicht leer";
 //              print_r($result_mk);
 //            while($row = $result_mk->fetch()) {
-           //$i=0;
+           $i=0;
              foreach ($result_mk as $row) {
-                 //if ($i < 5) {
+                 if ($i < 5) {
                      $image = $row['picture'];
                      if ($image === 0) {
                          $image = "default.jpeg";
@@ -332,8 +335,8 @@ $result_mk = $db->getAllImagesWithData();
 //                echo "img set";
                      $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
                  }
-                //$i++;
-             //}
+                $i++;
+             }
         } else {
             echo "Datenbanktabelle ist leer";
         }
@@ -370,19 +373,21 @@ $result_mk = $db->getAllImagesWithData();
             $arr = $_POST["arr1"];
             $arr2 = $_POST["arr2"];
             $arr3 = $_POST["arr3"];
+            $arr4 = $_POST["arr4"];
 
             if (count($arr) > 7) {
                 $a1 = array_shift($arr);
                 $results = $dir.'userdata.csv';
                 chmod($results, 0755);
                 $userscore = fopen($results, 'a');
-                if (trim(file_get_contents($results)) == false) {
-                    $first = array('Anrede','Alter','Nationalitaet','Stunden am Tag','Stunden in der Woche','Beruf','Startzeit','Endzeit','Gesamte Mouseclicks','Klicks auf Gegenstaende');
+                if (trim(file_get_contents($results)) === false) {
+                    $first = array('Anrede','Alter','Nationalitaet','Stunden am Tag','Stunden in der Woche','Beruf','Startzeit','Endzeit', 'Zeitdifferenz', 'Gesamte Mouseclicks','Klicks auf Gegenstaende');
                     fputcsv($userscore, $first);
                 }
                 fputcsv($userscore, $arr);
                 fclose($userscore);
-
+                //chown($userscore, 'strecker');
+                //chgrp($userscore, 'WSIstud');
                 // if ($db_connection) {
                 //   $db_connection->exec("INSERT INTO userscore (gender, age, nationality, hoursday, hourswheek, jobtitle, starttime, endtime, mouseclicks, clicksonobjects)
                 //   VALUES ($arr[0],$arr[1],$arr[2],$arr[3], $arr[4],$arr[5],$arr[6],$arr[7],$arr[8],$arr[9])");
@@ -408,6 +413,7 @@ $result_mk = $db->getAllImagesWithData();
 
                 $fp = fopen($dir.$userid.'__'.$datum.'__'.nicknameToFile($arr[6]).'.csv', 'w');
                 chmod($fp, 0775);
+                chgrp($fp, 'pkweb');
                 fputcsv($fp, $arr3);
 
                 $l = count($arr2);
@@ -417,10 +423,23 @@ $result_mk = $db->getAllImagesWithData();
 
                 fclose($fp);
 
+                $fpr = fopen($dir.$userid.'__'.$datum.'__'.nicknameToFile($arr[6]).'_reasons.csv', 'w');
+                chmod($fpr, 0775);
+                chgrp($fpr, 'pkweb');
+                fputcsv($fpr, $arr3);
+                fputcsv($fpr, $arr4);
+
+//                $l = count($arr4);
+//                for ($i = 0; $i < $l; $i++) {
+//                    fputcsv($fpr, $arr4[$i]);
+//                }
+
+                fclose($fpr);
+
                 if ($l > 0){
                     $fpf = fopen($dir.$userid.'__'.$datum.'__'.nicknameToFile($arr[6]).'_finish.csv', 'w');
                     chmod($fpf, 0775);
-
+                    chgrp($fp, 'pkweb');
                     $a1 = array_shift($arr3);
                     $al = array_pop($arr3);
                     fputcsv($fpf, $arr3);

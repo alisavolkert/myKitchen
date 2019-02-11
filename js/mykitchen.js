@@ -161,7 +161,7 @@ $(document).ready(function() {
 
             index = results.length-1;
             // console.log("index after adding " + index);
-            console.log("add, results: \n" + JSON.stringify(results));
+            // console.log("add, results: \n" + JSON.stringify(results));
             $(".regal").css('opacity', 1);
 
             // Objekte unten im Extra-Fenster anzeigen
@@ -462,27 +462,94 @@ $(document).ready(function() {
 
     });
 
+    var totallyFinished = false;
+    let endtime;
     /* finish the simulation and send user data via ajax */
     $('#finish').click(function(){
 
-        row.unshift('save');
-        row.push(timeToString(startTime), timeToString(new Date()), countClicks, num_of_clicks_on_obj);
+        if (!totallyFinished) {
+            endTime = new Date();
+            $('#test2').css('height', '500px');
+            $('#gkitchen .regal:not(#test2 .regal)').append('<div class="erkl"><h4>Erklärung:</h4><textarea></textarea></div>');
+            $('#myModalAlert #alertText').html("Bitte geben Sie zu jedem Regalfach eine kurze Erklärung, " +
+                "warum Sie die Gegenstände zusammen gruppiert haben.<br>" +
+                "Klicken Sie hierzu in das entsprechende Fach.<br><br>" +
+                "Drücken Sie anschließend erneut auf \"Finish\"");
+            $("#myModalAlert div").css({
+                width:'400px',
+                height: '265px'});
+            $("#myModalAlert").css('opacity', '0');
+            $('#myModalAlert').css('display','block');
+            $("#myModalAlert").css('opacity', '1');
 
-        $.ajax({
-            type: 'POST',
-            url: this.url,
-            data: {
-                arr1 : row,
-                arr2 : results,
-                arr3 : regal_ids
+            $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
+                // showObjects("#" + this.id);
+                $('#test2 .erkl').css('display', 'block');
+                $('#test2 .regal').css('height', '500px');
+            });
+
+            $(document).on('input propertychange', '#test2 .erkl textarea', function () {
+                let parent = $(this).closest('.regal');
+                let parentID = parent.attr('id');
+                if(parent.hasClass('obfl')) {
+                    parentID = parentID.substr(0,5);
+                }
+                $('#' +parentID + ' .erkl textarea').val($(this).val());
+
+            });
+
+            totallyFinished = true;
+        } else {
+            var n = results.length;
+            var l = regal_ids.length;
+            let reasons = new Array();
+            reasons[0] = timeToString(new Date());
+
+            for (var i = 1; i < l; i++){
+
+                // var children = [];
+                $("#" + regal_ids[i] + " .erkl textarea").each( function (){
+
+                        reasons.push($(this).val());
+
+                });
+                // reasons[i] = children.toString();
             }
-        });
+
+            console.log(JSON.stringify(reasons));
+
+
+
+            row.unshift('save');
+            // let endTime = new Date();
+            let timeDiff = (endTime-startTime);
+            row.push(timeToString(startTime), timeToString(endTime), msecToString(timeDiff), countClicks, num_of_clicks_on_obj);
+            // row.push(timeToString(startTime), timeToString(new Date()), countClicks, num_of_clicks_on_obj);
+
+            $.ajax({
+                type: 'POST',
+                url: this.url,
+                data: {
+                    arr1 : row,
+                    arr2 : results,
+                    arr3 : regal_ids,
+                    arr4 : reasons
+                },
+                success: function(data) {
+                    $(".all").addClass("hidden");
+                    // $("h3").removeClass("hidden");
+                    window.location.href = 'finish.php';
+                },
+                completed: function(data){
+                    // window.location.href = 'finish.php';
+                }
+            });
+        }
+
+
+
 
         //location.reload();
-
-        $(".all").addClass("hidden");
-        $("h3").removeClass("hidden");
-
         // screenshot
         // $('.all').html2canvas({
         //     onrendered: function (canvas) {
@@ -701,27 +768,39 @@ var getPlaceholderVolume = function(id) {
     });
 
     return placeholder_volume.toFixed(2);
-}
+};
 
 // add zero if date less then 10
 var convertDate = function(d){
     return (d < 10)? ("0" + d) : d;
-}
+};
 
 // time to string
 var timeToString = function(d){
     return convertDate(d.getHours()) + ":" + convertDate(d.getMinutes()) + ":" + convertDate(d.getSeconds());
+};
+
+let msecToString = function (diff) {
+    let msec = diff;
+    let hh = Math.floor(msec / 1000 / 60 / 60);
+    msec -= hh * 1000 * 60 * 60;
+    let mm = Math.floor(msec / 1000 / 60);
+    msec -= mm * 1000 * 60;
+    let ss = Math.floor(msec / 1000);
+    msec -= ss * 1000;
+    return hh + ":" + mm + ":" + ss;
+
 }
 
 /* hide kitchen object(s) */
 var hideImage = function(id) {
     $(id).addClass('transparent');
-}
+};
 
 /* show kitchen object(s) */
 var showImage = function(id) {
     $(id).removeClass('transparent');
-}
+};
 
 /* zeige Gegenstände unten an*/
 function showObjects(last_shelf) {
@@ -827,7 +906,7 @@ $(document).on('click', '#help', function(){
     $("#info").fadeIn(300);
 });
 
-$(document).on('click', '#gkitchen .regal', function(){
+$(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
     showObjects("#" + this.id);
     // console.log(this.id);
     // $("#test2").show();
@@ -835,7 +914,7 @@ $(document).on('click', '#gkitchen .regal', function(){
 
 
 // adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp
-$(document).on('click', '#test2 .objekte', function(){
+$(document).on('click', '#test2 .objekte, .obfl .objekte, .oben .objekte, .unten .objekte', function(){
     var modal = document.getElementById('myModalKitchen');
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption1");

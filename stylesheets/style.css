@@ -29,8 +29,10 @@ body {
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
-  border-color: red;
-	border-width: 1px;
+  	/*border-color: red;*/
+	/*border-width: 1px;*/
+	border-radius: 3px;
+	border: 1px solid red;
 }
 
 h1 {

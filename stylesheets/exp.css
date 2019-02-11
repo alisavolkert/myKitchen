@@ -5,6 +5,7 @@ body	{
 }
 button {
 	padding: 5px 10px;
+	cursor: pointer;
 }
 ul {
 	padding-bottom:10px;

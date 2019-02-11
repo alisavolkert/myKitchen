@@ -808,6 +808,10 @@ h3 {
 #gkitchen .regal:hover {
 	cursor: pointer;
 }
+#test2 .regal:hover {
+	cursor: initial;
+;
+}
 
 /*oberen Schrank-Regale */
 #sv1-1, #sv1-2, #sv2-1, #sv2-2 , #sv3-1, #sv3-2, #sv4-1, #sv4-2, #sv5-1, #sv5-2{
@@ -1056,6 +1060,24 @@ h3 {
 #test2 img:hover {
 	cursor: pointer;
 }
+
+.erkl {
+	bottom: 0;
+	display: none;
+	/*position: absolute;*/
+}
+.erkl h4 {
+	display: inline-block;
+	margin: 0 10px;
+}
+.erkl textarea {
+	display: inline-block;
+	width: 500px;
+	height: 300px;
+	font-size: 15px;
+}
+
+
 #foto-src {
 	position: relative;
 	/*margin-top: 626px;*/
@@ -1125,6 +1147,10 @@ h3 {
 #myModalAlert #alertText {
 	margin-top: 32px;
 }
+
+#myModalAlert #closeAlert:hover {
+	cursor: pointer;
+} 
 /* Modal Content (Image) */
 .modal-content {
 	margin: auto;

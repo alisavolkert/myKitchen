@@ -8,36 +8,41 @@ $db = new Database();
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-if (isset($_SESSION["email"]))
+if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 {
-    $email = $_SESSION["email"];
-}
+    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+    die();
+} else {
 
-if(isset($_SESSION["email"],$_SESSION["dtkenntn"],$_SESSION["vollj"])){
-
-
-    $email = $_SESSION["email"];
 //    setcookie("email", $email, time() + 7200);
     $dk = (int) $_SESSION["dtkenntn"];
     $vj = (int) $_SESSION["vollj"];
 
 
-    if ($db->saveUserData($email,$dk,$vj)) {
+//    $newID = mt_rand(20000000, 30000000);
+//    $db->addEmptyRow();
+//    if ($db->getLastUserId()) {$newID = $db->getLastUserId();}
+//    $_SESSION['id'] = $newID;
+//    setcookie('id', $newID, time() + 7200);
+
+    if ($db->saveUserData($dk,$vj)) {
 
 
-        $userid = $db->getLastUserId($email);
+        $userid = $db->getLastUserId();
         $_SESSION['user_id'] = $userid;
-        $_COOKIE['user_id'] = $userid;
         setcookie("userID", $userid, time() + 7200);
 
+        unset($_SESSION["dtkenntn"]);
+        unset($_SESSION["vollj"]);
 //            echo "saved";
 //        }
     } else {
-        die("Errormessage: ". $db->saveUserData($email,$dk,$vj));
+        die("Errormessage: ". $db->saveUserData($dk,$vj));
     }
-} else {
-    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="./index.php">erneut</a>.';
-    die();
+
+//} else {
+//    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+//    die();
 }
 ?>
 

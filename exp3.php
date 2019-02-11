@@ -5,19 +5,21 @@
   error_reporting(E_ALL);
   session_start();
 
+
+
 function redirect($url, $statusCode = 303)
 {
    header('Location: ' . $url, true, $statusCode);
    die();
 }
 // Check if email is set, otherwise something went wrong:
-if (isset($_SESSION["email"]))
-{
-    $email = $_SESSION["email"];
-} else {
-    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="./index.php">erneut</a>.';
-    die();
-}
+//if (isset($_SESSION["email"]))
+//{
+//    $email = $_SESSION["email"];
+//} else {
+//    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+//    die();
+//}
 
 function form_is_correct()
 {
@@ -38,6 +40,9 @@ function form_is_correct()
     } else {
         $_SESSION['vollj'] = $_REQUEST["vollj"];
     }
+
+
+
 
 
 //    if ($errorstring=="")
@@ -64,11 +69,11 @@ function get_form($errorstring = "")
             <p>Ihre Aufgabe ist, an einem einfachen Experiment teilzunehmen, in welchem Sie Bilder, die verschiedene Küchengegenstände zeigen, in eine simulierte Küche einräumen sollen. Anschließend sollen Sie den Inhalt jedes gefüllten Fachs kurz beschreiben. Der Screenshot unten zeigt die simulierte Küche.</p>
 
             
-            <img width="1093" height="600" src="img/CatScan_Main-Trial_web.png" alt="Software-Screenshot Abbildung Küchengegenstände">
-            <p><small>Fotos: Vanessa Bernath</small></p>
+           <!-- <img width="1093" height="600" src="img/CatScan_Main-Trial_web.png" alt="Software-Screenshot Abbildung Küchengegenstände">
+            <p><small>Fotos: Vanessa Bernath</small></p> -->
             
             <form action="exp3.php#demographics" method="POST" id="demographics" class="hl">
-                <h3>Teilnahmevoraussetzung: Deutsch als Muttersprache</h3> 
+                <h3>Teilnahmevoraussetzungen:</h3> 
                 <span class="error">' . $errorstring . '</span>
                 <input type="hidden" name="demogr" value="">
                 <p>

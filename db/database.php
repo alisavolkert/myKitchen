@@ -4,7 +4,7 @@
 error_reporting(E_ALL & ~E_NOTICE);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 ini_set('display_errors', '1');
-ini_set('log_errors', 1);
+//ini_set('log_errors', 1);
 
 class Database
 {
@@ -52,11 +52,25 @@ class Database
         $this->connection->close();
     }
 
-    public function saveUserData($email,$dk,$vj) {
+    public function addEmptyRow(){
 
-        $stmt = $this->connection->prepare("INSERT INTO participants(email,deutschkenntnisse,volljaehrig) VALUES (?,?,?)");
 
-        $stmt->bind_param("sii",$email,$dk,$vj);
+        $stmt = $this->connection->prepare('INSERT INTO participants() VALUES()');
+        if($stmt->execute()) {
+            $stmt->close();
+            return TRUE;
+        } else {
+            $stmt->close();
+            return FALSE;
+        }
+
+
+    }
+    public function saveUserData($dk,$vj) {
+
+        $stmt = $this->connection->prepare("INSERT INTO participants(deutschkenntnisse,volljaehrig) VALUES (?,?)");
+
+        $stmt->bind_param("si",$dk,$vj);
         if($stmt->execute()) {
             $stmt->close();
             return TRUE;
@@ -70,10 +84,10 @@ class Database
 
     }
 
-    public function getLastUserId($email) {
+    public function getLastUserId() {
 
-        $stmt = $this->connection->prepare('SELECT userid FROM participants WHERE email =? AND completed = 0 ORDER BY userid DESC LIMIT 1');
-        $stmt->bind_param("s",$email);
+        $stmt = $this->connection->prepare('SELECT userid FROM participants ORDER BY userid DESC LIMIT 1');
+//        $stmt->bind_param("s",$email);
         $stmt->execute();
         $stmt->bind_result($usrd);
         $userid= 0;
@@ -83,6 +97,35 @@ class Database
 
         $stmt->close();
         return $userid;
+    }
+
+
+    public function setCompletedById($id) {
+        $stmt = $this->connection->prepare('UPDATE  participants SET completed = 1 WHERE userid = ?');
+        $stmt->bind_param("i",$id);
+        if($stmt->execute()) {
+            $stmt->close();
+            return TRUE;
+        } else {
+            echo "<p>There was an error in query:</p>";
+            echo $this->connection->error;
+            $stmt->close();
+            return FALSE;
+        }
+    }
+
+    public function insertMailAdress($mail) {
+        $stmt = $this->connection->prepare('INSERT INTO mail(mail_id,email) VALUES (UUID_SHORT(),?)');
+        $stmt->bind_param("s",$mail);
+        if($stmt->execute()) {
+            $stmt->close();
+            return TRUE;
+        } else {
+            echo "<p>There was an error in query:</p>";
+            echo $this->connection->error;
+            $stmt->close();
+            return FALSE;
+        }
     }
 
     public function getAllImages() {
