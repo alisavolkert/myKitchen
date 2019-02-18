@@ -51,7 +51,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 
   <head>
 
-    <title>myKitchen</title>
+    <title>Einräumen einer simulierten Küche</title>
     <meta charset="utf-8">
 
 	  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
@@ -72,26 +72,26 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
         var age = form.age.value;
         age = Number(age);
         if (isNaN(form.age.value) || age == 0) {
-          alert("Bitte Ihr Alter eingeben!");
+          alert("Bitte gib dein Alter an!");
           form.age.focus();
           return false;
         }
 		//alter
         if (age < 0 || age > 100) {
-          alert("Sind Sie ernsthaft " + age + " Jahre alt?");
+          alert("Bist du ernsthaft " + age + " Jahre alt?");
           form.age.focus();
           return false;
         }
 		
         if (Number(form.hours1.value) < 0) {
-          alert("Zahl soll positiv sein");
+          alert("Die Zahl sollte positiv sein");
           form.hours1.focus();
           return false;
         }
 		//wie lange Küche
         var hours2 = form.hours2.value;
         if (isNaN(hours2) || hours2 == "" || Number(hours2) < 0) {
-          alert("Bitte geben Sie an, wie viele Stunden die Woche Sie in der K&uuml;che verbringen");
+          alert("Bitte gib an, wie viele Stunden du letzte Woche in der K&uuml;che verbracht hast.");
           form.hours2.focus();
           return false;
         }
@@ -105,7 +105,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
   <body onload="document.kontaktformular.name.focus();">
     <h1>K&uuml;chensimulation</h1>
 
-    <p>Bitte machen Sie folgende Angaben: </p>
+    <p>Bitte mach folgende Angaben: </p>
     <div class="all">
       <form id="kontaktformular" name="kontaktformular" action="mykitchen.php" method="post" onsubmit="return checkInput(this)">
         <table>
@@ -148,7 +148,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 		  
           <tr>
             <td>
-				Welcher Kultur fühlen Sie sich am ehesten verbunden:
+				Welcher Kultur fühlst du dich am ehesten verbunden:
 			</td>
             <td class="abstand">
 				<input type="checkbox" name="nat_de" id="nat_de"> deutsch </input><br />
@@ -159,7 +159,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 		  
 		  <tr>
             <td>
-				Beschäftigung:
+				Beschäftigung: <!-- TODO: Hier bitte nach Wochenarbeitszeit fragen. -->
 			</td>
             <td class="abstand">
 				<input type="text" id="job" name="job"/><br />
@@ -169,11 +169,11 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
           </tr>
 		  
           <tr>
-            <td>Wie viele Stunden haben Sie an dem letzten Werktag in <br />der K&uuml;che verbracht?</td>
+            <td>Wie viele Stunden hast du am letzten Werktag in <br />der K&uuml;che verbracht?</td>
             <td class="abstand"><input type="number" min="0" id="hours1" name="hours1"/></td>
           </tr>
           <tr>
-            <td>Wie viele Stunden haben Sie nach eigener Einsch&aumltzung <br />vergangene Woche in Ihrer K&uuml;che zu Hause gearbeitet?</td>
+            <td>Wie viele Stunden hast du nach eigener Einsch&aumltzung <br />vergangene Woche in der K&uuml;che zu Hause gearbeitet?</td>
             <td class="abstand"><input type="number" min="0" id="hours2" name="hours2" required/></td>
           </tr>
           <tr>

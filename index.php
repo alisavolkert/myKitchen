@@ -4,17 +4,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheets/exp.css" />
-    <title>Studie Gruppierung von Küchengegenständen</title>
+    <title>Studie Einräumen einer simulierten Küche</title>
   </head>
   <body>   
     <img src="img/logo_web.png" id="logo"> 
-  	<p id="expstart"><b>Vielen Dank</b> für Ihr Interesse an unserer Studie!</p>
+  	<p id="expstart"><b>Vielen Dank</b> für dein Interesse an unserer Studie!</p>
     <br>
 <!--    <p><b>Die Studie ist beendet.</b></p>-->
 
 
-    <p>Bitte lesen Sie sich die Informationen auf den nächsten Seite sorgfältig durch und entscheiden Sie sich dann,
-        ob Sie an dieser Studie teilnehmen möchten. Falls Sie weitere Fragen zur Studie haben sollten, beantworten wir Ihnen diese gern.</p>
+    <p>Bitte lies die Informationen auf den nächsten Seite sorgfältig durch und entscheide dich dich dann,
+        ob du an dieser Studie teilnehmen möchten. Falls du weitere Fragen zur Studie haben sollten, beantworten wir dir diese gern.</p>
     <br>
     Ansprechpartnerin: <br>
     Alisa Volkert, M.Sc.<br>

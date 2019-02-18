@@ -64,9 +64,9 @@ function get_form($errorstring = "")
             <title>Einräumen einer simulierten Küche</title>
           </head>
           <body>
-            <p>Bitte führen Sie dieses Experiment nur am PC oder Laptop durch.</p>
+            <p>Bitte führe dieses Experiment nur am PC oder Laptop durch.</p>
 
-            <p>Ihre Aufgabe ist, an einem einfachen Experiment teilzunehmen, in welchem Sie Bilder, die verschiedene Küchengegenstände zeigen, in eine simulierte Küche einräumen sollen. Anschließend sollen Sie den Inhalt jedes gefüllten Fachs kurz beschreiben. Der Screenshot unten zeigt die simulierte Küche.</p>
+            <p>Deine Aufgabe ist, an einem einfachen Experiment teilzunehmen, in welchem du Bilder, die verschiedene Küchengegenstände zeigen, in eine simulierte Küche einräumen sollst. Anschließend sollst du den Inhalt jedes gefüllten Fachs kurz beschreiben. Der Screenshot unten zeigt die simulierte Küche.</p>
 
             
            <!-- <img width="1093" height="600" src="img/CatScan_Main-Trial_web.png" alt="Software-Screenshot Abbildung Küchengegenstände">

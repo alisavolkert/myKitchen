@@ -9,7 +9,7 @@ require_once('./db/database.php');
 
 if (!isset($_SESSION["user_id"]))
 {
-    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginn den Versuch <a href="index.php">erneut</a>.';
     die();
 } else {
     $db = new Database();
@@ -33,7 +33,7 @@ function form_is_correct()
 
     if(!validate_email($_REQUEST["email"]))
     {
-        $errorstring.= "Bitte geben Sie eine gültige E-Mail-Adresse ein.<br>";
+        $errorstring.= "Bitte gib eine gültige Mailadresse ein.<br>";
     }
 
 //    if(!isset($_REQUEST["agreement"]))
@@ -78,7 +78,7 @@ function get_form($errorstring = "", $email = "")
 <img src="img/logo_web.png" id="logo">
 <br>
 <br>
-<h3> Vielen Dank für Ihre Teilnahme!</h3> <!-- TODO: Das auch auf die letzte Seite verschieben! -->
+<h3> Vielen Dank für deine Teilnahme!</h3> 
 <!--<p id="expstart"><b>Vielen Dank</b> für Ihr Interesse an unserer Studie!</p>-->
 <br>
 
@@ -89,9 +89,9 @@ function get_form($errorstring = "", $email = "")
     <h4>Teilnahme am Gewinnspiel</h4>
 <!--    <p>Zur Verknüpfung Ihrer Entscheidung mit Ihrer Person benötigen wir Ihre Mailadresse.</p>-->
 
-    <p>Wenn Sie am Gewinnspiel teilnehmen möchten, geben Sie bitte Ihre Mailadresse an.
-        Andernfalls schließen Sie bitte das Fenster in Ihrem Browser, um das Experiment zu beenden.</p>
-    <p>Bitte beachten Sie, dass Sie nur an der Verlosung teilnehmen können, wenn Sie eine gültige Mailadresse angeben.</p>
+    <p>Wenn du am Gewinnspiel teilnehmen möchtest, gib bitte deine Mailadresse an.
+        Andernfalls schließ bitte das Fenster in deinem Browser, um das Experiment zu beenden.</p>
+    <p>Bitte beachte, dass du nur an der Verlosung teilnehmen kannst, wenn du eine gültige Mailadresse angibst.</p>
     <span class="error">' . $errorstring . '</span>
     <p>
         <label for="email" >Mailadresse:</label>

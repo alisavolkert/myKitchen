@@ -56,7 +56,7 @@ function get_form($errorstring = "", $email = "")
           <meta charset="utf-8">
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <link rel="stylesheet" href="stylesheets/exp.css" />
-          <title>Studie Gruppierung von Küchengegenständen</title>
+          <title>Studie Einräumen einer simulierten Küche</title>
         </head>
         <body>
             <h2>Einwilligungserklärung zur 
@@ -80,23 +80,29 @@ function get_form($errorstring = "", $email = "")
               <li>Projektleitung: Alisa Volkert, M.Sc.</li>
               <li>Datum des Experiments: vom 20.12.18 bis 7.1.2019 
 
-              <li>Art der personenbezogenen Daten:
+              <!-- Das sind keine personenbezogenen Daten, da dadurch nicht schließbar, um welche Person es sich handelt
+              <li>Art der personenbezogenen Daten: 
                 <ul>
-                    <li> E-Mail-Adresse,</li>
-                    <li> Alter, </li>
+                    <li> Alter </li>
                     <li> Geschlecht</li>
                     <li> ggf. Fach des Hochschulabschlusses</li>
                     <li> Muttersprache</li>
                     <li> Land des Wohnortes</li>
                     <li> Herkunftsland</li>
+                    <li> Körpergröße ?</li>
+                    <li> ob Sie zusammen mit Kindern wohnen</li>
+                    <li> kulturelle Verbundenheit </li>
+                    <li> verbrachte Arbeitszeit in der Küche zu Hause</li>
                     <li> eine laufende Teilnahmenummer</li>
                 </ul>
               Aufnahmen, nämlich
                 <ul>
-                    <li>Anzahl der getätigten Klicks und</li>
-                    <li>Dauer des Experiments</li>
+                    <li> welche Gegenstände Sie wann wohin räumen</li>
+                    <li> Anzahl der getätigten Klicks und</li>
+                    <li> Dauer des Experiments</li>
                 </ul>
               </li>
+              -->
           </ol>
           <h3>B. Einwilligungserklärung und Information über die Erhebung personenbezogener Daten</h3>
           <ol>
