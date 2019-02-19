@@ -49,9 +49,7 @@
     
   	<p>Der Versuch dauert ungefähr 30-45 Minuten. Eine genaue Anleitung findest du auf der nächsten Seite.</p>
 
-  	<p>Wer das Experiment gewissenhaft durchgeführt hat, kann an einer Verlosung von 10 Gutscheinen à 20 Euro für den Tübinger Einzelhandel teilnehmen. Dies ist nur einmal möglich.</p>
-
-    <p>Um den Versuch durchzuführen, muss die Auflösung deines Bildschirm mindestens 1400x700 Pixel betragen. </p> <!-- Haben wir eine Mindestbildschirmgröße? -->
+  	<p>Um den Versuch durchzuführen, muss die Auflösung deines Bildschirms mindestens 1400x700 Pixel betragen. </p>
 
 <!--    <p><a target="_blank" href="java.htm">So finden Sie heraus</a>, ob Sie Java installiert haben.</p>-->
 
