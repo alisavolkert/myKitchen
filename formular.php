@@ -32,8 +32,8 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
         $_SESSION['user_id'] = $userid;
         setcookie("userID", $userid, time() + 7200);
 
-        unset($_SESSION["dtkenntn"]);
-        unset($_SESSION["vollj"]);
+        unset($_SESSION["dtkenntn"], $_SESSION["vollj"]);
+//        unset();
 //            echo "saved";
 //        }
     } else {
@@ -89,10 +89,10 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
           return false;
         }
 		//wie lange Küche
-        var hours2 = form.hours2.value;
+        var hours2 = form.hoursKitchen.value;
         if (isNaN(hours2) || hours2 == "" || Number(hours2) < 0) {
           alert("Bitte gib an, wie viele Stunden du letzte Woche in der K&uuml;che verbracht hast.");
-          form.hours2.focus();
+          form.hoursKitchen.focus();
           return false;
         }
 
@@ -117,25 +117,27 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 <!--				<input type="text" name="nickname" id="name" required/>-->
 <!--			</td>-->
 <!--          </tr>-->
+            <tr>
+                <td>
+                    Alter:
+                </td>
+                <td class="abstand">
+                    <input type="number" min="18" max="100" name="age" id="age" required/>
+                </td>
+            </tr>
           <tr>
             <td>
-				Anrede:
+				Geschlecht:
 			</td>
             <td class="abstand">
-              <select id="anrede" name="anrede" size="1" required>
+              <select id="gender" name="gender" size="1" required>
                   <option value="" disabled selected>Wählen Sie eine Option</option>
-                  <option>Frau</option>
-                  <option>Herr</option>
+                  <option>weiblich</option>
+                  <option>männlich</option>
+                  <option>divers</option>
               </select>
           </tr>
-          <tr>
-            <td>
-				Alter:
-			</td>
-            <td class="abstand">
-				<input type="number" min="18" max="100" name="age" id="age" required/>
-			</td>
-          </tr>
+
 		  
 		  <tr>
             <td>
@@ -145,37 +147,57 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 				<input type="number" min="0" max="250" name="bodyheight" id="bodyheight" required/>
 			</td>
           </tr>
-		  
+
+<!--           TODO: korrekt in csv speichern -->
+            <tr>
+                <td>
+                    Wohnst du mit Kindern zusammen
+                </td>
+                <td class="abstand">
+                    <label><input type="radio" name="withKids" id="withKidsYes" value="ja" required> ja </label><br />
+                    <label><input type="radio" name="withKids" id="withKidsNo" value="nein"> nein </label><br />
+                </td>
+            </tr>
+
           <tr>
             <td>
 				Welcher Kultur fühlst du dich am ehesten verbunden:
 			</td>
             <td class="abstand">
-				<input type="checkbox" name="nat_de" id="nat_de"> deutsch </input><br />
-				<input type="checkbox" name="nat_fr" id="nat_fr"> französisch </input><br />
-				<input type="checkbox" name="nat_other" id="nat_other"> Sonstiges: <input type="text" name="nationality" id="nationality" /></input>
+				<label><input type="radio" name="nat" id="nat_de" value="deutsch" required> deutsch</label> <br />
+				<label><input type="radio" name="nat" id="nat_fr" value="französisch"> französisch</label> <br />
+				<label><input type="radio" name="nat" id="nat_other" value=""> Sonstiges:</label> <input type="text" name="nationality" id="nationality" oninput="updateInput()"/>
 			</td>
           </tr>
+		  <script>
+              function updateInput() {
+                  document.getElementById("nat_other").value = document.getElementById("nationality").value;
+              }
+
+          </script>
+<!--		  <tr>-->
+<!--            <td>-->
+<!--				Beschäftigung:-->
+<!--			</td>-->
+<!--            <td class="abstand">-->
+<!--				<input type="text" id="job" name="job"/><br />-->
+<!--				<input type="checkbox" name="job_full" id="job_full"> Vollzeit </input><br />-->
+<!--				<input type="checkbox" name="job_part" id="job_part"> Teilzeit </input>-->
+<!--			</td>-->
+<!--          </tr>-->
 		  
-		  <tr>
-            <td>
-				Beschäftigung: <!-- TODO: Hier bitte nach Wochenarbeitszeit fragen. -->
-			</td>
-            <td class="abstand">
-				<input type="text" id="job" name="job"/><br />
-				<input type="checkbox" name="job_full" id="job_full"> Vollzeit </input><br />
-				<input type="checkbox" name="job_part" id="job_part"> Teilzeit </input>
-			</td>
-          </tr>
-		  
+<!--          <tr>-->
+<!--            <td>Wie viele Stunden haben Sie an dem letzten Werktag in <br />der K&uuml;che verbracht?</td>-->
+<!--            <td class="abstand"><input type="number" min="0" id="hours1" name="hours1"/></td>-->
+<!--          </tr>-->
           <tr>
-            <td>Wie viele Stunden hast du am letzten Werktag in <br />der K&uuml;che verbracht?</td>
-            <td class="abstand"><input type="number" min="0" id="hours1" name="hours1"/></td>
+            <td>Wie viele Stunden hast du nach eigener Einsch&aumltzung <br />vergangene Woche in deiner K&uuml;che zu Hause gearbeitet?</td>
+            <td class="abstand"><input type="number" min="0" id="hoursKitchen" name="hoursKitchen" required/></td>
           </tr>
-          <tr>
-            <td>Wie viele Stunden hast du nach eigener Einsch&aumltzung <br />vergangene Woche in der K&uuml;che zu Hause gearbeitet?</td>
-            <td class="abstand"><input type="number" min="0" id="hours2" name="hours2" required/></td>
-          </tr>
+            <tr>
+                <td>Wie viele Stunden arbeitest du pro Woche in deinem Beruf?</td>
+                <td class="abstand"><input type="number" min="0" max="150" id="hoursWork" name="hoursWork" required/></td>
+            </tr>
           <tr>
             <td></td>
             <td class="abstand"><input id="but" type="submit" value="Zur K&uuml;chensimulation" required/></td>

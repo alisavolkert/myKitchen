@@ -14,7 +14,7 @@ if (!isset($_SESSION["user_id"]))
 } else {
     $db = new Database();
     if ($db->setCompletedById($_SESSION['user_id'])) {
-//        unset($_SESSION['user_id']);
+        unset($_COOKIE['user_id']);
     }
 }
 

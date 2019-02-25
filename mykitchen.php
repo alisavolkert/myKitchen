@@ -33,10 +33,12 @@ $db = new Database();
 <script type="text/javascript">
     var data = <?php echo json_encode($_POST) ?>;
 
-    var beruf;
+    // var beruf;
 
 
-    var row = [data.nickname, data.anrede, data.age, data.nationality, data.hours1, data.hours2, beruf];
+    // var row = [data.nickname, data.anrede, data.age, data.nationality, data.hours1, data.hours2, beruf];
+
+    var row = [data.age, data.gender, data.bodyheight, data.withKids,  data.nat, data.hoursKitchen, data.hoursWork];
 
 
     // lupe
@@ -144,6 +146,7 @@ $db = new Database();
         <!--S7-->
         <!--S8-->
         <div class="door" id="d7"></div>
+        <div id="gray2"></div>
         <div class="door opendoordownClosed" id="d8"></div>
         <!--S9-1-->
         <!--S9-2-->
@@ -321,7 +324,7 @@ $result_mk = $db->getAllImagesWithData();
 //            while($row = $result_mk->fetch()) {
            $i=0;
              foreach ($result_mk as $row) {
-                 if ($i < 5) {
+                 if ($i < 10) {
                      $image = $row['picture'];
                      if ($image === 0) {
                          $image = "default.jpeg";
@@ -375,15 +378,27 @@ $result_mk = $db->getAllImagesWithData();
             $arr3 = $_POST["arr3"];
             $arr4 = $_POST["arr4"];
 
+            $userid= 00000000;
+            if(isset($_SESSION['user_id'])) {
+                $userid = $_SESSION['user_id'];
+            }
+            if(isset($_COOKIE['userID'])) {
+                $userid = $_COOKIE['userID'];
+            }
+
             if (count($arr) > 7) {
+
                 $a1 = array_shift($arr);
+                array_unshift($arr, $userid);
                 $results = $dir.'userdata.csv';
                 chmod($results, 0755);
                 $userscore = fopen($results, 'a');
                 if (trim(file_get_contents($results)) === false) {
-                    $first = array('Anrede','Alter','Nationalitaet','Stunden am Tag','Stunden in der Woche','Beruf','Startzeit','Endzeit', 'Zeitdifferenz', 'Gesamte Mouseclicks','Klicks auf Gegenstaende');
+//                    $first = array('Anrede','Alter','Nationalitaet','Stunden am Tag','Stunden in der Woche','Beruf','Startzeit','Endzeit', 'Zeitdifferenz', 'Gesamte Mouseclicks','Klicks auf Gegenstaende');
+                    $first = array('UserID','Alter','Geschlecht', 'Groesse', 'Mit Kindern', 'Nationalitaet','Stunden in der Kueche','Stunden im Beruf','Startzeit','Endzeit', 'Zeitdifferenz', 'Gesamte Mouseclicks','Klicks auf Gegenstaende');
                     fputcsv($userscore, $first);
                 }
+
                 fputcsv($userscore, $arr);
                 fclose($userscore);
                 //chown($userscore, 'strecker');
@@ -395,13 +410,8 @@ $result_mk = $db->getAllImagesWithData();
             }
 
             if (isset($_POST["arr2"])){
-                $userid= 00000000;
-                if(isset($_SESSION['user_id'])) {
-                    $userid = $_SESSION['user_id'];
-                }
-                if(isset($_COOKIE['userID'])) {
-                    $userid = $_COOKIE['userID'];
-                }
+
+
 
                 $dir = $dir.$userid.'/';
 

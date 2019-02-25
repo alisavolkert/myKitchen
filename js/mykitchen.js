@@ -4,6 +4,28 @@ var num_of_clicks_on_obj = 0;
 var startTime = new Date();
 var endTime = startTime;
 
+let timeLimitReached = false;
+let timeLimitReachedString = "";
+
+var timeLimit = function() {
+    clearInterval(myInterval);
+
+    $('#obj').css('opacity','0.7').unbind();
+    $('#obj .objekte').unbind();
+    $('#obj .objekte:hover').css('cursor','initial');
+
+    timeLimitReached = true;
+    timeLimitReachedString = "Du hast das Zeit-Limit erreicht. Der Veruch ist nun zu Ende. <br><br>";
+    document.getElementById('finish').disabled = false;
+    $('#finish').click();
+};
+
+let interval = 1000 * 60 * 90; // where X is your every X minutes
+
+let myInterval = setInterval(timeLimit, interval);
+
+
+
 // var regal_ids = ["time/ID","sv1-1","sv1-2","sv2-1","sv2-2","sv3-1","sv3-2","sv4-1","sv4-2","sv5-1",
 //     "sv5-2","sv6-1","sv6-2","sv6-3","sv6-4","sv6-5","sv7","sv8","sv9-1","sv9-2","sv9-3",
 //     "sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obfl5","obj","sv11"];
@@ -164,12 +186,18 @@ $(document).ready(function() {
             // console.log("add, results: \n" + JSON.stringify(results));
             $(".regal").css('opacity', 1);
 
+            // Klasse 'hasObjects' wird wieder entfernt, wenn Begründung eingegeben wird
+            // if (new_parent_id !== 'obj') {
+            //     $('#' + new_parent_id).addClass('hasObjects');
+            // }
             // Objekte unten im Extra-Fenster anzeigen
             if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
+                $('#' + new_parent_id).addClass('hasObjects');
                 showObjects("#" + new_parent_id);
             }
             // console.log("new_parent_id " + new_parent_id);
             // console.log("\n this.id " + this.id);
+
 
 
             if ($('#obj').find('img.objekte').length === 0) {
@@ -463,21 +491,23 @@ $(document).ready(function() {
     });
 
     var totallyFinished = false;
+    let allExplanationsWritten = false;
     let endtime;
     /* finish the simulation and send user data via ajax */
     $('#finish').click(function(){
 
-        if (!totallyFinished) {
+        if (!totallyFinished && !allExplanationsWritten) {
             endTime = new Date();
-            $('#test2').css('height', '500px');
+            $('#test2').css('height', '330px');
             $('#gkitchen .regal:not(#test2 .regal)').append('<div class="erkl"><h4>Erklärung:</h4><textarea></textarea></div>');
-            $('#myModalAlert #alertText').html("Bitte geben Sie zu jedem Regalfach eine kurze Erklärung, " +
-                "warum Sie die Gegenstände zusammen gruppiert haben.<br>" +
-                "Klicken Sie hierzu in das entsprechende Fach.<br><br>" +
-                "Drücken Sie anschließend erneut auf \"Finish\"");
+            $('#myModalAlert #alertText').html(timeLimitReachedString + "Bitte gib zu jedem Regalfach eine kurze Erklärung, " +
+                "warum du die Gegenstände zusammen gruppiert hast.<br>" +
+                "Klicke hierzu in das entsprechende Fach.<br><br>" +
+                "Drücke anschließend erneut auf \"Finish\"");
             $("#myModalAlert div").css({
                 width:'400px',
                 height: '265px'});
+            if (timeLimitReached) {$("#myModalAlert div").css({height: '315px'}); }
             $("#myModalAlert").css('opacity', '0');
             $('#myModalAlert').css('display','block');
             $("#myModalAlert").css('opacity', '1');
@@ -485,21 +515,54 @@ $(document).ready(function() {
             $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
                 // showObjects("#" + this.id);
                 $('#test2 .erkl').css('display', 'block');
-                $('#test2 .regal').css('height', '500px');
+                $('#test2 .regal').css('height', '330px');
+                if($(this).hasClass('oben')) {
+                    $('#test2').css('top', '295px');
+                }
             });
 
             $(document).on('input propertychange', '#test2 .erkl textarea', function () {
                 let parent = $(this).closest('.regal');
                 let parentID = parent.attr('id');
-                if(parent.hasClass('obfl')) {
+
+                if (parentID.startsWith('sv7') || parentID.startsWith('sv8')){
+                    parentID = parentID.substr(0,3);
+                } else if (parentID.startsWith('sv10')){
+                    parentID = parentID.substr(0,6);
+                } else {
                     parentID = parentID.substr(0,5);
                 }
+
                 $('#' +parentID + ' .erkl textarea').val($(this).val());
 
+                if ($(this).val() !== "") {
+                    parent.removeClass('hasObjects');
+                    $('#' + parentID).removeClass('hasObjects');
+                }
+
+                console.log('parentID ' + parentID);
             });
 
             totallyFinished = true;
+        } else if(totallyFinished && !allExplanationsWritten) {
+            // $('.hasObjects textarea').each(function(i, obj) {
+            if($('.hasObjects').length) {
+                // if (obj.value === "") {
+                    $('#myModalAlert #alertText').html("Bitte begründe zuerst deine Auswahl  für jedes eingeräumte Fach!<br><br>"
+                        + "Drücke anschließend erneut auf \"Finish\".");
+                    $("#myModalAlert div").css({
+                        width:'400px',
+                        height: '265px'});
+                    $("#myModalAlert").css('opacity', '0').css('display','block').css('opacity', '1');
+                    allExplanationsWritten = false;
+                    return;
+            } else {
+               allExplanationsWritten = true;
+            }
+            // });
+
         } else {
+
             var n = results.length;
             var l = regal_ids.length;
             let reasons = new Array();
@@ -869,9 +932,10 @@ function showObjects(last_shelf) {
         $cloned_shelf.appendTo("#test2");
         $("#test2").children().not(last_shelf).remove();
 
-        if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
-            $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
-        }
+        // if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
+        //     $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
+        // }
+        $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
 
         // let $buttonClose = ' <button class="closeAnzeige" id="close-anzeige"><h4>X</h4></button>';
         // $('#test2').append($buttonClose);

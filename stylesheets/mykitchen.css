@@ -296,6 +296,14 @@ h3 {
 	left: 148px;
 }
 
+#gray2 {
+	width: 153px;
+	left: 449px;
+	height: 174px;
+	top: 450px;
+	background: #dedede;
+	position: absolute;
+}
 
 /* cupboards */
 #s1{
@@ -1073,7 +1081,7 @@ h3 {
 .erkl textarea {
 	display: inline-block;
 	width: 500px;
-	height: 300px;
+	height: 100px;
 	font-size: 15px;
 }
 
