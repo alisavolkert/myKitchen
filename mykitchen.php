@@ -63,10 +63,10 @@ $db = new Database();
         <button id="back" class="small" style="font-size: 18px; width: 35px;" disabled><</button>
         <button id="next" class="small" style="font-size: 18px; width: 35px;" disabled>></button>
         <button id="help" class="small" style="font-size: 18px; width: 35px;">?</button>
-        <button id="open"  class="big">Open</button>
-        <button id="close" class="big">Close</button>
-        <button id="refresh" class="big">Restart</button>
-        <button id="finish" class="big" disabled>Finish</button>
+        <button id="open"  class="big">Alle öffnen</button>
+        <button id="close" class="big">Alle schließen</button>
+        <button id="refresh" class="big">Neustart</button>
+        <button id="finish" class="big" disabled>Weiter</button>
     </div>
 
 

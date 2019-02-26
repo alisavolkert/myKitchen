@@ -49,7 +49,7 @@
     
   	<p>Der Versuch dauert ungefähr 30-45 Minuten. Eine genaue Anleitung findest du auf der nächsten Seite.</p>
 
-  	<p>Um den Versuch durchzuführen, muss die Auflösung deines Bildschirms mindestens 1400x700 Pixel betragen. </p>
+  	<p>Um den Versuch durchzuführen, muss die Auflösung deines Bildschirms mindestens 1400x700 Pixel betragen. </p> <!-- TODO: reichen nicht auch 12XX x XXX px?-->
 
 <!--    <p><a target="_blank" href="java.htm">So finden Sie heraus</a>, ob Sie Java installiert haben.</p>-->
 
