@@ -24,9 +24,10 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 		<h3>Einräumen einer simulierten Küche im Rahmen des Forschungsprojekts "Psychologisch inspirierte Wissensrepräsentation"</h3> <br/>
 		<p>Du bist soeben in eine neue Wohnung eingezogen, und stehst nun vor der Aufgabe, die noch leere Küche einzuräumen (siehe Abbildung). All deine Küchengegenstände befinden sich auf der rechten Seite des Browserfensters.
 Du darfst dabei auch Gegenstände auf den Arbeitsflächen abstellen. Beim Einräumen deiner neuen Küche gibt es kein Richtig oder
-Falsch. Gern darfst du während des Versuchs Gegenstände umplatzieren.
-Der Versuch ist beendet, sobald du alle Gegenstände in die Küche eingeräumt hast. Du musst dabei aber nicht in jedes Regal etwas einräumen.
-            Der Versuch wird spätestens nach 90 Minuten abgebrochen. <!-- TODO: nach Pilottest Zeitlimit von 90 min ggf. anpassen.-->
+            Falsch. Gern darfst du während des Versuchs Gegenstände umplatzieren. Räume ALLE Gegenstände aus dem Depot in die Küche. Du musst dabei aber nicht in jedes Regal etwas einräumen. </p>
+        <p>Anschließend sollst du den Inhalt der gefüllten Fächer kurz beschreiben.
+Der Versuch ist beendet, sobald du jedes gefüllte Fach kurz beschrieben hast.
+            Er wird jedoch spätestens nach 90 Minuten abgebrochen. <!-- TODO: nach Pilottest Zeitlimit von 90 min ggf. anpassen.-->
 
 		</p>
 		<p>Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände <br />
