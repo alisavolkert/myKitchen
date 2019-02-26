@@ -31,8 +31,8 @@ Der Versuch ist beendet, sobald du jedes gefüllte Fach kurz beschrieben hast.
             Er wird jedoch spätestens nach 90 Minuten abgebrochen. <!-- TODO: nach Pilottest Zeitlimit von 90 min ggf. anpassen.-->
 
 		</p>
+        <img src="img/versuch.jpg" />
 		<p>Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände <br />
-		<img src="img/versuch.jpg" />
 		</p>
 		<p>Wenn du deine Aufgabe verstanden hast, klicke bitte auf "Weiter". </p>
 
