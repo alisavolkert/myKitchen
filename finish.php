@@ -86,7 +86,7 @@ function get_form($errorstring = "", $email = "")
 
 
 <form action="finish.php#personaldata" method="POST" id="personaldata" class="hl">
-    <h4>Teilnahme am Gewinnspiel</h4>
+    <h4>Du kannst dich jetzt entscheiden, ob du lieber an unserem Gewinnspiel teilnehmen möchtest, oder ob wir dir eine (halbe) Versuchspersonenstunde ausstellen sollen.</h4>
 <!--    <p>Zur Verknüpfung Ihrer Entscheidung mit Ihrer Person benötigen wir Ihre Mailadresse.</p>-->
 
     <p>Wenn du am Gewinnspiel teilnehmen möchtest, um einen von 10 Gutscheinen im Wert von je 20 € für den Tübinger Einzelhandel zu gewinnen, gib bitte deine Mailadresse an.</p>
@@ -105,7 +105,7 @@ function get_form($errorstring = "", $email = "")
         <label for="agreement">Ich willige der Erklärung zur Erhebung und Verarbeitung meiner personenbezogenen Daten ein.</label>
     </p>
 -->
-    <button type="submit">Am Gewinnspiel teilnehmen</button>
+    <button type="submit">Absenden</button>
 </form>
 
 <br>
