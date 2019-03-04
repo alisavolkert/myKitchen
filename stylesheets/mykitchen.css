@@ -58,12 +58,14 @@ body {
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
+	padding: 2px;
+	box-sizing: border-box;
 }
 .but .small{
 	min-width: 7.11111%;
 }
 .but .big {
-	min-width: 15.4%;
+	width: 21%;
 }
 
 .resultate-kueche{
@@ -127,14 +129,18 @@ h3 {
 /* Buttons */
 
 #open, #close, #refresh, #finish, #back, #next, #help, #distance_table, #screenshot{
-	position:relative;
+	/*position:relative;*/
 	/*width: 75px;*/
-	height: 40px;
-	margin-right: 6px;
+	height: 50px;
+	margin: 3px;
 	left:10px;
 	top: 10px;
 	float:left;
 	padding: 0;
+
+
+
+	box-sizing: border-box;
 }
 #open:hover, #close:hover, #refresh:hover, #finish:hover, #back:hover, #next:hover, #help:hover{
 	cursor: pointer;
@@ -808,7 +814,7 @@ h3 {
 	text-align: center;
 	overflow: auto;
 	background-color: white; /*#bdaa8a;*/
-	min-height: 20px;
+	min-height: 60px;
 	min-width: 40px;
 	perspective: 40px;
 	z-index: 4;
@@ -953,40 +959,48 @@ h3 {
 	border: 1px solid black;
 	background-color: transparent;
 	width: 200px;
-	height: 150px;
-	perspective: 50px;
+	height: 148px;
+	perspective: 60px;
 	left: 10px;
 	top: 295px;
+	min-width: 85px;
+	min-height: 60px;
 }
 
 #obfl2 {
 	border: 1px solid blue;
 	background-color: transparent;
-	width: 250px;
-	height: 150px;
-	perspective: 50px;
-	left: 220px;
+	width: 274px;
+	height: 148px;
+	perspective: 60px;
+	left: 213px;
 	top: 295px;
+	min-width: 119px;
+	min-height: 60px;
 }
 
 #obfl3 {
 	border: 1px solid orange;
 	background-color: transparent;
-	width: 85px;
-	height: 150px;
-	perspective: 50px;
-	left: 500px;
+	width: 106px;
+	height: 148px;
+	perspective: 60px;
+	left: 490px;
 	top: 295px;
+	min-width: 32px;
+	min-height: 60px;
 }
 
 #obfl4 {
 	border: 1px solid green;
 	background-color: transparent;
-	width: 270px;
-	height: 150px;
-	perspective: 50px;
-	left: 600px;
+	width: 299px;
+	height: 148px;
+	perspective: 60px;
+	left: 599px;
 	top: 295px;
+	min-width: 110px;
+	min-height: 60px;
 }
 
 #obfl5 {
@@ -994,13 +1008,15 @@ h3 {
 	background-color: transparent;
 	width: 700px;
 	height: 80px;
-	perspective: 50px;
+	perspective: 37px;
 	left: 30px;
 	top: 30px;
+	min-width: 300px;
+	min-height: 65px;
 }
 
 #arbeitsflache {
-	background: url("../img/arbeitsflaeche.jpg") no-repeat;
+	background: url("../img/arbeitsflaeche_2.jpg") no-repeat;
 	opacity: 0.5;
 	width: 900px;
 	height: 152px;
@@ -1065,6 +1081,42 @@ h3 {
 
 #test2 .closeAnzeige h4 {margin: 0}
 
+#test2 .testUpAndDown {
+	z-index: 10;
+	position: absolute;
+	right: 0;
+	top: 75px;
+
+}
+#test2 .testUpAndDown button {
+	padding: 5px 10px;
+	background: #fff;
+	border-radius: 3px;
+}
+#test2 .testUpAndDown button:hover {
+	cursor: pointer;
+}
+#test2 .testUpAndDown button h4 {
+	margin: 0;
+}
+
+#test2 .testUpAndDown #testUp h4 {
+	-moz-transform: rotate(-90deg);
+	-ms-transform: rotate(-90deg);
+	-o-transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+	transform: rotate(-90deg);
+
+}
+#test2 .testUpAndDown #testDown h4 {
+	-moz-transform: rotate(90deg);
+	-ms-transform: rotate(90deg);
+	-o-transform: rotate(90deg);
+	-webkit-transform: rotate(90deg);
+	transform: rotate(90deg);
+	position: relative;
+	left: -2px;
+}
 #test2 img:hover {
 	cursor: pointer;
 }

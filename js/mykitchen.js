@@ -205,7 +205,7 @@ $(document).ready(function() {
             } else {
                 document.getElementById('finish').disabled = true;
             }
-            document.getElementById('back').disabled = false;
+            // document.getElementById('back').disabled = false;
         },
     });
 
@@ -949,14 +949,50 @@ function showObjects(last_shelf) {
     // }
 
     let $buttonClose = ' <button class="closeAnzeige" id="close-anzeige"><h4>X</h4></button>';
-    $('#test2').append($buttonClose).css('opacity', '1').css('display', 'block');
+    $('#test2').append($buttonClose);
+
+    let upDown = '<div class="testUpAndDown">\n' +
+        '                <button id="testUp"><h4>&#10145;</h4></button><br>\n' +
+        '                <button id="testDown"><h4>&#10145;</h4></button>\n' +
+        '            </div>';
+    $('#test2').append(upDown).css('opacity', '1').css('display', 'block');
 
 
 
     // $('#test2').show();
 
 }
+$(document).on('click', '#testUp', function(){
+    let tT = document.getElementById('test2').style.top.replace(/\D/g,'');
+    // let tT = $("#test2").offset().top;
+    console.log('tT ' + tT);
 
+    let minusT = parseInt(tT) -40;
+    console.log('minusT ' + minusT);
+    if(tT >= 40) {
+        $("#test2").css({top: minusT + 'px'});
+        $("#testDown").prop('disabled', false);
+    } else {
+        $("#testUp").prop('disabled', true);
+
+    }
+
+});
+$(document).on('click', '#testDown', function(){
+    let tTH = document.getElementById('test2').style.top.replace(/\D/g,'');
+    // let tTH = $("#test2").offset().top;
+    console.log('tTH ' + tTH);
+
+    let plusT = parseInt(tTH) +40;
+    console.log('plusT ' + plusT);
+    if(tTH <= 360) {
+        $("#test2").css({top: plusT + 'px'});
+        $("#testUp").prop('disabled', false);
+    } else {
+        $("#testDown").prop('disabled', true);
+    }
+
+});
 
 $(document).on('click', '.closeAnzeige#close-anzeige', function(){
     // $("#test2").css('opacity');
@@ -978,7 +1014,8 @@ $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
 
 
 // adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp
-$(document).on('click', '#test2 .objekte, .obfl .objekte, .oben .objekte, .unten .objekte', function(){
+// .obfl .objekte, .oben .objekte, .unten .objekte
+$(document).on('click', '#test2 .objekte', function(){
     var modal = document.getElementById('myModalKitchen');
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption1");
@@ -990,7 +1027,7 @@ $(document).on('click', '#test2 .objekte, .obfl .objekte, .oben .objekte, .unten
         modal.style.display = "none";
     };
 });
-$(document).on('click', '#obj .objekte', function(){
+/*$(document).on('click', '#obj .objekte', function(){
     var modal = document.getElementById('myModalObj');
     var modalImg = document.getElementById("img02");
     var captionText = document.getElementById("caption2");
@@ -1004,7 +1041,7 @@ $(document).on('click', '#obj .objekte', function(){
     span.onclick = function() {
         modal.style.display = "none";
     };
-});
+});*/
 
 $(document).on('click', '#closeAlert', function(){
     // document.getElementById('myModalAlert').style.display ="none";

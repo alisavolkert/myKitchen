@@ -62,8 +62,8 @@ $db = new Database();
 <div class="all">
     <div id="lupe"></div>
     <div class="but">
-        <button id="back" class="small" style="font-size: 18px; width: 35px;" disabled><</button>
-        <button id="next" class="small" style="font-size: 18px; width: 35px;" disabled>></button>
+<!--        <button id="back" class="small" style="font-size: 18px; width: 35px;" disabled><</button>-->
+<!--        <button id="next" class="small" style="font-size: 18px; width: 35px;" disabled>></button>-->
         <button id="help" class="small" style="font-size: 18px; width: 35px;">?</button>
         <button id="open"  class="big">Alle öffnen</button>
         <button id="close" class="big">Alle schließen</button>
@@ -92,6 +92,10 @@ $db = new Database();
             <div id="info-bild"></div>
         </div>
         <div id="test2">
+            <div class="testUpAndDown">
+                <button id="testUp"><h4>↑</h4></button><br>
+                <button id="testDown"><h4>↓</h4></button>
+            </div>
             <button class="closeAnzeige" id="close-anzeige">
                 <h4>X</h4>
             </button>
