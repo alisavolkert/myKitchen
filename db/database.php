@@ -68,7 +68,7 @@ class Database
     }
     public function saveUserData($dk,$vj) {
 
-        $stmt = $this->connection->prepare("INSERT INTO participants(deutschkenntnisse,volljaehrig) VALUES (?,?)");
+        $stmt = $this->connection->prepare("INSERT INTO participants(german,adult) VALUES (?,?)");
 
         $stmt->bind_param("si",$dk,$vj);
         if($stmt->execute()) {
@@ -80,13 +80,70 @@ class Database
             $stmt->close();
             return FALSE;
         }
-
-
     }
+
+    public function saveRestData($userId, $age, $gender, $height, $with_children,$nationality,
+                                 $hours_kitchen, $hours_job, $starttime, $endtime, $time_difference,
+                                 $mouseclicks, $clicksonobjects) {
+
+        $stmt = $this->connection->prepare("
+                UPDATE participants
+                SET age = ?, gender = ?,height = ?,with_children = ?,nationality = ?,
+                hours_kitchen = ?,hours_job = ?,starttime = ?,endtime = ?,time_difference = ?,
+                mouseclicks = ?,clicksonobjects = ?
+                WHERE user_id = ?");
+
+        $stmt->bind_param("isissiisssiii", $age, $gender, $height, $with_children,$nationality,
+            $hours_kitchen, $hours_job, $starttime, $endtime, $time_difference,
+            $mouseclicks, $clicksonobjects, $userId);
+        if($stmt->execute()) {
+            $stmt->close();
+            return TRUE;
+        } else {
+            echo "<p>There was an error in query:</p>";
+            echo $this->connection->error;
+            $stmt->close();
+            return FALSE;
+        }
+    }
+
+
+
+    public function saveObjects($userId, $shelf, $timestamp, $itemId, $isLast) {
+
+        $stmt = $this->connection->prepare("INSERT INTO results(user_id,shelf,time_stamp,item_id,is_last) VALUES (?,?,?,?,?)");
+
+        $stmt->bind_param("isiii",$userId, $shelf, $timestamp, $itemId, $isLast);
+        if($stmt->execute()) {
+            $stmt->close();
+            return TRUE;
+        } else {
+            echo "<p>There was an error in query:</p>";
+            echo $this->connection->error;
+            $stmt->close();
+            return FALSE;
+        }
+    }
+
+    public function saveReasons($userId, $shelf, $reason) {
+        $stmt = $this->connection->prepare("INSERT INTO reasons(user_id,shelf,reason) VALUES (?,?,?)");
+
+        $stmt->bind_param("iss",$userId, $shelf, $reason);
+        if($stmt->execute()) {
+            $stmt->close();
+            return TRUE;
+        } else {
+            echo "<p>There was an error in query:</p>";
+            echo $this->connection->error;
+            $stmt->close();
+            return FALSE;
+        }
+    }
+
 
     public function getLastUserId() {
 
-        $stmt = $this->connection->prepare('SELECT userid FROM participants ORDER BY userid DESC LIMIT 1');
+        $stmt = $this->connection->prepare('SELECT user_id FROM participants ORDER BY user_id DESC LIMIT 1');
 //        $stmt->bind_param("s",$email);
         $stmt->execute();
         $stmt->bind_result($usrd);
@@ -101,7 +158,7 @@ class Database
 
 
     public function setCompletedById($id) {
-        $stmt = $this->connection->prepare('UPDATE  participants SET completed = 1 WHERE userid = ?');
+        $stmt = $this->connection->prepare('UPDATE  participants SET completed = 1 WHERE user_id = ?');
         $stmt->bind_param("i",$id);
         if($stmt->execute()) {
             $stmt->close();

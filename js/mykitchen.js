@@ -6,6 +6,7 @@ var endTime = startTime;
 
 let timeLimitReached = false;
 let timeLimitReachedString = "";
+Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
 
 var timeLimit = function() {
     clearInterval(myInterval);
@@ -34,6 +35,7 @@ var regal_ids = ["time/ID","sv1-1","sv1-2","sv2-1","sv2-2","sv3-1","sv3-2","sv4-
     "sv10-1","sv10-2","sv10-3","obfl1","obfl2","obfl3","obfl4","obfl5","obj"];
 // speihert aktuellen Zustand (Elemente werden bei back-Button NICHT entfernt)
 var results = new Array();
+var resultsForDB = [];
 // speichert aktuellen Zustand (Elemente werden bei back-Button entfernt)
 var results_history_change = [];
 var index = 0; /* Undo-Redo */
@@ -151,6 +153,30 @@ $(document).ready(function() {
                         }
                     }
                 }
+            }
+
+            if(new_parent_id !== 'obj') {
+                let resTmp = [];
+                resTmp[0] = userid;
+                resTmp[1] = new_parent_id;
+                resTmp[2] = new Date().getUnixTime();
+                resTmp[3] = obj_id;
+                resTmp[4] = 1;
+                resultsForDB.push(resTmp);
+
+                console.log('resultsForDB ' + JSON.stringify(resultsForDB));
+
+                let res= [];
+                resultsForDB.forEach(function each(item) {
+                    if((item[0] === userid) && (item[3] === obj_id)
+                        && (item[2] < resTmp[2])) {
+                        item[4] = 0;
+                    }
+                    res.push(item);
+                });
+
+                resultsForDB = res;
+                console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
             }
 
 
@@ -498,12 +524,13 @@ $(document).ready(function() {
 
         if (!totallyFinished && !allExplanationsWritten) {
             endTime = new Date();
+            $('#test2').hide();
             $('#test2').css('height', '330px');
             $('#gkitchen .regal:not(#test2 .regal)').append('<div class="erkl"><h4>Erklärung:</h4><textarea></textarea></div>');
             $('#myModalAlert #alertText').html(timeLimitReachedString + "Bitte gib zu jedem Regalfach eine kurze Erklärung, " +
                 "warum du die Gegenstände zusammen gruppiert hast.<br>" +
                 "Klicke hierzu in das entsprechende Fach.<br><br>" +
-                "Drücke anschließend erneut auf \"Finish\"");
+                "Drücke anschließend erneut auf \"Weiter\"");
             $("#myModalAlert div").css({
                 width:'400px',
                 height: '265px'});
@@ -511,6 +538,8 @@ $(document).ready(function() {
             $("#myModalAlert").css('opacity', '0');
             $('#myModalAlert').css('display','block');
             $("#myModalAlert").css('opacity', '1');
+
+            $("#open").click();
 
             $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
                 // showObjects("#" + this.id);
@@ -548,8 +577,8 @@ $(document).ready(function() {
             // $('.hasObjects textarea').each(function(i, obj) {
             if($('.hasObjects').length) {
                 // if (obj.value === "") {
-                    $('#myModalAlert #alertText').html("Bitte begründe zuerst deine Auswahl  für jedes eingeräumte Fach!<br><br>"
-                        + "Drücke anschließend erneut auf \"Finish\".");
+                    $('#myModalAlert #alertText').html("Bitte begründe zuerst deine Auswahl für jedes eingeräumte Fach!<br><br>"
+                        + "Drücke anschließend erneut auf \"Weiter\".");
                     $("#myModalAlert div").css({
                         width:'400px',
                         height: '265px'});
@@ -579,7 +608,7 @@ $(document).ready(function() {
                 // reasons[i] = children.toString();
             }
 
-            console.log(JSON.stringify(reasons));
+            // console.log(JSON.stringify(reasons));
 
 
 
@@ -592,13 +621,16 @@ $(document).ready(function() {
             $.ajax({
                 type: 'POST',
                 url: this.url,
+                // url: './db/uploadResPlusCSV.php',
                 data: {
                     arr1 : row,
                     arr2 : results,
                     arr3 : regal_ids,
-                    arr4 : reasons
+                    arr4 : reasons,
+                    arr5 : resultsForDB
                 },
                 success: function(data) {
+                    console.log(data);
                     $(".all").addClass("hidden");
                     // $("h3").removeClass("hidden");
                     window.location.href = 'finish.php';
@@ -853,9 +885,12 @@ let msecToString = function (diff) {
     msec -= ss * 1000;
     return hh + ":" + mm + ":" + ss;
 
-}
+};
 
-/* hide kitchen object(s) */
+
+
+
+    /* hide kitchen object(s) */
 var hideImage = function(id) {
     $(id).addClass('transparent');
 };

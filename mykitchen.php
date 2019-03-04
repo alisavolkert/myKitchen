@@ -3,6 +3,7 @@ error_reporting(E_ALL & ~E_NOTICE);
 mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 ini_set('display_errors', '1');
 date_default_timezone_set('Europe/Berlin');
+header('Content-type: text/html; charset=utf-8');
 
 require_once('./db/database.php');
 $db = new Database();
@@ -31,7 +32,7 @@ $db = new Database();
 
 <body>
 <script type="text/javascript">
-    var data = <?php echo json_encode($_POST) ?>;
+    var data = <?php echo json_encode($_POST, JSON_UNESCAPED_UNICODE) ?>;
 
     // var beruf;
 
@@ -262,6 +263,7 @@ $db = new Database();
         <div class="regal unten obfl" id="obfl4"></div>
         <div class="regal oben obfl" id="obfl5"></div>
 
+        <div id="flaecheOben"></div>
         <div id="arbeitsflache"></div>
     </div>
 
@@ -272,8 +274,6 @@ $db = new Database();
 <!--            <div id="caption2"></div>-->
         </div>
 <?php
-
-
         //mb_internal_encoding('UTF-8');
         function setOffset($height, $width, $depth){
             $height = round(number_format($height));
@@ -285,23 +285,6 @@ $db = new Database();
             return $result;
         }
 
-        function nicknameToFile($str){
-            $replace_array = array(
-                '-' => '_',
-                ' ' => '_',
-                ':' => '_',
-                '.' => '_',
-                ';' => '_',
-                'Ä' => 'Ae',
-                'Ö' => 'Oe',
-                'Ü' => 'Ue',
-                'ä' => 'ae',
-                'ö' => 'oe',
-                'ü' => 'ue',
-                'ß' => 'ss');
-            $result = strtr($str,$replace_array);
-            return $result;
-        }
 
 
 
@@ -326,9 +309,9 @@ $result_mk = $db->getAllImagesWithData();
 //            echo "Datenbanktabelle ist nicht leer";
 //              print_r($result_mk);
 //            while($row = $result_mk->fetch()) {
-           $i=0;
+           //$i=0;
              foreach ($result_mk as $row) {
-                 if ($i < 10) {
+             //    if ($i < 10) {
                      $image = $row['picture'];
                      if ($image === 0) {
                          $image = "default.jpeg";
@@ -342,152 +325,15 @@ $result_mk = $db->getAllImagesWithData();
 //                echo "img set";
                      $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
                  }
-                $i++;
-             }
+               // $i++;
+             //}
         } else {
             echo "Datenbanktabelle ist leer";
         }
 //        print_r($result_mk);
 
-        # create writable directory if not exists
-        $dir = "userdaten/";
-        if (!file_exists($dir)){
-            $oldmask = umask(0); // for linux Server
-            mkdir($dir, 0775);
-        }
+    require 'uploadResPlusCSV.php';
 
-        $datum = date("d_m_Y");
-
-        # add new row(array) in csv-file
-        if (isset($_POST["arr1"])) {
-
-           // $userid = $db->query("SELECT userid FROM participants WHERE completed = 0 ORDER BY userid DESC LIMIT 1")->fetch();
-           // $stmt->execute();
-           // $stmt->bind_result($uid);
-           // $userid=0;
-           // while ($stmt->fetch()) {
-           //     $userid= $uid;
-           // }
-
-           // $stmt->close();
-
-           // $stmt = $db->query("UPDATE participants SET completed= 1 WHERE userid =:userid");
-            //$stmt->bindParam(':userid', $userid, PDO::PARAM_INT);
-            //$stmt->execute();
-            //$stmt->close();
-
-
-            $arr = $_POST["arr1"];
-            $arr2 = $_POST["arr2"];
-            $arr3 = $_POST["arr3"];
-            $arr4 = $_POST["arr4"];
-
-            $userid= 00000000;
-            if(isset($_SESSION['user_id'])) {
-                $userid = $_SESSION['user_id'];
-            }
-            if(isset($_COOKIE['userID'])) {
-                $userid = $_COOKIE['userID'];
-            }
-
-            if (count($arr) > 7) {
-
-                $a1 = array_shift($arr);
-                array_unshift($arr, $userid);
-                $results = $dir.'userdata.csv';
-                chmod($results, 0755);
-                $userscore = fopen($results, 'a');
-                if (trim(file_get_contents($results)) === false) {
-//                    $first = array('Anrede','Alter','Nationalitaet','Stunden am Tag','Stunden in der Woche','Beruf','Startzeit','Endzeit', 'Zeitdifferenz', 'Gesamte Mouseclicks','Klicks auf Gegenstaende');
-                    $first = array('UserID','Alter','Geschlecht', 'Groesse', 'Mit Kindern', 'Nationalitaet','Stunden in der Kueche','Stunden im Beruf','Startzeit','Endzeit', 'Zeitdifferenz', 'Gesamte Mouseclicks','Klicks auf Gegenstaende');
-                    fputcsv($userscore, $first);
-                }
-
-                fputcsv($userscore, $arr);
-                fclose($userscore);
-                //chown($userscore, 'strecker');
-                //chgrp($userscore, 'WSIstud');
-                // if ($db_connection) {
-                //   $db_connection->exec("INSERT INTO userscore (gender, age, nationality, hoursday, hourswheek, jobtitle, starttime, endtime, mouseclicks, clicksonobjects)
-                //   VALUES ($arr[0],$arr[1],$arr[2],$arr[3], $arr[4],$arr[5],$arr[6],$arr[7],$arr[8],$arr[9])");
-                // }
-            }
-
-            if (isset($_POST["arr2"])){
-
-
-
-                $dir = $dir.$userid.'/';
-
-                if (!file_exists($dir) && !mkdir($dir, 0755) && !is_dir($dir)){
-                    $oldmask = umask(0); // for linux Server
-                    mkdir($dir, 0755);
-                }
-
-
-                $fp = fopen($dir.$userid.'__'.$datum.'__'.nicknameToFile($arr[6]).'.csv', 'w');
-                chmod($fp, 0775);
-                chgrp($fp, 'pkweb');
-                fputcsv($fp, $arr3);
-
-                $l = count($arr2);
-                for ($i = 0; $i < $l; $i++) {
-                    fputcsv($fp, $arr2[$i]);
-                }
-
-                fclose($fp);
-
-                $fpr = fopen($dir.$userid.'__'.$datum.'__'.nicknameToFile($arr[6]).'_reasons.csv', 'w');
-                chmod($fpr, 0775);
-                chgrp($fpr, 'pkweb');
-                fputcsv($fpr, $arr3);
-                fputcsv($fpr, $arr4);
-
-//                $l = count($arr4);
-//                for ($i = 0; $i < $l; $i++) {
-//                    fputcsv($fpr, $arr4[$i]);
-//                }
-
-                fclose($fpr);
-
-                if ($l > 0){
-                    $fpf = fopen($dir.$userid.'__'.$datum.'__'.nicknameToFile($arr[6]).'_finish.csv', 'w');
-                    chmod($fpf, 0775);
-                    chgrp($fp, 'pkweb');
-                    $a1 = array_shift($arr3);
-                    $al = array_pop($arr3);
-                    fputcsv($fpf, $arr3);
-
-                    if ($arr2[$l - 1][1] === "FINISH") {
-                        $l--;
-                    }
-
-                    while ( $arr2[$l - 1][1] === "RESTART" && $l > 1){
-                        $l--;
-                    }
-                    $a1 = array_shift($arr2[$l - 1]);
-                    $al = array_pop($arr2[$l - 1]);
-                    fputcsv($fpf, $arr2[$l - 1]);
-
-                    fclose($fpf);
-                }
-            }
-        }
-
-        # save distance-table in folder "userdaten"
-        if (isset($_POST["dist"])) {
-            $dist = $_POST["dist"];
-            $l = count($dist[0]);
-
-            $df = fopen($dir.'distances_'.$datum.'.csv', 'w');
-            chmod($fp, 0775);
-
-            for ($i = 0; $i < $l; $i++) {
-                fputcsv($df, $dist[$i]);
-            }
-
-            fclose($df);
-        }
 
 ?>
     </div>
@@ -495,6 +341,7 @@ $result_mk = $db->getAllImagesWithData();
     <script type="text/javascript">
         <?php
         echo "var daten = ", json_encode($js_array_mk), ";";
+        echo 'var userid = '. json_encode($_COOKIE['userID']) . ';';
         ?>
     </script>
 

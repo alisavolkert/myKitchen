@@ -7,6 +7,7 @@ session_start();
 
 require_once('./db/database.php');
 
+
 if (!isset($_SESSION["user_id"]))
 {
     echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginn den Versuch <a href="index.php">erneut</a>.';
@@ -31,10 +32,10 @@ function form_is_correct()
     global $errorstring;
     $errorstring = "";
 
-    if(!validate_email($_REQUEST["email"]))
-    {
-        $errorstring.= "Bitte gib eine gültige Mailadresse ein.<br>";
-    }
+//    if(!validate_email($_REQUEST["email"]))
+//    {
+//        $errorstring.= "Bitte gib eine gültige Mailadresse ein.<br>";
+//    }
 
 //    if(!isset($_REQUEST["agreement"]))
 //    {
@@ -86,7 +87,7 @@ function get_form($errorstring = "", $email = "")
 
 
 <form action="finish.php#personaldata" method="POST" id="personaldata" class="hl">
-    <h4>Du kannst dich jetzt entscheiden, ob du lieber an unserem Gewinnspiel teilnehmen möchtest, oder ob wir dir eine (halbe) Versuchspersonenstunde ausstellen sollen.</h4>
+    <h4>Teilnahme am Gewinnspiel</h4>
 <!--    <p>Zur Verknüpfung Ihrer Entscheidung mit Ihrer Person benötigen wir Ihre Mailadresse.</p>-->
 
     <p>Wenn du am Gewinnspiel teilnehmen möchtest, um einen von 10 Gutscheinen im Wert von je 20 € für den Tübinger Einzelhandel zu gewinnen, gib bitte deine Mailadresse an.</p>
@@ -96,16 +97,39 @@ function get_form($errorstring = "", $email = "")
     <p>Bitte beachte, dass du nur an der Verlosung teilnehmen kannst, wenn du eine gültige Mailadresse angibst.</p>
     <span class="error">' . $errorstring . '</span>
     <p>
-        <label for="email" >Mailadresse:</label>
-        <input type="email" name="email" id="email" size="50" maxlength="100" value="' . $email . '" required>
+        <!--<label for="email" >Mailadresse:</label>-->
+        <input type="text" name="email" id="email" size="50" maxlength="100" hidden required>
+        <label><input type="radio" name="num" id="mailadrr" value="" onclick="disableMatrInput()" checked> Mailadresse:</label> 
+        <input type="email" name="m1" id="email2" size="50" maxlength="100" oninput="updateInput(this.value)"/>
+       <br>
+        <label><input type="radio" name="num" id="matrnum" value="" onclick="disableMailInput()"> Matrikelnummer:</label> 
+        <input type="number" name="m1" id="matr" min="0" maxlength="10" oninput="updateInput(this.value)" disabled/>
 
     </p>
+      <script>
+        function disableMailInput() {
+            document.getElementById("email2").disabled = true;
+            document.getElementById("matr").disabled = false;
+            
+        } 
+        function disableMatrInput() {
+            document.getElementById("matr").disabled = true;
+            document.getElementById("email2").disabled = false;
+           
+        } 
+        function updateInput(v) {
+            document.getElementById("subMailMatr").disabled = false;
+            document.getElementById("subMailMatr").disabled = false;
+            document.getElementById("email").value = v;
+        }
+
+          </script>
    <!-- <p>
         <input type="checkbox" name="agreement" id="agreement">
         <label for="agreement">Ich willige der Erklärung zur Erhebung und Verarbeitung meiner personenbezogenen Daten ein.</label>
     </p>
 -->
-    <button type="submit">Absenden</button>
+    <button type="submit" id="subMailMatr" disabled>Am Gewinnspiel teilnehmen</button>
 </form>
 
 <br>
@@ -132,9 +156,9 @@ if(!isset($_REQUEST["email"]))
   echo get_form();
 else
 {
-  if(form_is_correct()) {
+//  if(form_is_correct()) {
     // Save mail to session
-    
+//    print_r("email: " .$_REQUEST["email"]);
     // email
       if($db->insertMailAdress($_REQUEST["email"])) {
         echo '<h3>Vielen Danke für Ihre Teilnahme!</h3>';
@@ -152,11 +176,11 @@ else
     // Give me the next page  
 //    redirect("exp3.php");
 
-  } else {
+//  } else {
 
-    echo get_form($errorstring, $email);
+//    echo get_form($errorstring, $email);
 
-  }
+//  }
 
 }
 

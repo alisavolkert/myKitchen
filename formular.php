@@ -83,7 +83,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
           return false;
         }
 		
-        if (Number(form.hours1.value) < 0) {
+       /* if (Number(form.hours1.value) < 0) {
           alert("Die Zahl sollte positiv sein");
           form.hours1.focus();
           return false;
@@ -94,7 +94,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
           alert("Bitte gib an, wie viele Stunden du letzte Woche in der K&uuml;che verbracht hast.");
           form.hoursKitchen.focus();
           return false;
-        }
+        }*/
 
         return true;
       }
@@ -102,7 +102,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 
   </head>
 
-  <body onload="document.kontaktformular.name.focus();">
+  <body >
     <h1>K&uuml;chensimulation</h1>
 
     <p>Bitte mach folgende Angaben: </p>

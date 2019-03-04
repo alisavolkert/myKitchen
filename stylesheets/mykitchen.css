@@ -954,7 +954,9 @@ h3 {
 	color: white;
 }
 
-/* Daria ToDo min-height*/
+.obfl {
+	border: none !important;
+}
 #obfl1 {
 	border: 1px solid black;
 	background-color: transparent;
@@ -1013,6 +1015,15 @@ h3 {
 	top: 30px;
 	min-width: 300px;
 	min-height: 65px;
+}
+#flaecheOben {
+	background: url("../img/oben.jpg") no-repeat;
+	opacity: 0.5;
+	width: 700px;
+	height: 152px;
+	position: absolute;
+	top: 93px;
+	left: 27px;
 }
 
 #arbeitsflache {
@@ -1092,6 +1103,7 @@ h3 {
 	padding: 5px 10px;
 	background: #fff;
 	border-radius: 3px;
+	width: 33px;
 }
 #test2 .testUpAndDown button:hover {
 	cursor: pointer;
