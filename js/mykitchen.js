@@ -577,8 +577,8 @@ $(document).ready(function() {
             // $('.hasObjects textarea').each(function(i, obj) {
             if($('.hasObjects').length) {
                 // if (obj.value === "") {
-                    $('#myModalAlert #alertText').html("Bitte begründe zuerst deine Auswahl für jedes eingeräumte Fach!<br><br>"
-                        + "Drücke anschließend erneut auf \"Weiter\".");
+                    $('#myModalAlert #alertText').html("Bitte begründe zuerst deine Auswahl für jedes eingeräumte Fach!<br><br>" // TODO: ergänzen: Klicke in ein Regalfach, um seinen Inhalt zu begründen. Deine Eingabe wird automatisch gespeichert [sofern das der Fall ist].
+                        + "Drücke anschließend erneut auf \"Weiter\"."); // TODO: das Beschreibungsfeld oberhalb der Bildchen anzeigen lassen
                     $("#myModalAlert div").css({
                         width:'400px',
                         height: '265px'});
