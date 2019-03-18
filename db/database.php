@@ -86,12 +86,13 @@ class Database
                                  $hours_kitchen, $hours_job, $starttime, $endtime, $time_difference,
                                  $mouseclicks, $clicksonobjects) {
 
-        $stmt = $this->connection->prepare("
+        $this->connection->set_charset('utf8');
+        $stmt = $this->connection->prepare('
                 UPDATE participants
                 SET age = ?, gender = ?,height = ?,with_children = ?,nationality = ?,
                 hours_kitchen = ?,hours_job = ?,starttime = ?,endtime = ?,time_difference = ?,
                 mouseclicks = ?,clicksonobjects = ?
-                WHERE user_id = ?");
+                WHERE user_id = ?');
 
         $stmt->bind_param("isissiisssiii", $age, $gender, $height, $with_children,$nationality,
             $hours_kitchen, $hours_job, $starttime, $endtime, $time_difference,
@@ -126,6 +127,7 @@ class Database
     }
 
     public function saveReasons($userId, $shelf, $reason) {
+        $this->connection->set_charset('utf8');
         $stmt = $this->connection->prepare("INSERT INTO reasons(user_id,shelf,reason) VALUES (?,?,?)");
 
         $stmt->bind_param("iss",$userId, $shelf, $reason);

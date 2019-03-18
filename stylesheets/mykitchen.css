@@ -161,9 +161,9 @@ h3 {
 	box-shadow: 2px 2px 5px 0px rgba(110,110,110,1);
 }
 #info-bild {
-	background: url("../img/Kuechenschema_900.jpg") no-repeat;
+	background: url("../img/versuch.jpg") no-repeat;
 	background-size: contain;
-	height: 300px;
+	height: 234px;
 }
 #info .closeAnzeige {
 	padding: 5px 10px;
@@ -179,10 +179,13 @@ h3 {
 #info .closeAnzeige h4 {
 	margin: 0;
 }
+#info h2, #info h4 {
+	margin: 0;
+}
 
 .schrank {
 	position: absolute;
-	display:none;
+	/*display:none;*/
 	border: 1px solid #726c5d;
 	text-align: center;
 	overflow: hidden;
@@ -203,17 +206,17 @@ h3 {
 	transform-style: preserve-3d;
 	transform-origin: left center;
 	border: 1px solid #bfbfbf;
-	z-index: 4;
+	z-index: 5;
 }
 .door:hover {
 	cursor: pointer;
 }
 
 .opendoorleft {
-	-webkit-transform: rotateY(-95deg) skewY(5deg);
-	-moz-transform: rotateY(-95deg) skewY(5deg);
-  -o-transform: rotateY(-95deg) skewY(5deg);
-	transform: rotateY(-95deg) skewY(5deg);
+	-webkit-transform: rotateY(-105deg) skewY(5deg);
+	-moz-transform: rotateY(-105deg) skewY(5deg);
+  -o-transform: rotateY(-105deg) skewY(5deg);
+	transform: rotateY(-105deg) skewY(5deg);
 	transform-origin: left bottom;
 	position: absolute;
 	z-index: 5;
@@ -546,7 +549,7 @@ h3 {
 	top: 115px;
 	width: 135px;
 	height: 177px;
-	background-image: url(../img/tuer_oben_links.jpg);
+	background-image: url(../img/tuer_oben_links._op.png);
 	background-size: 142px 182px;
 }
 
@@ -555,7 +558,7 @@ h3 {
 	top: 115px;
 	width: 135px;
 	height: 177px;
-	background-image: url(../img/tuer_oben_links.jpg);
+	background-image: url(../img/tuer_oben_links._op.png);
 	background-size: 142px 182px;
 }
 
@@ -564,7 +567,7 @@ h3 {
 	left: 450px;
 	top: 115px;
 	height: 177px;
-	background-image: url(../img/tuer_oben_rechts.jpg);
+	background-image: url(../img/tuer_oben_rechts_op.png);
 	background-size: 142px 182px;
 }
 
@@ -573,7 +576,7 @@ h3 {
 	top: 115px;
 	width: 135px;
 	height: 177px;
-	background-image: url(../img/tuer_oben_links.jpg);
+	background-image: url(../img/tuer_oben_links._op.png);
 	background-size: 142px 182px;
 }
 
@@ -954,11 +957,11 @@ h3 {
 	color: white;
 }
 
-.obfl {
+/*.obfl {
 	border: none !important;
-}
+}*/
 #obfl1 {
-	border: 1px solid black;
+	/*border: 1px solid black;*/
 	background-color: transparent;
 	width: 200px;
 	height: 148px;
@@ -970,7 +973,7 @@ h3 {
 }
 
 #obfl2 {
-	border: 1px solid blue;
+	/*border: 1px solid blue;*/
 	background-color: transparent;
 	width: 274px;
 	height: 148px;
@@ -982,7 +985,7 @@ h3 {
 }
 
 #obfl3 {
-	border: 1px solid orange;
+	/*border: 1px solid orange;*/
 	background-color: transparent;
 	width: 106px;
 	height: 148px;
@@ -994,7 +997,7 @@ h3 {
 }
 
 #obfl4 {
-	border: 1px solid green;
+	/*border: 1px solid green;*/
 	background-color: transparent;
 	width: 299px;
 	height: 148px;
@@ -1006,7 +1009,7 @@ h3 {
 }
 
 #obfl5 {
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 	background-color: transparent;
 	width: 700px;
 	height: 80px;
@@ -1132,10 +1135,15 @@ h3 {
 #test2 img:hover {
 	cursor: pointer;
 }
+.hasObjectsBorder {
+	border: 2px dashed #F00;
+	box-sizing: border-box;
+}
 
 .erkl {
 	bottom: 0;
 	display: none;
+	padding: 5px;
 	/*position: absolute;*/
 }
 .erkl h4 {

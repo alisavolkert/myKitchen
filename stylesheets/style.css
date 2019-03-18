@@ -34,7 +34,9 @@ body {
 	border-radius: 3px;
 	border: 1px solid red;
 }
-
+#but:hover {
+	cursor: pointer;
+}
 h1 {
 	position: absolute;
 	top: 20px;

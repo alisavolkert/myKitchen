@@ -12,7 +12,23 @@
   // Check if ID is set, otherwise something went wrong:
   if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
   {
-    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+//    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+      echo '<head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="stylesheets/exp.css" />
+                <title>Einräumen einer simulierten Küche</title>
+            </head>
+            <body>
+                <div style="width: 900px; margin: 0 auto;">
+                <img src="img/logo_web.png" id="logo">
+                <br><br>
+                <p id="expstart"><b>Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten.</b><br><br>
+                Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
+                <hr>
+                <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+              </div>
+            </body>';
     die();
   }
 

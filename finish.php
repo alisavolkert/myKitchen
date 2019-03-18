@@ -10,7 +10,23 @@ require_once('./db/database.php');
 
 if (!isset($_SESSION["user_id"]))
 {
-    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginn den Versuch <a href="index.php">erneut</a>.';
+//    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginne den Versuch <a href="index.php">erneut</a>.';
+    echo '<head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="stylesheets/exp.css" />
+                <title>Einräumen einer simulierten Küche</title>
+            </head>
+            <body>
+                <div style="width: 900px; margin: 0 auto;">
+                <img src="img/logo_web.png" id="logo">
+                <br><br>
+                <p id="expstart"><b>Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten.</b><br><br>
+                Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
+                <hr>
+                <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+              </div>
+            </body>';
     die();
 } else {
     $db = new Database();
@@ -110,16 +126,23 @@ function get_form($errorstring = "", $email = "")
         function disableMailInput() {
             document.getElementById("email2").disabled = true;
             document.getElementById("matr").disabled = false;
+            document.getElementById("subMailMatr").innerHTML = "Ich möchte eine (halbe) Versuchspersonenstunde";
             
         } 
         function disableMatrInput() {
             document.getElementById("matr").disabled = true;
             document.getElementById("email2").disabled = false;
+            document.getElementById("subMailMatr").innerHTML = "Ich möchte am Gewinnspiel teilnehmen";
            
         } 
         function updateInput(v) {
-            document.getElementById("subMailMatr").disabled = false;
-            document.getElementById("subMailMatr").disabled = false;
+            if(v === "") {
+                 document.getElementById("subMailMatr").disabled = true;
+                 document.getElementById("subMailMatr").disabled = true;
+            } else {
+                document.getElementById("subMailMatr").disabled = false;
+                document.getElementById("subMailMatr").disabled = false;
+            }
             document.getElementById("email").value = v;
         }
 
@@ -161,12 +184,36 @@ else
 //    print_r("email: " .$_REQUEST["email"]);
     // email
       if($db->insertMailAdress($_REQUEST["email"])) {
-        echo '<h3>Vielen Danke für Ihre Teilnahme!</h3>';
-        echo 'Ihre Mailadresse wurde gespeichert.';
-        echo '<br><br> Sie können dieses Browserfenster nun schließen.';
+          echo '<head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="stylesheets/exp.css" />
+                <title>Einräumen einer simulierten Küche</title>
+            </head>
+            <body>
+                <div style="width: 900px; margin: 0 auto;">
+                <img src="img/logo_web.png" id="logo">
+                <br><br>
+                <h3>Vielen Dank für Deine Teilnahme!</h3><br><br>
+                <p>Deine Mailadresse/Matrikelnummer wurde gespeichert.</p>
+                <p>Du kannst dieses Browserfenster nun schließen.</p><br><br>
+                Ansprechpartnerin: <br>
+                Alisa Volkert, M.Sc.<br>
+                E-Mail: <span class="mailadr">alisa.volkert (@) uni-tuebingen.de</span><br>
+
+                <br>
+                <hr>
+                <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+              </div>
+            </body>';
+//        echo '<h3>Vielen Dank für Deine Teilnahme!</h3>';
+//        echo '<p>Deine Mailadresse wurde gespeichert.</p>';
+//        echo '<br><br> Sie können dieses Browserfenster nun schließen.';
       } else {
-          echo 'Something went wrong while saving the mailaddress!';
-          echo 'Error: ' . $db->insertMailAdress($_REQUEST["email"]);
+          echo '<h3>Es ist ein Fehler beim Speichern der Mailadresse/Matrikelnummer aufgetreten!</h3>';
+
+//          echo 'Something went wrong while saving the mailaddress!';
+//          echo 'Error: ' . $db->insertMailAdress($_REQUEST["email"]);
           get_form();
       }
 

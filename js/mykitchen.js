@@ -11,17 +11,28 @@ Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
 var timeLimit = function() {
     clearInterval(myInterval);
 
-    $('#obj').css('opacity','0.7').unbind();
-    $('#obj .objekte').unbind();
-    $('#obj .objekte:hover').css('cursor','initial');
+    if ($('#obj').find('img.objekte').length !== 0){
+        $(".all").addClass("hidden");
+        $('body').append('<img src="img/logo_web.png" id="logo"> \n' +
+            '<p id="expstart"><b>Du hast das Zeit-Limit erreicht und nicht alle Objekte eingeräumt. Der Versuch ist nun zu Ende.</p><br><br>' +
+            'Bitte beginne den Versuch <a href="index.php">erneut</a>.<br><br>' +
+            '<hr>' +
+            '<span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>')
+    } else {
+        $('#obj').css('opacity','0.7').unbind();
+        $('#obj .objekte').unbind();
+        $('#obj .objekte:hover').css('cursor','initial');
 
-    timeLimitReached = true;
-    timeLimitReachedString = "Du hast das Zeit-Limit erreicht. Der Veruch ist nun zu Ende. <br><br>";
-    document.getElementById('finish').disabled = false;
-    $('#finish').click();
+        timeLimitReached = true;
+        timeLimitReachedString = "Du hast das Zeit-Limit erreicht. Der Versuch ist nun zu Ende. <br><br>";
+        document.getElementById('finish').disabled = false;
+        $('#finish').click();
+    }
+
+
 };
 
-let interval = 1000 * 60 * 90; // where X is your every X minutes
+let interval = 1000 * 60 * 60; // where X is your every X minutes
 
 let myInterval = setInterval(timeLimit, interval);
 
@@ -54,12 +65,17 @@ $(document).ready(function() {
         endTime = new Date();
     });
 
+
+
+
+
     /* make shelves sortable */
     $('.regal').sortable({
         connectWith: '.regal',
         placeholder: 'objekte',
         revert: 50,
         start: function(event, ui) {
+            // sortableStart(event,ui)
             num_of_clicks_on_obj++;
             countClicks++;
             endTime = new Date();
@@ -89,6 +105,7 @@ $(document).ready(function() {
             ui.placeholder.width(30);
         },
         stop: function(event, ui) {
+            // sortableStop(event,ui)
             /* put and scale object */
 
             let curObjTooLargeOrFull = false;
@@ -164,7 +181,7 @@ $(document).ready(function() {
                 resTmp[4] = 1;
                 resultsForDB.push(resTmp);
 
-                console.log('resultsForDB ' + JSON.stringify(resultsForDB));
+                // console.log('resultsForDB ' + JSON.stringify(resultsForDB));
 
                 let res= [];
                 resultsForDB.forEach(function each(item) {
@@ -176,7 +193,7 @@ $(document).ready(function() {
                 });
 
                 resultsForDB = res;
-                console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
+                // console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
             }
 
 
@@ -224,6 +241,9 @@ $(document).ready(function() {
             // console.log("new_parent_id " + new_parent_id);
             // console.log("\n this.id " + this.id);
 
+            if($('#' + old_parent_id).find('img.objekte').length === 0) {
+                $('#' + old_parent_id).removeClass('hasObjects');
+            }
 
 
             if ($('#obj').find('img.objekte').length === 0) {
@@ -282,7 +302,7 @@ $(document).ready(function() {
             //     index--;
             // }
 
-            console.log("restart before, results: \n" + JSON.stringify(results));
+            // console.log("restart before, results: \n" + JSON.stringify(results));
             // console.log("\n daten " + JSON.stringify(daten));
             for ( var i = 1; i < l; i++ ) {
 
@@ -526,11 +546,11 @@ $(document).ready(function() {
             endTime = new Date();
             $('#test2').hide();
             $('#test2').css('height', '330px');
-            $('#gkitchen .regal:not(#test2 .regal)').append('<div class="erkl"><h4>Erklärung:</h4><textarea></textarea></div>');
+            $('#gkitchen .regal:not(#test2 .regal)').prepend('<div class="erkl"><h4>Erklärung:</h4><textarea></textarea></div>');
             $('#myModalAlert #alertText').html(timeLimitReachedString + "Bitte gib zu jedem Regalfach eine kurze Erklärung, " +
                 "warum du die Gegenstände zusammen gruppiert hast.<br>" +
-                "Klicke hierzu in das entsprechende Fach.<br><br>" +
-                "Drücke anschließend erneut auf \"Weiter\"");
+                "Klicke in ein Regalfach, um seinen Inhalt zu begründen. Deine Eingabe wird automatisch gespeichert.<br><br>" +
+                "Drücke anschließend erneut auf \"Weiter\".");
             $("#myModalAlert div").css({
                 width:'400px',
                 height: '265px'});
@@ -540,6 +560,8 @@ $(document).ready(function() {
             $("#myModalAlert").css('opacity', '1');
 
             $("#open").click();
+
+            $('.hasObjects').addClass('hasObjectsBorder');
 
             $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
                 // showObjects("#" + this.id);
@@ -566,31 +588,39 @@ $(document).ready(function() {
 
                 if ($(this).val() !== "") {
                     parent.removeClass('hasObjects');
-                    $('#' + parentID).removeClass('hasObjects');
+                    parent.removeClass('hasObjectsBorder');
+                    $('#' + parentID).removeClass('hasObjects').removeClass('hasObjectsBorder');
+                } else {
+                    parent.addClass('hasObjects');
+                    parent.addClass('hasObjectsBorder');
+                    $('#' + parentID).addClass('hasObjects').addClass('hasObjectsBorder');
                 }
 
                 console.log('parentID ' + parentID);
             });
 
             totallyFinished = true;
-        } else if(totallyFinished && !allExplanationsWritten) {
+            // (totallyFinished && !allExplanationsWritten)
+        } else if(totallyFinished) {
             // $('.hasObjects textarea').each(function(i, obj) {
             if($('.hasObjects').length) {
                 // if (obj.value === "") {
-                    $('#myModalAlert #alertText').html("Bitte begründe zuerst deine Auswahl für jedes eingeräumte Fach!<br><br>" // TODO: ergänzen: Klicke in ein Regalfach, um seinen Inhalt zu begründen. Deine Eingabe wird automatisch gespeichert [sofern das der Fall ist].
-                        + "Drücke anschließend erneut auf \"Weiter\"."); // TODO: das Beschreibungsfeld oberhalb der Bildchen anzeigen lassen
+                    $('#myModalAlert #alertText').html("Bitte begründe zuerst deine Auswahl für jedes eingeräumte Fach!<br><br>" +
+                        "Klicke in ein Regalfach, um seinen Inhalt zu begründen. Deine Eingabe wird automatisch gespeichert.<br><br>" // TO-DO: ergänzen: Klicke in ein Regalfach, um seinen Inhalt zu begründen. Deine Eingabe wird automatisch gespeichert [sofern das der Fall ist].
+                        + "Drücke anschließend erneut auf \"Weiter\"."); // TO-DO: das Beschreibungsfeld oberhalb der Bildchen anzeigen lassen
                     $("#myModalAlert div").css({
                         width:'400px',
                         height: '265px'});
                     $("#myModalAlert").css('opacity', '0').css('display','block').css('opacity', '1');
                     allExplanationsWritten = false;
                     return;
-            } else {
-               allExplanationsWritten = true;
             }
+            // else {
+            //    allExplanationsWritten = true;
+            // }
             // });
 
-        } else {
+        // } else {
 
             var n = results.length;
             var l = regal_ids.length;
@@ -747,7 +777,7 @@ $(document).ready(function() {
             $(door_id).removeClass(classname);
             $(door_id).addClass(classClosed);
             // $(schrank_id).css('display', 'none');
-            $(schrank_id).fadeOut(700);
+            // $(schrank_id).fadeOut(700);
             // $(door_id).html((schrank_id.substr(1)).toUpperCase());
             // $('#test2').css('display', 'none');
 
@@ -757,10 +787,11 @@ $(document).ready(function() {
             $(door_id).removeClass(classClosed);
             $(door_id).addClass(classname);
             // $(schrank_id).css('display', 'block');
-            $(schrank_id).fadeIn(300);
+            // $(schrank_id).fadeIn(300);
             $(door_id).html("");
 
-            var l_doors = all_door_ids.length;
+            // wenn nicht aus kommentiert, werden alle anderen Türen geschlossen
+            /*var l_doors = all_door_ids.length;
             for (var i = 0; i < l_doors; i++) {
                 var curr_d = "#" + all_door_ids[i];
                 var curr_s = curr_d.replace("d", "s");
@@ -773,7 +804,7 @@ $(document).ready(function() {
                     $(curr_s).css('display', 'none');
                     // $(curr_d).html((curr_s.substr(1)).toUpperCase());
                 }
-            }
+            }*/
             last_open_shelf = shelf_id;
             // showObjects(last_open_shelf);
             // $('#test2').css('display', 'block');
@@ -900,6 +931,199 @@ var showImage = function(id) {
     $(id).removeClass('transparent');
 };
 
+
+function sortableStartInTest2(event,ui) {
+    num_of_clicks_on_obj++;
+    countClicks++;
+    endTime = new Date();
+
+    /* calculate space in shelf  */
+    var obj_id = ui.item.attr('id');
+    var obj_width = parseFloat(ui.item.css('min-width')).toFixed(2);
+    var obj_height = parseFloat(ui.item.css('min-height')).toFixed(2);
+    var obj_length = parseFloat(ui.item.css('perspective')).toFixed(2);
+    var obj_volume = obj_length * obj_height * obj_width;
+
+    var l = regal_ids.length - 1;
+    for (var i = 1; i < l; i++ ){
+        var id = '#' + regal_ids[i];
+        var pw = +getPlaceholderVolume(id) + +obj_volume;
+
+        var w = parseInt($(id).css('min-width'));
+        var h = parseInt($(id).css('min-height'));
+        var d = parseInt($(id).css('perspective'));
+        var regal_volume = w * h * d;
+
+        if ( pw > regal_volume || h < obj_height ) {
+            $(id).css('opacity', 0.5);
+        }
+    }
+    ui.placeholder.height(30);
+    ui.placeholder.width(30);
+}
+
+function sortableStopInTest2(event,ui) {
+    let curObjTooLargeOrFull = false;
+    var old_parent_id = $(event.target).attr("id");
+
+    console.log("old_parent_id, before: " + old_parent_id);
+    if (old_parent_id.startsWith('sv7') || old_parent_id.startsWith('sv8')){
+        old_parent_id = old_parent_id.substr(0,3);
+    } else if (old_parent_id.startsWith('sv10')){
+        old_parent_id = old_parent_id.substr(0,6);
+    } else {
+        old_parent_id = old_parent_id.substr(0,5);
+    }
+
+    console.log("\n old_parent_id, after: " + old_parent_id);
+
+
+    var new_parent_id = ui.item.parent().attr("id");
+
+    var obj_id = ui.item.attr('id');
+    var obj_width = parseFloat(ui.item.css('min-width'));
+    var obj_height = parseFloat(ui.item.css('min-height'));
+    var obj_length = parseFloat(ui.item.css('perspective'));
+    var obj_volume = obj_length * obj_height * obj_width;
+
+    var parent_width = parseInt($("#" + new_parent_id).css('min-width'));
+    var parent_height = parseInt($("#" + new_parent_id).css('min-height'));
+    var parent_depth = parseInt($("#" + new_parent_id).css('perspective'));
+    var regal_volume = parent_width * parent_height * parent_depth;
+
+    var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
+
+    if (old_parent_id !== new_parent_id) {
+        if (new_parent_id === 'obj') {
+            ui.item.css('width', 100);
+            ui.item.css('height', 100);
+            $('#' + old_parent_id + ' #'+ obj_id).remove();
+        } else {
+            if (obj_height > parent_height) {
+                $('#' + old_parent_id).append(ui.item);
+                // document.getElementById('myModalAlert').style.display = "block";
+
+                $("#myModalAlert").css('opacity', '0');
+                $('#myModalAlert').css('display','block');
+                $("#myModalAlert").css('opacity', '1');
+                // $('#myModalAlert').animate({opacity: 1}, 100);
+
+                $('#myModalAlert #alertText').html("Passt nicht rein!");
+                curObjTooLargeOrFull = true;
+                // alert("Passt nicht rein!");
+            } else {
+                if ( regal_volume >= placeholder_volume ) {
+
+                    ui.item.css('width', 100);
+                    ui.item.css('height', 100);
+
+                    //Skalierung momentan auf 50% der Größe in der Liste
+                    ui.item.css('width', 50);
+                    ui.item.css('height', 50);
+                    ui.item.css('horizontal-align','bottom');
+                    $('#' + old_parent_id + ' #'+ obj_id).remove();
+                } else {
+                    $('#' + old_parent_id).append(ui.item);
+                    // document.getElementById('myModalAlert').style.display = "block";
+                    // $('#myModalAlert').fadeIn(300);
+                    // $('#myModalAlert').css('opacity', '1').css('display', 'block');
+                    // $('#myModalAlert').css('visibility','visible');
+                    // $('#myModalAlert').css('opacity','1');
+                    $('#myModalAlert').css('opacity','1');
+                    $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                        function(e) {
+                            $('#myModalAlert').css('display','block');
+                        });
+                    $('#myModalAlert #alertText').html("Kein Platz mehr!");
+                    curObjTooLargeOrFull = true;
+                    // alert("Kein Platz mehr!");
+                }
+            }
+        }
+    }
+
+    if(new_parent_id !== 'obj') {
+        let resTmp = [];
+        resTmp[0] = userid;
+        resTmp[1] = new_parent_id;
+        resTmp[2] = new Date().getUnixTime();
+        resTmp[3] = obj_id;
+        resTmp[4] = 1;
+        resultsForDB.push(resTmp);
+
+        // console.log('resultsForDB ' + JSON.stringify(resultsForDB));
+
+        let res= [];
+        resultsForDB.forEach(function each(item) {
+            if((item[0] === userid) && (item[3] === obj_id)
+                && (item[2] < resTmp[2])) {
+                item[4] = 0;
+            }
+            res.push(item);
+        });
+
+        resultsForDB = res;
+        // console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
+    }
+
+
+    // save current state in results - array
+    var n = results.length;
+    var l = regal_ids.length;
+    results[n] = new Array();
+    results[n][0] = timeToString(new Date());
+
+    for (var i = 1; i < l; i++){
+
+        var children = [];
+        $("#" + regal_ids[i]).children().each( function (){
+            if ($(this).attr('id') !== 'myModalObj') {
+                children.push($(this).attr('id'));
+            }
+        });
+        results[n][i] = children.toString();
+    }
+
+
+    if(results[n] !== null) {results_history_change[n] = results[n];}
+
+    // wurde der back-button gedrückt, und dann ein Element hinzugefügt?
+    //
+    if (JSON.stringify(results) !== JSON.stringify(results_history_change)) {
+        results = results_history_change.filter(arr=>arr!==null).map(arr => arr.slice());
+        // results = results_history_change;
+    }
+
+    index = results.length-1;
+    // console.log("index after adding " + index);
+    // console.log("add, results: \n" + JSON.stringify(results));
+    $(".regal").css('opacity', 1);
+
+    // Klasse 'hasObjects' wird wieder entfernt, wenn Begründung eingegeben wird
+    // if (new_parent_id !== 'obj') {
+    //     $('#' + new_parent_id).addClass('hasObjects');
+    // }
+    // Objekte unten im Extra-Fenster anzeigen
+    if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
+        $('#' + new_parent_id).addClass('hasObjects');
+        showObjects("#" + new_parent_id);
+    }
+    // console.log("new_parent_id " + new_parent_id);
+    // console.log("\n this.id " + this.id);
+
+    if($('#' + old_parent_id).find('img.objekte').length === 0) {
+        $('#' + old_parent_id).removeClass('hasObjects');
+    }
+
+
+    if ($('#obj').find('img.objekte').length === 0) {
+        document.getElementById('finish').disabled = false;
+    } else {
+        document.getElementById('finish').disabled = true;
+    }
+    // document.getElementById('back').disabled = false;
+}
+
 /* zeige Gegenstände unten an*/
 function showObjects(last_shelf) {
 
@@ -982,6 +1206,19 @@ function showObjects(last_shelf) {
         // }
         // $('#test2').show();
     // }
+    $('#test2 .regal').sortable({
+        connectWith: '.regal',
+        placeholder: 'objekte',
+        revert: 50,
+        start: function(event, ui) {
+            sortableStartInTest2(event,ui)
+        },
+        stop: function(event, ui) {
+            sortableStopInTest2(event,ui)
+            }
+    });
+
+
 
     let $buttonClose = ' <button class="closeAnzeige" id="close-anzeige"><h4>X</h4></button>';
     $('#test2').append($buttonClose);
@@ -1000,10 +1237,10 @@ function showObjects(last_shelf) {
 $(document).on('click', '#testUp', function(){
     let tT = document.getElementById('test2').style.top.replace(/\D/g,'');
     // let tT = $("#test2").offset().top;
-    console.log('tT ' + tT);
+    // console.log('tT ' + tT);
 
     let minusT = parseInt(tT) -40;
-    console.log('minusT ' + minusT);
+    // console.log('minusT ' + minusT);
     if(tT >= 40) {
         $("#test2").css({top: minusT + 'px'});
         $("#testDown").prop('disabled', false);
@@ -1016,10 +1253,10 @@ $(document).on('click', '#testUp', function(){
 $(document).on('click', '#testDown', function(){
     let tTH = document.getElementById('test2').style.top.replace(/\D/g,'');
     // let tTH = $("#test2").offset().top;
-    console.log('tTH ' + tTH);
+    // console.log('tTH ' + tTH);
 
     let plusT = parseInt(tTH) +40;
-    console.log('plusT ' + plusT);
+    // console.log('plusT ' + plusT);
     if(tTH <= 360) {
         $("#test2").css({top: plusT + 'px'});
         $("#testUp").prop('disabled', false);
