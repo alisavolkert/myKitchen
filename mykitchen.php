@@ -182,8 +182,8 @@ $db = new Database();
 
 
         <div class="schrank" id="s1">
-            <div class="regal oben" id="sv1-1"></div>
-            <div class="regal oben" id="sv1-2"></div>
+            <div class="regal regalSort oben" id="sv1-1"></div>
+            <div class="regal regalSort oben" id="sv1-2"></div>
         </div>
         <!--<div class="schrank" id="s1-2">
             <div class="regal oben" id="sv1-2"></div>
@@ -271,17 +271,17 @@ $db = new Database();
         <!--Obfl3-->
         <!--Obfl4-->
         <!--Obfl5-->
-        <div class="regal unten obfl" id="obfl1"></div>
-        <div class="regal unten obfl" id="obfl2"></div>
-        <div class="regal unten obfl" id="obfl3"></div>
-        <div class="regal unten obfl" id="obfl4"></div>
-        <div class="regal oben obfl" id="obfl5"></div>
+        <div class="regal regalSort unten obfl" id="obfl1"></div>
+        <div class="regal regalSort unten obfl" id="obfl2"></div>
+        <div class="regal regalSort unten obfl" id="obfl3"></div>
+        <div class="regal regalSort unten obfl" id="obfl4"></div>
+        <div class="regal regalSort oben obfl" id="obfl5"></div>
 
         <div id="flaecheOben"></div>
         <div id="arbeitsflache"></div>
     </div>
 
-    <div id="obj" class="regal">
+    <div id="obj" class="regal regalSort">
         <div id="myModalObj" class="modal">
             <span class="close" id="close2">&times;</span>
             <img class="modal-content" id="img02">

@@ -70,7 +70,8 @@ $(document).ready(function() {
 
 
     /* make shelves sortable */
-    $('.regal').sortable({
+    // $('.regal').sortable({
+    $('.regalSort').sortable({
         connectWith: '.regal',
         placeholder: 'objekte',
         revert: 50,
@@ -470,7 +471,7 @@ $(document).ready(function() {
         $(".door").removeClass("opendoordown");
 
         $(".schrank").css('z-index', '0');
-        $(".schrank").css('display', 'none');
+        // $(".schrank").css('display', 'none');
 
         // $('#test2').css('display', 'none');
         $('#test2').fadeOut(300);
@@ -562,6 +563,8 @@ $(document).ready(function() {
             $("#open").click();
 
             $('.hasObjects').addClass('hasObjectsBorder');
+            $('.regalSort').sortable('destroy').unbind();
+
 
             $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
                 // showObjects("#" + this.id);
@@ -770,8 +773,9 @@ $(document).ready(function() {
         var schrank_id = door_id.replace("d", "s");
 
 
-        // console.log("schrank_id " + schrank_id);
+
         var shelf_id = door_id.replace("d", "sv");
+        console.log("shelf_id " + shelf_id);
 
         if ($(door_id).hasClass(classname)) {
             $(door_id).removeClass(classname);
@@ -782,6 +786,22 @@ $(document).ready(function() {
             // $('#test2').css('display', 'none');
 
             // $('#test2').hide();
+            if (shelf_id.startsWith('#sv2') || shelf_id.startsWith('#sv3')
+                || shelf_id.startsWith('#sv4') || shelf_id.startsWith('#sv5')){
+
+                $(shelf_id + '-1').removeClass('regalSort').sortable('destroy').unbind();
+                $(shelf_id + '-2').removeClass('regalSort').sortable('destroy').unbind();
+
+                // $(shelf_id + '-1').disableSelection('disabled').unbind('click').unbind('mousedown').unbind('mouseup').unbind('selectstart');
+                // $(shelf_id + '-2').disableSelection('disabled').unbind('click').unbind('mousedown').unbind('mouseup').unbind('selectstart');
+
+            } else {
+                $(shelf_id).removeClass('regalSort').sortable('destroy').unbind();
+                // $(shelf_id).disableSelection('disabled').unbind('click').unbind('mousedown').unbind('mouseup').unbind('selectstart');
+
+            }
+
+
             $('#test2').css('opacity', '0').css('display', 'none');
         } else {
             $(door_id).removeClass(classClosed);
@@ -806,6 +826,74 @@ $(document).ready(function() {
                 }
             }*/
             last_open_shelf = shelf_id;
+
+            if (shelf_id.startsWith('#sv2') || shelf_id.startsWith('#sv3')
+                || shelf_id.startsWith('#sv4') || shelf_id.startsWith('#sv5')){
+
+                $(shelf_id + '-1').addClass('regalSort').removeClass("ui-sortable-disabled");
+                $(shelf_id + '-2').addClass('regalSort').removeClass("ui-sortable-disabled");
+
+                // if ($(shelf_id+ '-1').sortable( "option", "disabled" ) === 'true') {
+                //     $(shelf_id+ '-1').sortable("enable");
+                //     $(shelf_id+ '-2').sortable("enable");
+                // }
+
+               /* $(shelf_id + '-1').sortable("enable",{
+                    connectWith: shelf_id + '-1',
+                    placeholder: 'objekte',
+                    revert: 50,
+                    start: function(event, ui) {
+                        sortableStartInTest2(event,ui)
+                    },
+                    stop: function(event, ui) {
+                        sortableStopInTest2(event,ui)
+                    }
+                });
+                $(shelf_id + '-2').sortable("enable",{
+                    connectWith: shelf_id + '-2',
+                    placeholder: 'objekte',
+                    revert: 50,
+                    start: function(event, ui) {
+                        sortableStartInTest2(event,ui)
+                    },
+                    stop: function(event, ui) {
+                        sortableStopInTest2(event,ui)
+                    }
+                });*/
+
+            } else {
+                $(shelf_id).addClass('regalSort').removeClass("ui-sortable-disabled");
+
+                // if ($(shelf_id).sortable( "option", "disabled" ) === 'true') {
+                //     $(shelf_id).sortable("enable");
+                // }
+               /* $(shelf_id).sortable("enable",{
+                    connectWith: shelf_id,
+                    placeholder: 'objekte',
+                    disable: false,
+                    revert: 50,
+                    start: function(event, ui) {
+                        sortableStartInTest2(event,ui)
+                    },
+                    stop: function(event, ui) {
+                        sortableStopInTest2(event,ui)
+                    }
+                });*/
+            }
+            // console.log("shelf_id " + shelf_id + " after");
+
+
+            $('.regalSort').sortable({
+                connectWith: '.regalSort',
+                placeholder: 'objekte',
+                revert: 50,
+                start: function(event, ui) {
+                    sortableStartInTest2(event,ui)
+                },
+                stop: function(event, ui) {
+                    sortableStopInTest2(event,ui)
+                }
+            });
             // showObjects(last_open_shelf);
             // $('#test2').css('display', 'block');
             // $('#test2').show();
@@ -975,7 +1063,7 @@ function sortableStopInTest2(event,ui) {
         old_parent_id = old_parent_id.substr(0,5);
     }
 
-    console.log("\n old_parent_id, after: " + old_parent_id);
+    // console.log("\n old_parent_id, after: " + old_parent_id);
 
 
     var new_parent_id = ui.item.parent().attr("id");
@@ -1171,6 +1259,13 @@ function showObjects(last_shelf) {
         // füge anschließend den kopierten und modifizierten div dem Kasten hinzu
         $("#test2").empty();
 
+        $('.regal').css('border', 'none');
+        $('#sv1-1, #sv2-1, #sv3-1, #sv4-1, #sv5-1').css({
+        borderBottom: 'solid #b6afaf',
+        borderWidth: '3px'});
+        $(last_shelf).css({border: '2px dashed #690000', boxSizing:'border-box'});
+
+
         var $cloned_shelf;
         if ($(last_shelf).hasClass('obfl')) {
             if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
@@ -1206,7 +1301,7 @@ function showObjects(last_shelf) {
         // }
         // $('#test2').show();
     // }
-    $('#test2 .regal').sortable({
+    $('#test2 .regalSort').sortable({
         connectWith: '.regal',
         placeholder: 'objekte',
         revert: 50,
@@ -1270,6 +1365,10 @@ $(document).on('click', '.closeAnzeige#close-anzeige', function(){
     // $("#test2").css('opacity');
     // $("#test2").css('display');
     $("#test2").css('opacity', '0').css('display', 'none');
+    $('.regal').css('border', 'none');
+    $('#sv1-1, #sv2-1, #sv3-1, #sv4-1, #sv5-1').css({
+       borderBottom: 'solid #b6afaf',
+       borderWidth: '3px'});
 });
 $(document).on('click', '.closeAnzeige#close-hilfe', function(){
     $("#info").fadeOut(300);
@@ -1299,21 +1398,21 @@ $(document).on('click', '#test2 .objekte', function(){
         modal.style.display = "none";
     };
 });
-/*$(document).on('click', '#obj .objekte', function(){
-    var modal = document.getElementById('myModalObj');
-    var modalImg = document.getElementById("img02");
-    var captionText = document.getElementById("caption2");
+$(document).on('click', '#obj .objekte', function(){
+    let modal = document.getElementById('myModalObj');
+    let modalImg = document.getElementById("img02");
+    let captionText = document.getElementById("caption2");
     console.log("$('#obj').scrollTop() " + $('#obj').scrollTop());
     modal.style.top = $('#obj').scrollTop() + "px";
 
     modal.style.display = "block";
     modalImg.src = this.src;
     // captionText.innerHTML = this.alt;
-    var span = document.getElementById("close2");
+    let span = document.getElementById("close2");
     span.onclick = function() {
         modal.style.display = "none";
     };
-});*/
+});
 
 $(document).on('click', '#closeAlert', function(){
     // document.getElementById('myModalAlert').style.display ="none";

@@ -26,7 +26,7 @@ body {
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
-	z-index: -1;
+	z-index: 1;
 }
 
 #obj{
@@ -161,7 +161,7 @@ h3 {
 	box-shadow: 2px 2px 5px 0px rgba(110,110,110,1);
 }
 #info-bild {
-	background: url("../img/versuch.jpg") no-repeat;
+	background: url("../img/versuch_neu.png") no-repeat;
 	background-size: contain;
 	height: 234px;
 }

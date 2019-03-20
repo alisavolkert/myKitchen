@@ -6,10 +6,14 @@ body {
 }
 
 img {
-	width: 400px;
+	width: 700px;
 	height: auto;
 }
 
 button {
 	padding: 5px 10px;
+}
+
+h1 {
+	margin: 5px 0;
 }
