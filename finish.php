@@ -183,7 +183,7 @@ else
     // Save mail to session
 //    print_r("email: " .$_REQUEST["email"]);
     // email
-      if($db->insertMailAdress($_REQUEST["email"])) {
+      if($db->insertMailAddress($_REQUEST["email"])) {
           echo '<head>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">

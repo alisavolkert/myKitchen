@@ -112,6 +112,34 @@ h3 {
 	height:100px;
 }
 
+#mehrereObjekte {
+	position: absolute;
+	bottom: 0;
+	padding: 5px;
+	border-top: 1px #000 solid;
+	width: 100%;
+	text-align: left;
+}
+#mehrereObjekte p {
+	margin: 0;
+	font-size: 80%;
+}
+
+.selected-multiple {
+	border: 2px solid darkred;
+}
+
+/*.ui-sortable-helper {
+	!*display: table;*!
+	z-index: 10;
+	!*width: 90px;*!
+	!*height: 90px;*!
+	cursor: move;
+}*/
+
+
+
+
 .draggable {
 	filter: alpha(opacity=80);
 	opacity: 0.8;
@@ -1286,3 +1314,41 @@ h3 {
 	cursor: pointer;
 }
 
+
+
+@media only screen and (max-width: 1400px) {
+
+
+	.but {
+		width: 282px;
+		height: 120px;
+	}
+	.but .small {
+		min-width: 12%;
+	}
+	.but .big {
+		width: 35%;
+	}
+
+	#obj {
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+		margin-top: 137px;
+		width: 282px;
+		height: 490px;
+	}
+	#obj .objekte {
+		width: 90px;
+		height: 90px;
+		margin: 0 1px;
+	}
+	#foto-src {
+		right: 133px;
+	}
+
+	#myModalObj {
+		width: 280px;
+		height: 390px;
+	}
+}

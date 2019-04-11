@@ -27,6 +27,7 @@ $db = new Database();
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="js/html2canvas.min.js"></script>
     <script type="text/javascript" src="js/mykitchen.js"></script>
+<!--    <script type="text/javascript" src="js/multiselect.js"></script>-->
 
 </head>
 
@@ -350,6 +351,9 @@ $result_mk = $db->getAllImagesWithData();
 
 
 ?>
+       <!-- <div id="mehrereObjekte">
+            <p>mehrere Objekte: SHIFT + Klick(s)</p>
+        </div>-->
     </div>
 
     <script type="text/javascript">

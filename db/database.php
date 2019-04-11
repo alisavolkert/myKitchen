@@ -68,6 +68,9 @@ class Database
     }
     public function saveUserData($dk,$vj) {
 
+        $stmt = $this->connection->prepare('DELETE FROM  participants  WHERE completed = 0');
+        $stmt->execute();
+
         $stmt = $this->connection->prepare("INSERT INTO participants(german,adult) VALUES (?,?)");
 
         $stmt->bind_param("si",$dk,$vj);
@@ -173,9 +176,26 @@ class Database
         }
     }
 
-    public function insertMailAdress($mail) {
-        $stmt = $this->connection->prepare('INSERT INTO mail(mail_id,email) VALUES (UUID_SHORT(),?)');
-        $stmt->bind_param("s",$mail);
+    public function insertMailAddress($mail) {
+        $isNotAUniqueID = true;
+        $newID = mt_rand(0,100000000000);
+
+        while($isNotAUniqueID) {
+            $result = $this->connection->query("SELECT mail_id FROM mail WHERE mail_id = $newID");
+            if ($result->num_rows !== 0) {
+                $newID = mt_rand(0, 100000000000);
+            } else {
+                $isNotAUniqueID = false;
+            }
+            $result->close();
+        }
+
+
+
+//        $stmt = $this->connection->prepare('INSERT INTO mail(mail_id,email) VALUES (UUID_SHORT(),?)');
+
+        $stmt = $this->connection->prepare('INSERT INTO mail(mail_id,email) VALUES (?,?)');
+        $stmt->bind_param("is",$newID,$mail);
         if($stmt->execute()) {
             $stmt->close();
             return TRUE;

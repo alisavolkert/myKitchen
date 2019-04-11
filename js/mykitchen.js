@@ -65,21 +65,52 @@ $(document).ready(function() {
         endTime = new Date();
     });
 
-
+    // $('.regal').draggable();
 
 
 
     /* make shelves sortable */
     // $('.regal').sortable({
     $('.regalSort').sortable({
-        connectWith: '.regal',
+        connectWith: '.regalSort',
         placeholder: 'objekte',
         revert: 50,
+        appendTo: "body",
+        helper: "clone",
+        // helper: function (e, item) {
+        //     //Basically, if you grab an unhighlighted item to drag, it will deselect (unhighlight) everything else
+        //     if (!item.hasClass('selected-multiple')) {
+        //         item.addClass('selected-multiple').siblings().removeClass('selected-multiple');
+        //     }
+        //
+        //     //////////////////////////////////////////////////////////////////////
+        //     //HERE'S HOW TO PASS THE SELECTED ITEMS TO THE `stop()` FUNCTION:
+        //
+        //     //Clone the selected items into an array
+        //     var elements = item.parent().children('.selected-multiple').clone();
+        //
+        //     //Add a property to `item` called 'multidrag` that contains the
+        //     //  selected items, then remove the selected items from the source list
+        //     item.data('multidrag', elements).siblings('.selected-multiple').remove();
+        //
+        //     //Now the selected items exist in memory, attached to the `item`,
+        //     //  so we can access them later when we get to the `stop()` callback
+        //
+        //
+        //     //Create the helper
+        //     var helper = $('<div/>');
+        //     return helper.append(elements);
+        // },
+
         start: function(event, ui) {
             // sortableStart(event,ui)
+            // var elements = ui.item.data('multidrag');
+
             num_of_clicks_on_obj++;
             countClicks++;
             endTime = new Date();
+            
+
 
             /* calculate space in shelf  */
             var obj_id = ui.item.attr('id');
@@ -104,14 +135,22 @@ $(document).ready(function() {
             }
             ui.placeholder.height(30);
             ui.placeholder.width(30);
+            ui.placeholder.css('visibility', 'visible');
         },
         stop: function(event, ui) {
+            // var elements = ui.item.data('multidrag');
+            // console.log("stop, elem 0 " + elements[0].attr('id'));
             // sortableStop(event,ui)
             /* put and scale object */
 
             let curObjTooLargeOrFull = false;
+            let old = false;
             var old_parent_id = $(event.target).attr("id");
             var new_parent_id = ui.item.parent().attr("id");
+
+            console.log('old_parent_id ' + old_parent_id);
+            console.log('new_parent_id ' + new_parent_id);
+            console.log('old_parent_id.startsWith(new_parent_id) ' + old_parent_id.startsWith(new_parent_id));
 
             var obj_id = ui.item.attr('id');
             var obj_width = parseFloat(ui.item.css('min-width'));
@@ -126,7 +165,19 @@ $(document).ready(function() {
 
             var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
 
-            if (old_parent_id !== new_parent_id) {
+
+            if (old_parent_id.startsWith(new_parent_id) &&
+                ($('#' + old_parent_id).parent('#test2').length)){
+                $('#' + old_parent_id).find(ui.item).remove();
+            }
+            else if (new_parent_id.startsWith(old_parent_id) &&
+                ($('#' + new_parent_id).parent('#test2').length)) {
+                $('#' + old_parent_id).append(ui.item);
+                old = true;
+                console.log("old yes");
+            } else
+
+            if ((old_parent_id !== new_parent_id)) {
                 if (new_parent_id === 'obj') {
                     ui.item.css('width', 100);
                     ui.item.css('height', 100);
@@ -182,7 +233,7 @@ $(document).ready(function() {
                 resTmp[4] = 1;
                 resultsForDB.push(resTmp);
 
-                // console.log('resultsForDB ' + JSON.stringify(resultsForDB));
+                console.log('resultsForDB ' + JSON.stringify(resultsForDB));
 
                 let res= [];
                 resultsForDB.forEach(function each(item) {
@@ -235,9 +286,19 @@ $(document).ready(function() {
             //     $('#' + new_parent_id).addClass('hasObjects');
             // }
             // Objekte unten im Extra-Fenster anzeigen
-            if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
+           /* if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
                 $('#' + new_parent_id).addClass('hasObjects');
                 showObjects("#" + new_parent_id);
+            }*/
+            if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
+                if (old) {
+                    showObjects("#" + old_parent_id);
+                }else {
+                    $('#' + new_parent_id).addClass('hasObjects');
+                    showObjects("#" + new_parent_id);
+                }
+            } else {
+                console.log("not showing objects");
             }
             // console.log("new_parent_id " + new_parent_id);
             // console.log("\n this.id " + this.id);
@@ -249,8 +310,10 @@ $(document).ready(function() {
 
             if ($('#obj').find('img.objekte').length === 0) {
                 document.getElementById('finish').disabled = false;
+                console.log("finish enabled");
             } else {
                 document.getElementById('finish').disabled = true;
+                console.log("finish disabled");
             }
             // document.getElementById('back').disabled = false;
         },
@@ -1052,9 +1115,10 @@ function sortableStartInTest2(event,ui) {
 
 function sortableStopInTest2(event,ui) {
     let curObjTooLargeOrFull = false;
+    let old = false;
     var old_parent_id = $(event.target).attr("id");
+    var new_parent_id = ui.item.parent().attr("id");
 
-    console.log("old_parent_id, before: " + old_parent_id);
     if (old_parent_id.startsWith('sv7') || old_parent_id.startsWith('sv8')){
         old_parent_id = old_parent_id.substr(0,3);
     } else if (old_parent_id.startsWith('sv10')){
@@ -1062,11 +1126,9 @@ function sortableStopInTest2(event,ui) {
     } else {
         old_parent_id = old_parent_id.substr(0,5);
     }
+    console.log('old_parent_id ' + old_parent_id);
+    console.log('new_parent_id ' + new_parent_id);
 
-    // console.log("\n old_parent_id, after: " + old_parent_id);
-
-
-    var new_parent_id = ui.item.parent().attr("id");
 
     var obj_id = ui.item.attr('id');
     var obj_width = parseFloat(ui.item.css('min-width'));
@@ -1081,7 +1143,19 @@ function sortableStopInTest2(event,ui) {
 
     var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
 
-    if (old_parent_id !== new_parent_id) {
+
+   if (old_parent_id.startsWith(new_parent_id)){
+        $('#' + old_parent_id).find(ui.item).remove();
+    }
+    else if (new_parent_id.startsWith(old_parent_id) &&
+        ($('#' + new_parent_id).parent('#test2').length)) {
+       $('#' + new_parent_id).append(ui.item);
+
+        old = true;
+       console.log("old yes");
+    } else
+    if ((old_parent_id !== new_parent_id)) {
+
         if (new_parent_id === 'obj') {
             ui.item.css('width', 100);
             ui.item.css('height', 100);
@@ -1090,17 +1164,15 @@ function sortableStopInTest2(event,ui) {
             if (obj_height > parent_height) {
                 $('#' + old_parent_id).append(ui.item);
                 // document.getElementById('myModalAlert').style.display = "block";
-
-                $("#myModalAlert").css('opacity', '0');
-                $('#myModalAlert').css('display','block');
-                $("#myModalAlert").css('opacity', '1');
+                $('#myModalAlert #alertText').html("Passt nicht rein!");
+                $("#myModalAlert").css('opacity', '0').css('display','block').css('opacity', '1');
                 // $('#myModalAlert').animate({opacity: 1}, 100);
 
-                $('#myModalAlert #alertText').html("Passt nicht rein!");
+
                 curObjTooLargeOrFull = true;
                 // alert("Passt nicht rein!");
             } else {
-                if ( regal_volume >= placeholder_volume ) {
+                if (regal_volume >= placeholder_volume ) {
 
                     ui.item.css('width', 100);
                     ui.item.css('height', 100);
@@ -1128,8 +1200,8 @@ function sortableStopInTest2(event,ui) {
                 }
             }
         }
-    }
 
+    }
     if(new_parent_id !== 'obj') {
         let resTmp = [];
         resTmp[0] = userid;
@@ -1139,7 +1211,7 @@ function sortableStopInTest2(event,ui) {
         resTmp[4] = 1;
         resultsForDB.push(resTmp);
 
-        // console.log('resultsForDB ' + JSON.stringify(resultsForDB));
+        console.log('resultsForDB ' + JSON.stringify(resultsForDB));
 
         let res= [];
         resultsForDB.forEach(function each(item) {
@@ -1153,6 +1225,8 @@ function sortableStopInTest2(event,ui) {
         resultsForDB = res;
         // console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
     }
+
+
 
 
     // save current state in results - array
@@ -1193,8 +1267,12 @@ function sortableStopInTest2(event,ui) {
     // }
     // Objekte unten im Extra-Fenster anzeigen
     if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
-        $('#' + new_parent_id).addClass('hasObjects');
-        showObjects("#" + new_parent_id);
+        if (old) {
+            showObjects("#" + old_parent_id);
+        }else {
+            $('#' + new_parent_id).addClass('hasObjects');
+            showObjects("#" + new_parent_id);
+        }
     }
     // console.log("new_parent_id " + new_parent_id);
     // console.log("\n this.id " + this.id);
@@ -1206,8 +1284,10 @@ function sortableStopInTest2(event,ui) {
 
     if ($('#obj').find('img.objekte').length === 0) {
         document.getElementById('finish').disabled = false;
+        console.log("finish enabled");
     } else {
         document.getElementById('finish').disabled = true;
+        console.log("finish disabled");
     }
     // document.getElementById('back').disabled = false;
 }
@@ -1302,9 +1382,11 @@ function showObjects(last_shelf) {
         // $('#test2').show();
     // }
     $('#test2 .regalSort').sortable({
-        connectWith: '.regal',
+        connectWith: '.regalSort',
         placeholder: 'objekte',
         revert: 50,
+        appendTo: "body",
+        helper: "clone",
         start: function(event, ui) {
             sortableStartInTest2(event,ui)
         },
@@ -1398,7 +1480,18 @@ $(document).on('click', '#test2 .objekte', function(){
         modal.style.display = "none";
     };
 });
-$(document).on('click', '#obj .objekte', function(){
+$(document).on('click', '#obj .objekte', function(e){
+    // TODO nach auswählen Verschiebbar machen !
+    if (e.ctrlKey || e.shiftKey) {
+        if (!$(this).hasClass('selected-multiple')) {
+            $(this).addClass('selected-multiple');
+        } else {
+            $(this).removeClass("selected-multiple");
+        }
+            return;
+    } else {
+        $(this).removeClass('selected-multiple').siblings().removeClass('selected-multiple');
+    }
     let modal = document.getElementById('myModalObj');
     let modalImg = document.getElementById("img02");
     let captionText = document.getElementById("caption2");
@@ -1428,6 +1521,20 @@ $(document).on('click', '#closeAlert', function(){
     // $('#myModalAlert').css('visibility','hidden');
 
 });
+
+
+// function selectMultipleObjects() {
+//     if ()
+//     $('.regal').multipleSortable({
+//         connectWith: '.regalSort'
+//     });
+//
+// }
+// $( ".regalSort" ).sortable( "refresh" );
+
+// $(document).ready(function () {
+//     $('.regalSort').multisortable();
+// });
 
 
 
