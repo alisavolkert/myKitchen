@@ -75,9 +75,21 @@ $(document).ready(function() {
     $('.regalSort').sortable({
         connectWith: '.regalSort',
         placeholder: 'objekte',
-        revert: 50,
+        delay: 150, //Needed to prevent accidental drag when trying to select
+        revert: 0,
         appendTo: "body",
-        helper: "clone",
+        // helper: "clone",
+        helper: function (e, item) {
+            let helper = $('<div/>');
+            helper.css('width','300px');
+            if (!item.hasClass('selected')) {
+                item.addClass('selected').siblings().removeClass('selected');
+            }
+            let elements = item.parent().children('.selected').clone();
+            item.data('multidrag', elements).siblings('.selected').remove();
+            return helper.append(elements);
+        },
+        cursorAt: { top: 0, left: 0 },
         // helper: function (e, item) {
         //     //Basically, if you grab an unhighlighted item to drag, it will deselect (unhighlight) everything else
         //     if (!item.hasClass('selected-multiple')) {
@@ -106,14 +118,49 @@ $(document).ready(function() {
         start: function(event, ui) {
             // sortableStart(event,ui)
             // var elements = ui.item.data('multidrag');
+            $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0});
 
             num_of_clicks_on_obj++;
             countClicks++;
             endTime = new Date();
-            
+            let elements = ui.item.data('multidrag');
 
 
-            /* calculate space in shelf  */
+            console.log('elem[0] id ' + elements[0].id);
+            for (let i = 0; i < elements.length; i++) {
+            // elements.each(function (el) {
+                /* calculate space in shelf  */
+                var obj_id = elements[i].id;
+                // var obj_width = parseFloat(parseInt(,10)).toFixed(2);
+                // var obj_height = parseFloat(elements[i].css('min-height')).toFixed(2);
+                // var obj_length = parseFloat(elements[i].css('perspective')).toFixed(2);
+
+                var obj_width = elements[i].style.minWidth;
+                var obj_height = elements[i].style.minHeight;
+                var obj_length = elements[i].style.perspective;
+
+                var obj_volume = obj_length * obj_height * obj_width;
+
+                var l = regal_ids.length - 1;
+                for (let i = 1; i < l; i++ ){
+                    var id = '#' + regal_ids[i];
+                    var pw = +getPlaceholderVolume(id) + +obj_volume;
+
+                    var w = parseInt($(id).css('min-width'));
+                    var h = parseInt($(id).css('min-height'));
+                    var d = parseInt($(id).css('perspective'));
+                    var regal_volume = w * h * d;
+
+                    if ( pw > regal_volume || h < obj_height ) {
+                        $(id).css('opacity', 0.5);
+                    }
+                }
+                ui.placeholder.height(30);
+                ui.placeholder.width(30);
+                ui.placeholder.css('visibility', 'visible');
+            }
+
+            /*/!* calculate space in shelf  *!/
             var obj_id = ui.item.attr('id');
             var obj_width = parseFloat(ui.item.css('min-width')).toFixed(2);
             var obj_height = parseFloat(ui.item.css('min-height')).toFixed(2);
@@ -136,201 +183,439 @@ $(document).ready(function() {
             }
             ui.placeholder.height(30);
             ui.placeholder.width(30);
-            ui.placeholder.css('visibility', 'visible');
+            ui.placeholder.css('visibility', 'visible');*/
         },
         stop: function(event, ui) {
             // var elements = ui.item.data('multidrag');
             // console.log("stop, elem 0 " + elements[0].attr('id'));
             // sortableStop(event,ui)
             /* put and scale object */
-
+            let old_parent_id_last;
+            let new_parent_id_last;
             let curObjTooLargeOrFull = false;
             let old = false;
-            var old_parent_id = $(event.target).attr("id");
-            var new_parent_id = ui.item.parent().attr("id");
-
-            if ($('#' + new_parent_id).parent('#test2').length) {
-                if (new_parent_id.startsWith('sv7') || new_parent_id.startsWith('sv8')){
-                    new_parent_id = new_parent_id.substr(0,3);
-                    console.log('#test2 1');
-                } else if (new_parent_id.startsWith('sv10')){
-                    new_parent_id = new_parent_id.substr(0,6);
-                    console.log('#test2 2');
-                } else {
-                    new_parent_id = new_parent_id.substr(0,5);
-                    console.log('#test2 3');
-                }
-                console.log("new_parent_id " + new_parent_id);
-                $('#' + new_parent_id).append(ui.item);
-            }
 
 
-            var obj_id = ui.item.attr('id');
-            var obj_width = parseFloat(ui.item.css('min-width'));
-            var obj_height = parseFloat(ui.item.css('min-height'));
-            var obj_length = parseFloat(ui.item.css('perspective'));
-            var obj_volume = obj_length * obj_height * obj_width;
 
-            var parent_width = parseInt($("#" + new_parent_id).css('min-width'));
-            var parent_height = parseInt($("#" + new_parent_id).css('min-height'));
-            var parent_depth = parseInt($("#" + new_parent_id).css('perspective'));
-            var regal_volume = parent_width * parent_height * parent_depth;
+            let elements = ui.item.data('multidrag');
 
-            var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
+            for (let i = 0; i < elements.length; i++) {
 
 
-            if (old_parent_id.startsWith(new_parent_id) &&
-                ($('#' + old_parent_id).parent('#test2').length)){
-                $('#' + old_parent_id).find(ui.item).remove();
+                console.log('iteration ' + i);
+            // elements.each(function (el) {
 
-            }
-            else if (new_parent_id.startsWith(old_parent_id) &&
-                ($('#' + new_parent_id).parent('#test2').length)) {
-                $('#' + old_parent_id).append(ui.item);
-                old = true;
-            } else if ((old_parent_id !== new_parent_id)) {
+                var old_parent_id = $(event.target).attr("id");
+                old_parent_id_last = old_parent_id;
+                var new_parent_id = ui.item.parent().attr("id");
+                new_parent_id_last = new_parent_id;
+                console.log('new parent' + $('#' + new_parent_id).html());
+                // var new_parent_id = elements[i].parentNode;
+                console.log('new_parent_id ' + new_parent_id);
 
-                if (new_parent_id === 'obj') {
-                    ui.item.css('width', 100);
-                    ui.item.css('height', 100);
-                } else {
-                    if (obj_height > parent_height) {
-                        $('#' + old_parent_id).append(ui.item);
-                        // document.getElementById('myModalAlert').style.display = "block";
-
-                        $("#myModalAlert").css('opacity', '0');
-                        $('#myModalAlert').css('display','block');
-                        $("#myModalAlert").css('opacity', '1');
-                        // $('#myModalAlert').animate({opacity: 1}, 100);
-
-                        $('#myModalAlert #alertText').html("Passt nicht rein!");
-                        curObjTooLargeOrFull = true;
-                        // alert("Passt nicht rein!");
+                if ($('#' + new_parent_id).parent('#test2').length) {
+                    if (new_parent_id.startsWith('sv7') || new_parent_id.startsWith('sv8')){
+                        new_parent_id = new_parent_id.substr(0,3);
+                        console.log('#test2 1');
+                    } else if (new_parent_id.startsWith('sv10')){
+                        new_parent_id = new_parent_id.substr(0,6);
+                        console.log('#test2 2');
                     } else {
-                        console.log("old yes 033");
-                        if ( regal_volume >= placeholder_volume ) {
-                            console.log("old yes 033a");
+                        new_parent_id = new_parent_id.substr(0,5);
+                        console.log('#test2 3');
+                    }
+                    console.log("new_parent_id " + new_parent_id);
+                    $('#' + new_parent_id).append(elements[i]);
+                }
 
-                            ui.item.css('width', 100);
-                            ui.item.css('height', 100);
 
-                            //Skalierung momentan auf 50% der Größe in der Liste
-                            ui.item.css('width', 50);
-                            ui.item.css('height', 50);
-                            ui.item.css('horizontal-align','bottom');
-                        } else {
-                            console.log("old yes 033b");
-                            $('#' + old_parent_id).append(ui.item);
+              /*  var obj_id = elements[i].attr('id');
+                var obj_width = parseFloat(elements[i].css('min-width'));
+                var obj_height = parseFloat(elements[i].css('min-height'));
+                var obj_length = parseFloat(elements[i].css('perspective'));*/
+
+                var obj_id = elements[i].id;
+                console.log('obj_id ' + obj_id);
+                var obj_width = elements[i].style.minWidth;
+                var obj_height = elements[i].style.minHeight;
+                var obj_length = elements[i].style.perspective;
+                var obj_volume = obj_length * obj_height * obj_width;
+
+                var parent_width = parseInt($("#" + new_parent_id).css('min-width'));
+                var parent_height = parseInt($("#" + new_parent_id).css('min-height'));
+                console.log('parent_height ' + parent_height);
+                var parent_depth = parseInt($("#" + new_parent_id).css('perspective'));
+                var regal_volume = parent_width * parent_height * parent_depth;
+
+                var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
+
+
+                if (old_parent_id.startsWith(new_parent_id) &&
+                    ($('#' + old_parent_id).parent('#test2').length)){
+                    $('#' + old_parent_id).find(elements[i]).remove();
+                    console.log("old yes 01");
+
+                }
+                else if (new_parent_id.startsWith(old_parent_id) &&
+                    ($('#' + new_parent_id).parent('#test2').length)) {
+                    $('#' + old_parent_id).append(elements[i]);
+                    console.log("old yes 011");
+                    old = true;
+                } else if ((old_parent_id !== new_parent_id)) {
+                    console.log("old yes 02");
+                    if (new_parent_id === 'obj') {
+                        elements[i].style.width = "100px";
+                        elements[i].style.height = "100px";
+                        console.log("old yes 021");
+                        // elements[i].css('width', 100);
+                        // elements[i].css('height', 100);
+                    } else {
+                        if (obj_height > parent_height) {
+                            console.log("old yes 03");
+                            $('#' + old_parent_id).append(elements[i]);
                             // document.getElementById('myModalAlert').style.display = "block";
-                            // $('#myModalAlert').fadeIn(300);
-                            // $('#myModalAlert').css('opacity', '1').css('display', 'block');
-                            // $('#myModalAlert').css('visibility','visible');
-                            // $('#myModalAlert').css('opacity','1');
-                            $('#myModalAlert').css('opacity','1');
-                            $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
-                                function(e) {
-                                    $('#myModalAlert').css('display','block');
-                                });
-                            $('#myModalAlert #alertText').html("Kein Platz mehr!");
+
+                            $("#myModalAlert").css('opacity', '0');
+                            $('#myModalAlert').css('display','block');
+                            $("#myModalAlert").css('opacity', '1');
+                            // $('#myModalAlert').animate({opacity: 1}, 100);
+
+                            $('#myModalAlert #alertText').html("Passt nicht rein!");
                             curObjTooLargeOrFull = true;
-                            // alert("Kein Platz mehr!");
+                            // alert("Passt nicht rein!");
+                        } else {
+                            console.log("old yes 033");
+                            if ( regal_volume >= placeholder_volume ) {
+                                console.log("old yes 033a");
+
+                                // elements[i].css('width', 100);
+                                // elements[i].css('height', 100);
+                               /* elements[i].style.width = "100px";
+                                elements[i].style.height = "100px";*/
+
+                                //Skalierung momentan auf 50% der Größe in der Liste
+
+
+                                elements[i].style.width = "75px";
+                                elements[i].style.height = "75px";
+                                elements[i].style.horizontalAlign = "bottom";
+                                // $('#' + new_parent_id).append(elements[i]);
+                                // elements[i].css('width', 50);
+                                // elements[i].css('height', 50);
+                                // elements[i].css('horizontal-align','bottom');
+                            } else {
+                                console.log("old yes 033b");
+                                $('#' + old_parent_id).append(elements[i]);
+                                // document.getElementById('myModalAlert').style.display = "block";
+                                // $('#myModalAlert').fadeIn(300);
+                                // $('#myModalAlert').css('opacity', '1').css('display', 'block');
+                                // $('#myModalAlert').css('visibility','visible');
+                                // $('#myModalAlert').css('opacity','1');
+                                $('#myModalAlert').css('opacity','1');
+                                $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                                    function(e) {
+                                        $('#myModalAlert').css('display','block');
+                                    });
+                                $('#myModalAlert #alertText').html("Kein Platz mehr!");
+                                curObjTooLargeOrFull = true;
+                                // alert("Kein Platz mehr!");
+                            }
                         }
                     }
                 }
+
+                if(new_parent_id !== 'obj') {
+                    let resTmp = [];
+                    resTmp[0] = userid;
+                    resTmp[1] = new_parent_id;
+                    resTmp[2] = new Date().getUnixTime();
+                    resTmp[3] = obj_id;
+                    resTmp[4] = 1;
+                    resultsForDB.push(resTmp);
+
+                    console.log('resultsForDB 1 ' + JSON.stringify(resultsForDB));
+
+                    let res= [];
+                    resultsForDB.forEach(function each(item) {
+                        if((item[0] === userid) && (item[3] === obj_id)
+                            && (item[2] < resTmp[2])) {
+                            item[4] = 0;
+                        }
+                        res.push(item);
+                    });
+
+                    resultsForDB = res;
+                    // console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
+                }
+
+
+                // save current state in results - array
+                var n = results.length;
+                var l = regal_ids.length;
+                results[n] = new Array();
+                results[n][0] = timeToString(new Date());
+
+                for (let i = 1; i < l; i++){
+
+                    var children = [];
+                    $("#" + regal_ids[i]).children().each( function (){
+                        if ($(this).attr('id') !== 'myModalObj') {
+                            children.push($(this).attr('id'));
+                        }
+                    });
+                    results[n][i] = children.toString();
+                }
+
+
+                if(results[n] !== null) {results_history_change[n] = results[n];}
+
+                // wurde der back-button gedrückt, und dann ein Element hinzugefügt?
+                //
+                if (JSON.stringify(results) !== JSON.stringify(results_history_change)) {
+                    results = results_history_change.filter(arr=>arr!==null).map(arr => arr.slice());
+                    // results = results_history_change;
+                }
+
+                index = results.length-1;
+                // console.log("index after adding " + index);
+                // console.log("add, results: \n" + JSON.stringify(results));
+                $(".regal").css('opacity', 1);
+
+                // Klasse 'hasObjects' wird wieder entfernt, wenn Begründung eingegeben wird
+                // if (new_parent_id !== 'obj') {
+                //     $('#' + new_parent_id).addClass('hasObjects');
+                // }
+                // Objekte unten im Extra-Fenster anzeigen
+                /* if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
+                     $('#' + new_parent_id).addClass('hasObjects');
+                     showObjects("#" + new_parent_id);
+                 }*/
+
+                // console.log("new_parent_id " + new_parent_id);
+                // console.log("\n this.id " + this.id);
+
+                if($('#' + old_parent_id).find('img.objekte').length === 0) {
+                    $('#' + old_parent_id).removeClass('hasObjects');
+                }
+
+
+                if ($('#obj').find('img.objekte').length === 0) {
+                    document.getElementById('finish').disabled = false;
+                    console.log("finish enabled");
+                } else {
+                    document.getElementById('finish').disabled = true;
+                    console.log("finish disabled");
+                }
+                // document.getElementById('back').disabled = false;
+
             }
 
-            if(new_parent_id !== 'obj') {
-                let resTmp = [];
-                resTmp[0] = userid;
-                resTmp[1] = new_parent_id;
-                resTmp[2] = new Date().getUnixTime();
-                resTmp[3] = obj_id;
-                resTmp[4] = 1;
-                resultsForDB.push(resTmp);
-
-                // console.log('resultsForDB ' + JSON.stringify(resultsForDB));
-
-                let res= [];
-                resultsForDB.forEach(function each(item) {
-                    if((item[0] === userid) && (item[3] === obj_id)
-                        && (item[2] < resTmp[2])) {
-                        item[4] = 0;
-                    }
-                    res.push(item);
-                });
-
-                resultsForDB = res;
-                // console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
+            ui.item.after(elements).remove();
+            let currentSelected = document.querySelectorAll('.selected');
+            for (let i = 0; i < currentSelected.length; i++) {
+                currentSelected[i].classList.remove('selected');
             }
-
-
-            // save current state in results - array
-            var n = results.length;
-            var l = regal_ids.length;
-            results[n] = new Array();
-            results[n][0] = timeToString(new Date());
-
-            for (var i = 1; i < l; i++){
-
-                var children = [];
-                $("#" + regal_ids[i]).children().each( function (){
-                    if ($(this).attr('id') !== 'myModalObj') {
-                        children.push($(this).attr('id'));
-                    }
-                });
-                results[n][i] = children.toString();
-            }
-
-
-            if(results[n] !== null) {results_history_change[n] = results[n];}
-
-            // wurde der back-button gedrückt, und dann ein Element hinzugefügt?
-            //
-            if (JSON.stringify(results) !== JSON.stringify(results_history_change)) {
-                results = results_history_change.filter(arr=>arr!==null).map(arr => arr.slice());
-                // results = results_history_change;
-            }
-
-            index = results.length-1;
-            // console.log("index after adding " + index);
-            // console.log("add, results: \n" + JSON.stringify(results));
-            $(".regal").css('opacity', 1);
-
-            // Klasse 'hasObjects' wird wieder entfernt, wenn Begründung eingegeben wird
-            // if (new_parent_id !== 'obj') {
-            //     $('#' + new_parent_id).addClass('hasObjects');
-            // }
-            // Objekte unten im Extra-Fenster anzeigen
-           /* if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
-                $('#' + new_parent_id).addClass('hasObjects');
-                showObjects("#" + new_parent_id);
-            }*/
             if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
                 if (old) {
-                    showObjects("#" + old_parent_id);
+                    $("#" + old_parent_id).click();
+                    // showObjects("#" + old_parent_id);
+                    console.log("old showing objects");
                 }else {
                     $('#' + new_parent_id).addClass('hasObjects');
-                    showObjects("#" + new_parent_id);
+                    $("#" + new_parent_id).click();
+                    // showObjects("#" + new_parent_id);
+                    console.log("showing objects");
                 }
             } else {
                 console.log("not showing objects");
             }
-            // console.log("new_parent_id " + new_parent_id);
-            // console.log("\n this.id " + this.id);
-
-            if($('#' + old_parent_id).find('img.objekte').length === 0) {
-                $('#' + old_parent_id).removeClass('hasObjects');
-            }
-
-
-            if ($('#obj').find('img.objekte').length === 0) {
-                document.getElementById('finish').disabled = false;
-                console.log("finish enabled");
-            } else {
-                document.getElementById('finish').disabled = true;
-                console.log("finish disabled");
-            }
-            // document.getElementById('back').disabled = false;
+           //  let curObjTooLargeOrFull = false;
+           //  let old = false;
+           //  var old_parent_id = $(event.target).attr("id");
+           //  var new_parent_id = ui.item.parent().attr("id");
+           //
+           //  if ($('#' + new_parent_id).parent('#test2').length) {
+           //      if (new_parent_id.startsWith('sv7') || new_parent_id.startsWith('sv8')){
+           //          new_parent_id = new_parent_id.substr(0,3);
+           //          console.log('#test2 1');
+           //      } else if (new_parent_id.startsWith('sv10')){
+           //          new_parent_id = new_parent_id.substr(0,6);
+           //          console.log('#test2 2');
+           //      } else {
+           //          new_parent_id = new_parent_id.substr(0,5);
+           //          console.log('#test2 3');
+           //      }
+           //      console.log("new_parent_id " + new_parent_id);
+           //      $('#' + new_parent_id).append(ui.item);
+           //  }
+           //
+           //
+           //  var obj_id = ui.item.attr('id');
+           //  var obj_width = parseFloat(ui.item.css('min-width'));
+           //  var obj_height = parseFloat(ui.item.css('min-height'));
+           //  var obj_length = parseFloat(ui.item.css('perspective'));
+           //  var obj_volume = obj_length * obj_height * obj_width;
+           //
+           //  var parent_width = parseInt($("#" + new_parent_id).css('min-width'));
+           //  var parent_height = parseInt($("#" + new_parent_id).css('min-height'));
+           //  var parent_depth = parseInt($("#" + new_parent_id).css('perspective'));
+           //  var regal_volume = parent_width * parent_height * parent_depth;
+           //
+           //  var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
+           //
+           //
+           //  if (old_parent_id.startsWith(new_parent_id) &&
+           //      ($('#' + old_parent_id).parent('#test2').length)){
+           //      $('#' + old_parent_id).find(ui.item).remove();
+           //
+           //  }
+           //  else if (new_parent_id.startsWith(old_parent_id) &&
+           //      ($('#' + new_parent_id).parent('#test2').length)) {
+           //      $('#' + old_parent_id).append(ui.item);
+           //      old = true;
+           //  } else if ((old_parent_id !== new_parent_id)) {
+           //
+           //      if (new_parent_id === 'obj') {
+           //          ui.item.css('width', 100);
+           //          ui.item.css('height', 100);
+           //      } else {
+           //          if (obj_height > parent_height) {
+           //              $('#' + old_parent_id).append(ui.item);
+           //              // document.getElementById('myModalAlert').style.display = "block";
+           //
+           //              $("#myModalAlert").css('opacity', '0');
+           //              $('#myModalAlert').css('display','block');
+           //              $("#myModalAlert").css('opacity', '1');
+           //              // $('#myModalAlert').animate({opacity: 1}, 100);
+           //
+           //              $('#myModalAlert #alertText').html("Passt nicht rein!");
+           //              curObjTooLargeOrFull = true;
+           //              // alert("Passt nicht rein!");
+           //          } else {
+           //              console.log("old yes 033");
+           //              if ( regal_volume >= placeholder_volume ) {
+           //                  console.log("old yes 033a");
+           //
+           //                  ui.item.css('width', 100);
+           //                  ui.item.css('height', 100);
+           //
+           //                  //Skalierung momentan auf 50% der Größe in der Liste
+           //                  ui.item.css('width', 50);
+           //                  ui.item.css('height', 50);
+           //                  ui.item.css('horizontal-align','bottom');
+           //              } else {
+           //                  console.log("old yes 033b");
+           //                  $('#' + old_parent_id).append(ui.item);
+           //                  // document.getElementById('myModalAlert').style.display = "block";
+           //                  // $('#myModalAlert').fadeIn(300);
+           //                  // $('#myModalAlert').css('opacity', '1').css('display', 'block');
+           //                  // $('#myModalAlert').css('visibility','visible');
+           //                  // $('#myModalAlert').css('opacity','1');
+           //                  $('#myModalAlert').css('opacity','1');
+           //                  $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+           //                      function(e) {
+           //                          $('#myModalAlert').css('display','block');
+           //                      });
+           //                  $('#myModalAlert #alertText').html("Kein Platz mehr!");
+           //                  curObjTooLargeOrFull = true;
+           //                  // alert("Kein Platz mehr!");
+           //              }
+           //          }
+           //      }
+           //  }
+           //
+           //  if(new_parent_id !== 'obj') {
+           //      let resTmp = [];
+           //      resTmp[0] = userid;
+           //      resTmp[1] = new_parent_id;
+           //      resTmp[2] = new Date().getUnixTime();
+           //      resTmp[3] = obj_id;
+           //      resTmp[4] = 1;
+           //      resultsForDB.push(resTmp);
+           //
+           //      // console.log('resultsForDB ' + JSON.stringify(resultsForDB));
+           //
+           //      let res= [];
+           //      resultsForDB.forEach(function each(item) {
+           //          if((item[0] === userid) && (item[3] === obj_id)
+           //              && (item[2] < resTmp[2])) {
+           //              item[4] = 0;
+           //          }
+           //          res.push(item);
+           //      });
+           //
+           //      resultsForDB = res;
+           //      // console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
+           //  }
+           //
+           //
+           //  // save current state in results - array
+           //  var n = results.length;
+           //  var l = regal_ids.length;
+           //  results[n] = new Array();
+           //  results[n][0] = timeToString(new Date());
+           //
+           //  for (var i = 1; i < l; i++){
+           //
+           //      var children = [];
+           //      $("#" + regal_ids[i]).children().each( function (){
+           //          if ($(this).attr('id') !== 'myModalObj') {
+           //              children.push($(this).attr('id'));
+           //          }
+           //      });
+           //      results[n][i] = children.toString();
+           //  }
+           //
+           //
+           //  if(results[n] !== null) {results_history_change[n] = results[n];}
+           //
+           //  // wurde der back-button gedrückt, und dann ein Element hinzugefügt?
+           //  //
+           //  if (JSON.stringify(results) !== JSON.stringify(results_history_change)) {
+           //      results = results_history_change.filter(arr=>arr!==null).map(arr => arr.slice());
+           //      // results = results_history_change;
+           //  }
+           //
+           //  index = results.length-1;
+           //  // console.log("index after adding " + index);
+           //  // console.log("add, results: \n" + JSON.stringify(results));
+           //  $(".regal").css('opacity', 1);
+           //
+           //  // Klasse 'hasObjects' wird wieder entfernt, wenn Begründung eingegeben wird
+           //  // if (new_parent_id !== 'obj') {
+           //  //     $('#' + new_parent_id).addClass('hasObjects');
+           //  // }
+           //  // Objekte unten im Extra-Fenster anzeigen
+           // /* if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
+           //      $('#' + new_parent_id).addClass('hasObjects');
+           //      showObjects("#" + new_parent_id);
+           //  }*/
+           //  if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
+           //      if (old) {
+           //          showObjects("#" + old_parent_id);
+           //      }else {
+           //          $('#' + new_parent_id).addClass('hasObjects');
+           //          showObjects("#" + new_parent_id);
+           //      }
+           //  } else {
+           //      console.log("not showing objects");
+           //  }
+           //  // console.log("new_parent_id " + new_parent_id);
+           //  // console.log("\n this.id " + this.id);
+           //
+           //  if($('#' + old_parent_id).find('img.objekte').length === 0) {
+           //      $('#' + old_parent_id).removeClass('hasObjects');
+           //  }
+           //
+           //
+           //  if ($('#obj').find('img.objekte').length === 0) {
+           //      document.getElementById('finish').disabled = false;
+           //      console.log("finish enabled");
+           //  } else {
+           //      document.getElementById('finish').disabled = true;
+           //      console.log("finish disabled");
+           //  }
+           //  // document.getElementById('back').disabled = false;
         },
     });
 
@@ -1512,7 +1797,19 @@ $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
 
 // adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp
 // .obfl .objekte, .oben .objekte, .unten .objekte
-$(document).on('click', '#test2 .objekte', function(){
+$(document).on('click', '#test2 .objekte', function(e){
+   /* if (e.ctrlKey) {
+        if($('.selected').length > 4) {
+            $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1});
+        } else {
+            $(this).toggleClass("selected");
+            $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0});
+        }
+
+        return;
+    } else {
+        $(this).addClass("selected").siblings().removeClass('selected');
+    }*/
     var modal = document.getElementById('myModalKitchen');
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption1");
@@ -1526,6 +1823,19 @@ $(document).on('click', '#test2 .objekte', function(){
 });
 $(document).on('click', '#obj .objekte', function(e){
     // TODO nach auswählen Verschiebbar machen !
+        if (e.ctrlKey) {
+            if($('.selected').length > 4) {
+                $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1});
+            } else {
+                $(this).toggleClass("selected");
+                $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0});
+            }
+
+            return;
+        } else {
+            $(this).addClass("selected").siblings().removeClass('selected');
+        }
+
     // if (e.ctrlKey || e.shiftKey) {
     //     if (!$(this).hasClass('selected-multiple')) {
     //         $(this).addClass('selected-multiple');

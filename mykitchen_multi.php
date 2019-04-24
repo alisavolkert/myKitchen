@@ -26,8 +26,8 @@ $db = new Database();
     <script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="js/html2canvas.min.js"></script>
-    <script type="text/javascript" src="js/mykitchen.js"></script>
-<!--    <script type="text/javascript" src="js/mykitchen_multi.js"></script>-->
+<!--    <script type="text/javascript" src="js/mykitchen.js"></script>-->
+    <script type="text/javascript" src="js/mykitchen_multi.js"></script>
 <!--    <script type="text/javascript" src="js/multiselect.js"></script>-->
 
 </head>
@@ -327,7 +327,7 @@ $result_mk = $db->getAllImagesWithData();
 //            while($row = $result_mk->fetch()) {
            $i=0;
              foreach ($result_mk as $row) {
-                 if ($i < 5) {
+                 if ($i < 10) {
                      $image = $row['picture'];
                      if ($image === 0) {
                          $image = "default.jpeg";
@@ -352,9 +352,10 @@ $result_mk = $db->getAllImagesWithData();
 
 
 ?>
-       <!-- <div id="mehrereObjekte">
-            <p>mehrere Objekte markieren: STRG + Klick</p>
-        </div>-->
+        <div id="mehrereObjekte">
+            <p id="maxFive">Maximal 5 Elemente!</p>
+            <p>mehrere Objekte markieren: Strg + Klick (max. 5)</p>
+        </div>
     </div>
 
     <script type="text/javascript">

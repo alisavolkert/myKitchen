@@ -110,6 +110,11 @@ h3 {
 .objekte {
 	width: 100px;
 	height:100px;
+	box-sizing: border-box;
+}
+#obj .objekte  {
+	width: 100px;
+	height: 100px;
 }
 
 #mehrereObjekte {
@@ -125,8 +130,18 @@ h3 {
 	font-size: 80%;
 }
 
-.selected-multiple {
-	border: 2px solid darkred;
+#mehrereObjekte #maxFive {
+	color: #fff;
+	background: #ff0100;
+	padding: 2px;
+	width: 130px;
+	visibility: hidden;
+	height: 0;
+	opacity: 0;
+}
+
+.selected-multiple, .selected {
+	border:4px solid #ce0403;
 }
 
 /*.ui-sortable-helper {
@@ -865,8 +880,8 @@ h3 {
 }
 #sv1-1, #sv2-1,  #sv3-1, #sv4-1,  #sv5-1 {
 	box-sizing: border-box;
-	border-bottom: solid #b6afaf;
-	border-width: 3px;
+	border-bottom: 3px solid #b6afaf;
+	/*border-width: 3px;*/
 	/*border-bottom: 1px solid #b6afaf;*/
 }
 
@@ -1167,6 +1182,10 @@ h3 {
 	border: 2px dashed #F00;
 	box-sizing: border-box;
 }
+.hasObjectsActive {
+	border: 2px dashed #333;
+	box-sizing:border-box;
+}
 
 .erkl {
 	bottom: 0;
@@ -1318,10 +1337,19 @@ h3 {
 
 @media only screen and (max-width: 1400px) {
 
+	body {
+		min-width: 1200px;
+	}
+
+	.all {
+		margin-top: 37px;
+	}
 
 	.but {
 		width: 282px;
 		height: 120px;
+		margin-left: 907px;
+		z-index: 11;
 	}
 	.but .small {
 		min-width: 12%;
@@ -1337,6 +1365,7 @@ h3 {
 		margin-top: 137px;
 		width: 282px;
 		height: 490px;
+		margin-left: 907px;
 	}
 	#obj .objekte {
 		width: 90px;
@@ -1344,7 +1373,7 @@ h3 {
 		margin: 0 1px;
 	}
 	#foto-src {
-		right: 133px;
+		right: 160px;
 	}
 
 	#myModalObj {
