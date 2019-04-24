@@ -119,7 +119,7 @@ function get_form($errorstring = "", $email = "")
         <input type="email" name="m1" id="email2" size="50" maxlength="100" oninput="updateInput(this.value)"/>
        <br>
         <label><input type="radio" name="num" id="matrnum" value="" onclick="disableMailInput()"> Matrikelnummer:</label> 
-        <input type="number" name="m1" id="matr" min="0" maxlength="10" oninput="updateInput(this.value)" disabled/>
+        <input type="number" name="m1" id="matr" min="0" maxlength="7" oninput="updateInput(this.value)" disabled/>
 
     </p>
       <script>

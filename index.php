@@ -29,7 +29,19 @@
   	<hr>
   	<span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
 
-    
+
+  <script>
+
+      // Internet Explorer 6-11
+      let isIE = /*@cc_on!@*/false || !!document.documentMode;
+
+      if(isIE) {
+          alert('Bitte nutze einen anderen Browser um das Experiment durchzuführen! \n' +
+              'z.B. Google Chrome, Mozilla Firefox oder Safari');
+      }
+
+
+  </script>
   </body>
 
 </html>

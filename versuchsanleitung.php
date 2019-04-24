@@ -45,7 +45,7 @@ Du darfst dabei auch Gegenstände auf den Arbeitsflächen abstellen. Beim Einrä
             Falsch. Gern darfst du während des Versuchs Gegenstände umplatzieren. Räume ALLE Gegenstände aus dem Depot in die Küche. Du musst dabei aber nicht in jedes Regal etwas einräumen. </p>
         <p>Anschließend sollst du den Inhalt der gefüllten Fächer kurz beschreiben.
 Der Versuch ist beendet, sobald du jedes gefüllte Fach kurz beschrieben hast.
-            Er wird jedoch spätestens nach 60 Minuten abgebrochen. <!-- TODO: nach Pilottest Zeitlimit von 90 min ggf. anpassen.-->
+            Er wird jedoch spätestens nach 60 Minuten abgebrochen.
 
 		</p>
         <img src="img/versuch_neu.png" />

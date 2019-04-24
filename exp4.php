@@ -65,8 +65,8 @@
     
   	<p>Der Versuch dauert ungefähr 30-45 Minuten. Eine genaue Anleitung findest du auf der nächsten Seite.</p>
 
-  	<p>Um den Versuch durchzuführen, muss die Auflösung deines Bildschirms mindestens 1400x700 Pixel betragen. </p> <!-- TODO: reichen nicht auch 12XX x XXX px?-->
-<!--TODO für kleine Geräte < 1400px Inventar+Buttons kleiner machen !-->
+  	<p>Um den Versuch durchzuführen, muss die Auflösung deines Bildschirms mindestens 1200x700 Pixel betragen. </p>
+
 <!--    <p><a target="_blank" href="java.htm">So finden Sie heraus</a>, ob Sie Java installiert haben.</p>-->
 
 <!--  	<span><i>Schritt-für-Schritt-Anleitung:</i></span> -->
