@@ -15,7 +15,7 @@ $db = new Database();
 
 <head>
 
-    <title>mykitchen</title>
+    <title>Küchensimulation</title>
     <meta charset="utf-8">
 
     <link rel="stylesheet" type="text/css" href="stylesheets/mykitchen.css">
@@ -184,40 +184,50 @@ $db = new Database();
 
 
         <div class="schrank" id="s1">
-            <div class="regal regalSort oben" id="sv1-1"></div>
-            <div class="regal regalSort oben" id="sv1-2"></div>
+            <div class="regal regalSort oben" id="sv1-1"
+                 data-regal-width="57" data-regal-height="33.2" data-regal-depth="32.4"></div>
+            <div class="regal regalSort oben" id="sv1-2"
+                 data-regal-width="57" data-regal-height="33.4" data-regal-depth="33.7"></div>
         </div>
         <!--<div class="schrank" id="s1-2">
             <div class="regal oben" id="sv1-2"></div>
         </div>-->
 
         <div class="schrank" id="s2">
-            <div class="regal oben" id="sv2-1"></div>
-            <div class="regal oben" id="sv2-2"></div>
+            <div class="regal oben" id="sv2-1"
+                 data-regal-width="58" data-regal-height="33.2" data-regal-depth="29.4"></div>
+            <div class="regal oben" id="sv2-2"
+                 data-regal-width="58" data-regal-height="33.4" data-regal-depth="33.7"></div>
         </div>
 <!--        <div class="schrank" id="s2-2">-->
 <!--            <div class="regal oben" id="sv2-2"></div>-->
 <!--        </div>-->
 
         <div class="schrank" id="s3">
-            <div class="regal oben" id="sv3-1"></div>
-            <div class="regal oben" id="sv3-2"></div>
+            <div class="regal oben" id="sv3-1"
+                 data-regal-width="58" data-regal-height="33.2" data-regal-depth="29.4"></div>
+            <div class="regal oben" id="sv3-2"
+                 data-regal-width="58" data-regal-height="33.4" data-regal-depth="33.7"></div>
         </div>
 <!--        <div class="schrank" id="s3-2">
             <div class="regal oben" id="sv3-2"></div>
         </div>-->
 
         <div class="schrank" id="s4">
-            <div class="regal oben" id="sv4-1"></div>
-            <div class="regal oben" id="sv4-2"></div>
+            <div class="regal oben" id="sv4-1"
+                 data-regal-width="58" data-regal-height="33.2" data-regal-depth="29.4"></div>
+            <div class="regal oben" id="sv4-2"
+                 data-regal-width="58" data-regal-height="33.4" data-regal-depth="33.7"></div>
         </div>
         <!--<div class="schrank" id="s4-2">
             <div class="regal oben" id="sv4-2"></div>
         </div>-->
 
         <div class="schrank" id="s5">
-            <div class="regal oben" id="sv5-1"></div>
-            <div class="regal oben" id="sv5-2"></div>
+            <div class="regal oben" id="sv5-1"
+                 data-regal-width="58" data-regal-height="33.2" data-regal-depth="29.4"></div>
+            <div class="regal oben" id="sv5-2"
+                 data-regal-width="58" data-regal-height="33.4" data-regal-depth="33.7"></div>
         </div>
        <!-- <div class="schrank" id="s5-2">
             <div class="regal oben" id="sv5-2"></div>
@@ -225,47 +235,60 @@ $db = new Database();
 
 
         <div class="schrank" id="s6-1">
-            <div class="regal unten" id="sv6-1"></div>
+            <div class="regal unten" id="sv6-1"
+                 data-regal-width="53.2" data-regal-height="9.8" data-regal-depth="48.1"></div>
         </div>
         <div class="schrank" id="s6-2">
-            <div class="regal unten" id="sv6-2"></div>
+            <div class="regal unten" id="sv6-2"
+             data-regal-width="53.2" data-regal-height="9.8" data-regal-depth="48.1"></div>
         </div>
         <div class="schrank" id="s6-3">
-            <div class="regal unten" id="sv6-3"></div>
+            <div class="regal unten" id="sv6-3"
+             data-regal-width="53.2" data-regal-height="9.8" data-regal-depth="48.1"></div>
         </div>
         <div class="schrank" id="s6-4">
-            <div class="regal unten" id="sv6-4"></div>
+            <div class="regal unten" id="sv6-4"
+             data-regal-width="53.2" data-regal-height="9.8" data-regal-depth="48.1"></div>
         </div>
         <div class="schrank" id="s6-5">
-            <div class="regal unten" id="sv6-5"></div>
+            <div class="regal unten" id="sv6-5"
+                 data-regal-width="53.2" data-regal-height="20.2" data-regal-depth="48.1"></div>
         </div>
 
         <div class="schrank" id="s7">
-            <div class="regal unten" id="sv7"></div>
+            <div class="regal unten" id="sv7"
+                 data-regal-width="56" data-regal-height="61.3" data-regal-depth="52.6"></div>
         </div>
 
         <div class="schrank" id="s8">
-            <div class="regal unten" id="sv8"></div>
+            <div class="regal unten" id="sv8"
+                 data-regal-width="50" data-regal-height="55" data-regal-depth="45"></div>
         </div>
 
         <div class="schrank" id="s9-1">
-            <div class="regal unten" id="sv9-1"></div>
+            <div class="regal unten" id="sv9-1"
+                 data-regal-width="53.2" data-regal-height="9.8" data-regal-depth="48.1"></div>
         </div>
         <div class="schrank" id="s9-2">
-            <div class="regal unten" id="sv9-2"></div>
+            <div class="regal unten" id="sv9-2"
+                 data-regal-width="53.2" data-regal-height="22.2" data-regal-depth="48.1"></div>
         </div>
         <div class="schrank" id="s9-3">
-            <div class="regal unten" id="sv9-3"></div>
+            <div class="regal unten" id="sv9-3"
+                 data-regal-width="53.2" data-regal-height="33.1" data-regal-depth="48.1"></div>
         </div>
 
         <div class="schrank" id="s10-1">
-            <div class="regal unten" id="sv10-1"></div>
+            <div class="regal unten" id="sv10-1"
+                 data-regal-width="53.2" data-regal-height="9.8" data-regal-depth="48.1"></div>
         </div>
         <div class="schrank" id="s10-2">
-            <div class="regal unten" id="sv10-2"></div>
+            <div class="regal unten" id="sv10-2"
+                 data-regal-width="53.2" data-regal-height="22.2" data-regal-depth="48.1"></div>
         </div>
         <div class="schrank" id="s10-3">
-            <div class="regal unten" id="sv10-3"></div>
+            <div class="regal unten" id="sv10-3"
+                 data-regal-width="53.2" data-regal-height="33.1" data-regal-depth="48.1"></div>
         </div>
 
         <!--Obfl1-->
@@ -273,11 +296,11 @@ $db = new Database();
         <!--Obfl3-->
         <!--Obfl4-->
         <!--Obfl5-->
-        <div class="regal regalSort unten obfl" id="obfl1"></div>
-        <div class="regal regalSort unten obfl" id="obfl2"></div>
-        <div class="regal regalSort unten obfl" id="obfl3"></div>
-        <div class="regal regalSort unten obfl" id="obfl4"></div>
-        <div class="regal regalSort oben obfl" id="obfl5"></div>
+        <div class="regal regalSort unten obfl" id="obfl1" data-regal-width="85" data-regal-height="60" data-regal-depth="60"></div>
+        <div class="regal regalSort unten obfl" id="obfl2" data-regal-width="119" data-regal-height="60" data-regal-depth="60"></div>
+        <div class="regal regalSort unten obfl" id="obfl3" data-regal-width="32" data-regal-height="60" data-regal-depth="60"></div>
+        <div class="regal regalSort unten obfl" id="obfl4" data-regal-width="110" data-regal-height="60" data-regal-depth="60"></div>
+        <div class="regal regalSort oben obfl" id="obfl5" data-regal-width="300" data-regal-height="65" data-regal-depth="37"></div>
 
         <div id="flaecheOben"></div>
         <div id="arbeitsflache"></div>
@@ -296,7 +319,9 @@ $db = new Database();
             $width = round(number_format($width));
             $depth = round(number_format($depth));
 
-            $result = "min-height:" .$height. "px; min-width:" .$width."px; perspective:".$depth."px;";
+            $result = 'data-regal-width="'.$width.'" data-regal-height="'.$height.'" data-regal-depth="'.$depth.'"';
+
+            // $result = "min-height:" .$height. "px; min-width:" .$width."px; perspective:".$depth."px;";
 
             return $result;
         }
@@ -327,14 +352,17 @@ $result_mk = $db->getAllImagesWithData();
 //            while($row = $result_mk->fetch()) {
            $i=0;
              foreach ($result_mk as $row) {
-                 if ($i < 10) {
+                 if ($i < 50) {
                      $image = $row['picture'];
                      if ($image === 0) {
                          $image = "default.jpeg";
                      }
                      $offset = setOffset($row['height'], $row['width'], $row['depth']);
 
-                     echo '<img class="objekte" id="' . $row['id'] . '" src="150px_Bilder/' . $image . '" alt="' . $row['name'] . '" style="' . $offset . '"/>';
+                     echo '<img class="objekte" id="' . $row['id'] . '" src="150px_Bilder/' . $image . '" alt="' . $row['name'] . '" ' . $offset . ' />';
+
+                     // !!!! ↓ mit min-width etc
+                     // echo '<img class="objekte" id="' . $row['id'] . '" src="150px_Bilder/' . $image . '" alt="' . $row['name'] . '" style="' . $offset . '"/>';
 
 //                echo "<img class=\"objekte\" id=\"".$row[0]."\" src=\"150px_Bilder/".$image."\" alt=\"".utf8_encode($row['name'])."\" style=\"".$offset."\"/>";
 
@@ -352,10 +380,11 @@ $result_mk = $db->getAllImagesWithData();
 
 
 ?>
-        <div id="mehrereObjekte">
-            <p id="maxFive">Maximal 5 Elemente!</p>
-            <p>mehrere Objekte markieren: Strg + Klick (max. 5)</p>
-        </div>
+
+    </div>
+    <div id="mehrereObjekte">
+        <p id="maxFive">Maximal 5 Elemente!</p>
+        <p><span>Mehrere Objekte markieren:</span><span> Strg + Klick (max. 5)</span></p>
     </div>
 
     <script type="text/javascript">
