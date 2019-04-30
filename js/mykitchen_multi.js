@@ -89,7 +89,14 @@ $(document).ready(function() {
             item.data('multidrag', elements).siblings('.selected').remove();
             return helper.append(elements);
         },
-        cursorAt: { top: 0, left: 0 },
+        cursorAt: { top: 0, left: 50 },
+        tolerance: "pointer",
+        over: function(event, ui) {
+            $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+        },
+        out: function(event, ui) {
+            $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
+        },
         // helper: function (e, item) {
         //     //Basically, if you grab an unhighlighted item to drag, it will deselect (unhighlight) everything else
         //     if (!item.hasClass('selected-multiple')) {
@@ -118,7 +125,7 @@ $(document).ready(function() {
         start: function(event, ui) {
             // sortableStart(event,ui)
             // var elements = ui.item.data('multidrag');
-            $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0});
+            $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
 
             num_of_clicks_on_obj++;
             countClicks++;
@@ -135,9 +142,14 @@ $(document).ready(function() {
                 // var obj_height = parseFloat(elements[i].css('min-height')).toFixed(2);
                 // var obj_length = parseFloat(elements[i].css('perspective')).toFixed(2);
 
-                var obj_width = elements[i].style.minWidth;
-                var obj_height = elements[i].style.minHeight;
-                var obj_length = elements[i].style.perspective;
+              /*  var obj_width = parseInt(elements[i].style.minWidth);
+                var obj_height = parseInt(elements[i].style.minHeight);
+                var obj_length = parseInt(elements[i].style.perspective);*/
+                var obj_width = parseInt(elements[i].dataset.regalWidth);
+                var obj_height = parseInt(elements[i].dataset.regalHeight);
+                var obj_length = parseInt(elements[i].dataset.regalDepth);
+
+                // TODO !!!! min-width, min-height, perspektive ersetzen !!!!
 
                 var obj_volume = obj_length * obj_height * obj_width;
 
@@ -146,9 +158,12 @@ $(document).ready(function() {
                     var id = '#' + regal_ids[i];
                     var pw = +getPlaceholderVolume(id) + +obj_volume;
 
-                    var w = parseInt($(id).css('min-width'));
+                  /*  var w = parseInt($(id).css('min-width'));
                     var h = parseInt($(id).css('min-height'));
-                    var d = parseInt($(id).css('perspective'));
+                    var d = parseInt($(id).css('perspective'));*/
+                    var w = parseInt($(id).data('regal-width'));
+                    var h = parseInt($(id).data('regal-height'));
+                    var d = parseInt($(id).data('regal-depth'));
                     var regal_volume = w * h * d;
 
                     if ( pw > regal_volume || h < obj_height ) {
@@ -190,12 +205,12 @@ $(document).ready(function() {
             // console.log("stop, elem 0 " + elements[0].attr('id'));
             // sortableStop(event,ui)
             /* put and scale object */
-            let old_parent_id_last;
-            let new_parent_id_last;
+
             let curObjTooLargeOrFull = false;
             let old = false;
 
-
+            var old_parent_id = $(event.target).attr("id");
+            var new_parent_id = ui.item.parent().attr("id");
 
             let elements = ui.item.data('multidrag');
 
@@ -203,16 +218,10 @@ $(document).ready(function() {
 
 
                 console.log('iteration ' + i);
-            // elements.each(function (el) {
-
-                var old_parent_id = $(event.target).attr("id");
-                old_parent_id_last = old_parent_id;
-                var new_parent_id = ui.item.parent().attr("id");
-                new_parent_id_last = new_parent_id;
-                console.log('new parent' + $('#' + new_parent_id).html());
-                // var new_parent_id = elements[i].parentNode;
-                console.log('new_parent_id ' + new_parent_id);
-
+              /*  var obj_id = elements[i].attr('id');
+                var obj_width = parseFloat(elements[i].css('min-width'));
+                var obj_height = parseFloat(elements[i].css('min-height'));
+                var obj_length = parseFloat(elements[i].css('perspective'));*/
                 if ($('#' + new_parent_id).parent('#test2').length) {
                     if (new_parent_id.startsWith('sv7') || new_parent_id.startsWith('sv8')){
                         new_parent_id = new_parent_id.substr(0,3);
@@ -228,23 +237,20 @@ $(document).ready(function() {
                     $('#' + new_parent_id).append(elements[i]);
                 }
 
-
-              /*  var obj_id = elements[i].attr('id');
-                var obj_width = parseFloat(elements[i].css('min-width'));
-                var obj_height = parseFloat(elements[i].css('min-height'));
-                var obj_length = parseFloat(elements[i].css('perspective'));*/
-
                 var obj_id = elements[i].id;
                 console.log('obj_id ' + obj_id);
-                var obj_width = elements[i].style.minWidth;
-                var obj_height = elements[i].style.minHeight;
-                var obj_length = elements[i].style.perspective;
+             /*   var obj_width = parseInt(elements[i].style.minWidth);
+                var obj_height = parseInt(elements[i].style.minHeight);
+                var obj_length = parseInt(elements[i].style.perspective);*/
+                var obj_width = parseInt(elements[i].dataset.regalWidth);
+                var obj_height = parseInt(elements[i].dataset.regalHeight);
+                var obj_length = parseInt(elements[i].dataset.regalDepth);
                 var obj_volume = obj_length * obj_height * obj_width;
 
-                var parent_width = parseInt($("#" + new_parent_id).css('min-width'));
-                var parent_height = parseInt($("#" + new_parent_id).css('min-height'));
+                var parent_width = parseInt($("#" + new_parent_id).data('regal-width'));
+                var parent_height = parseInt($("#" + new_parent_id).data('regal-height'));
                 console.log('parent_height ' + parent_height);
-                var parent_depth = parseInt($("#" + new_parent_id).css('perspective'));
+                var parent_depth = parseInt($("#" + new_parent_id).data('regal-depth'));
                 var regal_volume = parent_width * parent_height * parent_depth;
 
                 var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
@@ -272,7 +278,8 @@ $(document).ready(function() {
                     } else {
                         if (obj_height > parent_height) {
                             console.log("old yes 03");
-                            $('#' + old_parent_id).append(elements[i]);
+                            $('#' + old_parent_id).append(elements[i].outerHTML);
+                            $('#' + new_parent_id).find(elements[i]).remove();
                             // document.getElementById('myModalAlert').style.display = "block";
 
                             $("#myModalAlert").css('opacity', '0');
@@ -305,7 +312,8 @@ $(document).ready(function() {
                                 // elements[i].css('horizontal-align','bottom');
                             } else {
                                 console.log("old yes 033b");
-                                $('#' + old_parent_id).append(elements[i]);
+                                $('#' + old_parent_id).append(elements[i].outerHTML);
+                                $('#' + new_parent_id).find(elements[i]).remove();
                                 // document.getElementById('myModalAlert').style.display = "block";
                                 // $('#myModalAlert').fadeIn(300);
                                 // $('#myModalAlert').css('opacity', '1').css('display', 'block');
@@ -324,7 +332,7 @@ $(document).ready(function() {
                     }
                 }
 
-                if(new_parent_id !== 'obj') {
+                if(new_parent_id !== 'obj' && !curObjTooLargeOrFull) {
                     let resTmp = [];
                     resTmp[0] = userid;
                     resTmp[1] = new_parent_id;
@@ -414,6 +422,7 @@ $(document).ready(function() {
             let currentSelected = document.querySelectorAll('.selected');
             for (let i = 0; i < currentSelected.length; i++) {
                 currentSelected[i].classList.remove('selected');
+                console.log('remived selected');
             }
             if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
                 if (old) {
@@ -631,7 +640,7 @@ $(document).ready(function() {
         for (let i = 0; i < daten.length -1; i++) {
             let offset = setOffset(daten[i][3], daten[i][4], daten[i][5]);
             $("#obj").append('<img class="objekte" id="' + daten[i][0] + '" src="150px_Bilder/' + daten[i][2]
-                + '" alt="' + daten[i][1] + '" style="width:100px;height:100px;'+ offset +'"/>');
+                + '" alt="' + daten[i][1] + '" style="width:100px;height:100px;" '+ offset +' />');
         }
 
     }
@@ -1251,7 +1260,24 @@ $(document).ready(function() {
             $('.regalSort').sortable({
                 connectWith: '.regalSort',
                 placeholder: 'objekte',
-                revert: 50,
+                helper: function (e, item) {
+                    let helper = $('<div/>');
+                    helper.css('width','300px');
+                    if (!item.hasClass('selected')) {
+                        item.addClass('selected').siblings().removeClass('selected');
+                    }
+                    let elements = item.parent().children('.selected').clone();
+                    item.data('multidrag', elements).siblings('.selected').remove();
+                    return helper.append(elements);
+                },
+                cursorAt: { top: 0, left: 50 },
+                tolerance: "pointer",
+                over: function(event, ui) {
+                    $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+                },
+                out: function(event, ui) {
+                    $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
+                },
                 start: function(event, ui) {
                     sortableStartInTest2(event,ui)
                 },
@@ -1271,7 +1297,8 @@ $(document).ready(function() {
 
 /* set object offset */
 var setOffset = function(height, width, depth){
-    return "min-height:" + height + "px;min-width:" + width + "px;perspective:" + depth + "px;";
+    return $result = 'data-regal-width="'+ width + '" data-regal-height="' + height +'" data-regal-depth="'+ depth +'"';
+    // return "min-height:" + height + "px;min-width:" + width + "px;perspective:" + depth + "px;";
 }
 
 /* calculate object scale factor */
@@ -1339,9 +1366,12 @@ var distanceTable = function(){
 var getPlaceholderVolume = function(id) {
     var placeholder_volume = 0;
     $(id).children().each( function (){
-        var obj_width = parseFloat($(this).css('min-width'));
+       /* var obj_width = parseFloat($(this).css('min-width'));
         var obj_height = parseFloat($(this).css('min-height'));
-        var obj_length = parseFloat($(this).css('perspective'));
+        var obj_length = parseFloat($(this).css('perspective'));*/
+        var obj_width = parseFloat($(this).data('regal-width'));
+        var obj_height = parseFloat($(this).data('regal-height'));
+        var obj_length = parseFloat($(this).data('regal-depth'));
         var obj_volume = obj_length * obj_height * obj_width;
         placeholder_volume += obj_length * obj_height * obj_width;
     });
@@ -1386,33 +1416,52 @@ var showImage = function(id) {
 
 
 function sortableStartInTest2(event,ui) {
+    $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
+
     num_of_clicks_on_obj++;
     countClicks++;
     endTime = new Date();
+    let elements = ui.item.data('multidrag');
 
-    /* calculate space in shelf  */
-    var obj_id = ui.item.attr('id');
-    var obj_width = parseFloat(ui.item.css('min-width')).toFixed(2);
-    var obj_height = parseFloat(ui.item.css('min-height')).toFixed(2);
-    var obj_length = parseFloat(ui.item.css('perspective')).toFixed(2);
-    var obj_volume = obj_length * obj_height * obj_width;
 
-    var l = regal_ids.length - 1;
-    for (var i = 1; i < l; i++ ){
-        var id = '#' + regal_ids[i];
-        var pw = +getPlaceholderVolume(id) + +obj_volume;
+    console.log('elem[0] id ' + elements[0].id);
+    for (let i = 0; i < elements.length; i++) {
 
-        var w = parseInt($(id).css('min-width'));
-        var h = parseInt($(id).css('min-height'));
-        var d = parseInt($(id).css('perspective'));
-        var regal_volume = w * h * d;
+        var obj_id = elements[i].id;
+    /*    var obj_width = parseInt(elements[i].style.minWidth);
+        var obj_height = parseInt(elements[i].style.minHeight);
+        var obj_length = parseInt(elements[i].style.perspective);*/
+        var obj_width = parseInt(elements[i].dataset.regalWidth);
+        var obj_height = parseInt(elements[i].dataset.regalHeight);
+        var obj_length = parseInt(elements[i].dataset.regalDepth);
 
-        if ( pw > regal_volume || h < obj_height ) {
-            $(id).css('opacity', 0.5);
+
+        var obj_volume = obj_length * obj_height * obj_width;
+
+        var l = regal_ids.length - 1;
+        for (let i = 1; i < l; i++ ){
+            var id = '#' + regal_ids[i];
+            var pw = +getPlaceholderVolume(id) + +obj_volume;
+
+          /*  var w = parseInt($(id).css('min-width'));
+            var h = parseInt($(id).css('min-height'));
+            var d = parseInt($(id).css('perspective'));*/
+            var w = parseInt($(id).data('regal-width'));
+            var h = parseInt($(id).data('regal-height'));
+            var d = parseInt($(id).data('regal-depth'));
+
+            var regal_volume = w * h * d;
+
+            if ( pw > regal_volume || h < obj_height ) {
+                $(id).css('opacity', 0.5);
+            }
         }
+        ui.placeholder.height(30);
+        ui.placeholder.width(30);
     }
-    ui.placeholder.height(30);
-    ui.placeholder.width(30);
+
+
+
 }
 
 function sortableStopInTest2(event,ui) {
@@ -1421,178 +1470,227 @@ function sortableStopInTest2(event,ui) {
     var old_parent_id = $(event.target).attr("id");
     var new_parent_id = ui.item.parent().attr("id");
 
-    if (old_parent_id.startsWith('sv7') || old_parent_id.startsWith('sv8')){
-        old_parent_id = old_parent_id.substr(0,3);
-    } else if (old_parent_id.startsWith('sv10')){
-        old_parent_id = old_parent_id.substr(0,6);
-    } else {
-        old_parent_id = old_parent_id.substr(0,5);
+    if (!$('#' + new_parent_id).parent('#test2').length) {
+        if (old_parent_id.startsWith('sv7') || old_parent_id.startsWith('sv8')){
+            old_parent_id = old_parent_id.substr(0,3);
+        } else if (old_parent_id.startsWith('sv10')){
+            old_parent_id = old_parent_id.substr(0,6);
+        } else {
+            old_parent_id = old_parent_id.substr(0,5);
+        }
     }
+
+
+
+
     console.log('old_parent_id ' + old_parent_id);
     console.log('new_parent_id ' + new_parent_id);
 
+    let elements = ui.item.data('multidrag');
 
-    var obj_id = ui.item.attr('id');
-    var obj_width = parseFloat(ui.item.css('min-width'));
-    var obj_height = parseFloat(ui.item.css('min-height'));
-    var obj_length = parseFloat(ui.item.css('perspective'));
-    var obj_volume = obj_length * obj_height * obj_width;
+    for (let i = 0; i < elements.length; i++) {
 
-    var parent_width = parseInt($("#" + new_parent_id).css('min-width'));
-    var parent_height = parseInt($("#" + new_parent_id).css('min-height'));
-    var parent_depth = parseInt($("#" + new_parent_id).css('perspective'));
-    var regal_volume = parent_width * parent_height * parent_depth;
-
-    var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
-
-
-   if (old_parent_id.startsWith(new_parent_id)){
-        $('#' + old_parent_id).find(ui.item).remove();
-       console.log("old 1");
-    }
-    else if (new_parent_id.startsWith(old_parent_id) &&
-        ($('#' + new_parent_id).parent('#test2').length)) {
-       $('#' + new_parent_id).append(ui.item);
-
-        old = true;
-       console.log("old yes 2");
-    } else if ((old_parent_id !== new_parent_id)) {
-       if ($('#' + new_parent_id).parent('#test2').length) {
-           if (new_parent_id.startsWith('sv7') || new_parent_id.startsWith('sv8')){
-               new_parent_id = new_parent_id.substr(0,3);
-               console.log('#test2 10');
-           } else if (new_parent_id.startsWith('sv10')){
-               new_parent_id = new_parent_id.substr(0,6);
-               console.log('#test2 20');
-           } else {
-               new_parent_id = new_parent_id.substr(0,5);
-               console.log('#test2 30');
-           }
-           console.log("new_parent_id 0" + new_parent_id);
-           $('#' + new_parent_id).append(ui.item);
-       }
-
-
-
-
-        console.log("old yes 3");
-        if (new_parent_id === 'obj') {
-            ui.item.css('width', 100);
-            ui.item.css('height', 100);
-            $('#' + old_parent_id + ' #'+ obj_id).remove();
-        } else {
-            if (obj_height > parent_height) {
-                $('#' + old_parent_id).append(ui.item);
-                // document.getElementById('myModalAlert').style.display = "block";
-                $('#myModalAlert #alertText').html("Passt nicht rein!");
-                $("#myModalAlert").css('opacity', '0').css('display','block').css('opacity', '1');
-                // $('#myModalAlert').animate({opacity: 1}, 100);
-
-
-                curObjTooLargeOrFull = true;
-                // alert("Passt nicht rein!");
+        if ($('#' + new_parent_id).parent('#test2').length) {
+            if (new_parent_id.startsWith('sv7') || new_parent_id.startsWith('sv8')){
+                new_parent_id = new_parent_id.substr(0,3);
+                console.log('#test2 1');
+            } else if (new_parent_id.startsWith('sv10')){
+                new_parent_id = new_parent_id.substr(0,6);
+                console.log('#test2 2');
             } else {
-                if (regal_volume >= placeholder_volume ) {
+                new_parent_id = new_parent_id.substr(0,5);
+                console.log('#test2 3');
+            }
+            console.log("new_parent_id " + new_parent_id);
+            // $('#' + new_parent_id).append(elements[i]);
+        }
 
-                    ui.item.css('width', 100);
-                    ui.item.css('height', 100);
+        var obj_id = elements[i].id;
+        console.log('obj_id ' + obj_id);
+       /* var obj_width = parseInt(elements[i].style.minWidth);
+        var obj_height = parseInt(elements[i].style.minHeight);
+        var obj_length = parseInt(elements[i].style.perspective);*/
+        var obj_width = parseInt(elements[i].dataset.regalWidth);
+        var obj_height = parseInt(elements[i].dataset.regalHeight);
+        var obj_length = parseInt(elements[i].dataset.regalDepth);
 
-                    //Skalierung momentan auf 50% der Größe in der Liste
-                    ui.item.css('width', 50);
-                    ui.item.css('height', 50);
-                    ui.item.css('horizontal-align','bottom');
-                    $('#' + old_parent_id + ' #'+ obj_id).remove();
+
+        var obj_volume = obj_length * obj_height * obj_width;
+
+       /* var parent_width = parseInt($("#" + new_parent_id).css('min-width'));
+        var parent_height = parseInt($("#" + new_parent_id).css('min-height'));
+        var parent_depth = parseInt($("#" + new_parent_id).css('perspective'));*/
+        var parent_width = parseInt($("#" + new_parent_id).data('regal-width'));
+        var parent_height = parseInt($("#" + new_parent_id).data('regal-height'));
+        var parent_depth = parseInt($("#" + new_parent_id).data('regal-depth'));
+
+        var regal_volume = parent_width * parent_height * parent_depth;
+
+        var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
+
+
+        if (old_parent_id.startsWith(new_parent_id)){
+            $('#' + old_parent_id).find(elements[i]).remove();
+            console.log("old 1");
+        }
+        else if (new_parent_id.startsWith(old_parent_id) &&
+            ($('#' + new_parent_id).parent('#test2').length)) {
+            $('#' + new_parent_id).append(elements[i]);
+
+            old = true;
+            console.log("old yes 2");
+        } else if ((old_parent_id !== new_parent_id)) {
+            if ($('#' + new_parent_id).parent('#test2').length) {
+                if (new_parent_id.startsWith('sv7') || new_parent_id.startsWith('sv8')){
+                    new_parent_id = new_parent_id.substr(0,3);
+                    console.log('#test2 10');
+                } else if (new_parent_id.startsWith('sv10')){
+                    new_parent_id = new_parent_id.substr(0,6);
+                    console.log('#test2 20');
                 } else {
-                    $('#' + old_parent_id).append(ui.item);
+                    new_parent_id = new_parent_id.substr(0,5);
+                    console.log('#test2 30');
+                }
+                console.log("new_parent_id 0" + new_parent_id);
+                $('#' + new_parent_id).append(elements[i]);
+            }
+
+
+
+
+            console.log("old yes 3");
+            if (new_parent_id === 'obj') {
+                elements[i].style.width = "100px";
+                elements[i].style.height = "100px";
+                $('#' + old_parent_id + ' #'+ obj_id).remove();
+                console.log("new parent - obj");
+            } else {
+                if (obj_height > parent_height) {
+                    $('#' + old_parent_id).append(elements[i].outerHTML);
+                    $('#' + new_parent_id).find('#' + elements[i].id).remove();
+                    console.log('old find ' + $('#' + old_parent_id).find('#' + elements[i].id).prop('outerHTML'));
+                    // console.log("find remove " + $('#' + new_parent_id).find(elements[i]).prop('outerHTML'));
                     // document.getElementById('myModalAlert').style.display = "block";
-                    // $('#myModalAlert').fadeIn(300);
-                    // $('#myModalAlert').css('opacity', '1').css('display', 'block');
-                    // $('#myModalAlert').css('visibility','visible');
-                    // $('#myModalAlert').css('opacity','1');
-                    $('#myModalAlert').css('opacity','1');
-                    $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
-                        function(e) {
-                            $('#myModalAlert').css('display','block');
-                        });
-                    $('#myModalAlert #alertText').html("Kein Platz mehr!");
+                    $('#myModalAlert #alertText').html("Passt nicht rein!");
+                    $("#myModalAlert").css('opacity', '0').css('display','block').css('opacity', '1');
+                    // $('#myModalAlert').animate({opacity: 1}, 100);
+
+
                     curObjTooLargeOrFull = true;
-                    // alert("Kein Platz mehr!");
+                    console.log("passt nicht");
+                    // alert("Passt nicht rein!");
+                } else {
+                    if (regal_volume >= placeholder_volume ) {
+                        //Skalierung momentan auf 50% der Größe in der Liste
+                        elements[i].style.width = "75px";
+                        elements[i].style.height = "75px";
+                        elements[i].style.horizontalAlign = "bottom";
+                        $('#' + old_parent_id + ' #'+ obj_id).remove();
+                    } else {
+                        $('#' + old_parent_id).append(elements[i].outerHTML);
+                        $('#' + new_parent_id).find(elements[i]).remove();
+                        // document.getElementById('myModalAlert').style.display = "block";
+                        // $('#myModalAlert').fadeIn(300);
+                        // $('#myModalAlert').css('opacity', '1').css('display', 'block');
+                        // $('#myModalAlert').css('visibility','visible');
+                        // $('#myModalAlert').css('opacity','1');
+                        $('#myModalAlert').css('opacity','1');
+                        $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                            function(e) {
+                                $('#myModalAlert').css('display','block');
+                            });
+                        $('#myModalAlert #alertText').html("Kein Platz mehr!");
+                        curObjTooLargeOrFull = true;
+                        // console.log("old yes 3");
+                        // alert("Kein Platz mehr!");
+                    }
                 }
             }
+
+        }
+        if(new_parent_id !== 'obj' && !curObjTooLargeOrFull) {
+            let resTmp = [];
+            resTmp[0] = userid;
+            resTmp[1] = new_parent_id;
+            resTmp[2] = new Date().getUnixTime();
+            resTmp[3] = obj_id;
+            resTmp[4] = 1;
+            resultsForDB.push(resTmp);
+
+            console.log('resultsForDB ' + JSON.stringify(resultsForDB));
+
+            let res= [];
+            resultsForDB.forEach(function each(item) {
+                if((item[0] === userid) && (item[3] === obj_id)
+                    && (item[2] < resTmp[2])) {
+                    item[4] = 0;
+                }
+                res.push(item);
+            });
+
+            resultsForDB = res;
+            // console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
         }
 
-    }
-    if(new_parent_id !== 'obj') {
-        let resTmp = [];
-        resTmp[0] = userid;
-        resTmp[1] = new_parent_id;
-        resTmp[2] = new Date().getUnixTime();
-        resTmp[3] = obj_id;
-        resTmp[4] = 1;
-        resultsForDB.push(resTmp);
-
-        console.log('resultsForDB ' + JSON.stringify(resultsForDB));
-
-        let res= [];
-        resultsForDB.forEach(function each(item) {
-            if((item[0] === userid) && (item[3] === obj_id)
-                && (item[2] < resTmp[2])) {
-                item[4] = 0;
-            }
-            res.push(item);
-        });
-
-        resultsForDB = res;
-        // console.log('resultsForDB filtered: ' + JSON.stringify(resultsForDB));
-    }
 
 
 
+        // save current state in results - array
+        var n = results.length;
+        var l = regal_ids.length;
+        results[n] = new Array();
+        results[n][0] = timeToString(new Date());
 
-    // save current state in results - array
-    var n = results.length;
-    var l = regal_ids.length;
-    results[n] = new Array();
-    results[n][0] = timeToString(new Date());
+        for (let i = 1; i < l; i++){
 
-    for (var i = 1; i < l; i++){
+            var children = [];
+            $("#" + regal_ids[i]).children().each( function (){
+                if ($(this).attr('id') !== 'myModalObj') {
+                    children.push($(this).attr('id'));
+                }
+            });
+            results[n][i] = children.toString();
+        }
 
-        var children = [];
-        $("#" + regal_ids[i]).children().each( function (){
-            if ($(this).attr('id') !== 'myModalObj') {
-                children.push($(this).attr('id'));
-            }
-        });
-        results[n][i] = children.toString();
+
+        if(results[n] !== null) {results_history_change[n] = results[n];}
+
+        // wurde der back-button gedrückt, und dann ein Element hinzugefügt?
+        //
+        if (JSON.stringify(results) !== JSON.stringify(results_history_change)) {
+            results = results_history_change.filter(arr=>arr!==null).map(arr => arr.slice());
+            // results = results_history_change;
+        }
+
+        index = results.length-1;
+        // console.log("index after adding " + index);
+        // console.log("add, results: \n" + JSON.stringify(results));
+        $(".regal").css('opacity', 1);
+
+        // Klasse 'hasObjects' wird wieder entfernt, wenn Begründung eingegeben wird
+        // if (new_parent_id !== 'obj') {
+        //     $('#' + new_parent_id).addClass('hasObjects');
+        // }
+        // Objekte unten im Extra-Fenster anzeigen
+
     }
 
 
-    if(results[n] !== null) {results_history_change[n] = results[n];}
 
-    // wurde der back-button gedrückt, und dann ein Element hinzugefügt?
-    //
-    if (JSON.stringify(results) !== JSON.stringify(results_history_change)) {
-        results = results_history_change.filter(arr=>arr!==null).map(arr => arr.slice());
-        // results = results_history_change;
+    ui.item.after(elements).remove();
+    let currentSelected = document.querySelectorAll('.selected');
+    for (let i = 0; i < currentSelected.length; i++) {
+        currentSelected[i].classList.remove('selected');
+        console.log('removed selected');
     }
-
-    index = results.length-1;
-    // console.log("index after adding " + index);
-    // console.log("add, results: \n" + JSON.stringify(results));
-    $(".regal").css('opacity', 1);
-
-    // Klasse 'hasObjects' wird wieder entfernt, wenn Begründung eingegeben wird
-    // if (new_parent_id !== 'obj') {
-    //     $('#' + new_parent_id).addClass('hasObjects');
-    // }
-    // Objekte unten im Extra-Fenster anzeigen
     if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
         if (old) {
-            showObjects("#" + old_parent_id);
+            $("#" + old_parent_id).click();
         }else {
-            $('#' + new_parent_id).addClass('hasObjects');
-            showObjects("#" + new_parent_id);
+            $('#' + new_parent_id).addClass('hasObjects').click();
         }
+    } else {
+        console.log("not showing objects");
     }
     // console.log("new_parent_id " + new_parent_id);
     // console.log("\n this.id " + this.id);
@@ -1710,9 +1808,31 @@ function showObjects(last_shelf) {
     $('#test2 .regalSort').sortable({
         connectWith: '.regalSort',
         placeholder: 'objekte',
-        revert: 50,
+        delay: 150, //Needed to prevent accidental drag when trying to select
+        revert: 0,
         appendTo: "body",
-        helper: "clone",
+        // helper: "clone",
+        helper: function (e, item) {
+            let helper = $('<div/>');
+            helper.css('width','300px');
+            if (!item.hasClass('selected')) {
+                item.addClass('selected').siblings().removeClass('selected');
+            }
+            let elements = item.parent().children('.selected').clone();
+            item.data('multidrag', elements).siblings('.selected').remove();
+            return helper.append(elements);
+        },
+        cursorAt: { top: 0, left: 50 },
+        tolerance: "pointer",
+        over: function(event, ui) {
+            $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+        },
+        out: function(event, ui) {
+            $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
+        },
+        change: function(event, ui) {
+            ui.placeholder.css({visibility: 'visible', border : '3px solid yellow'});
+        },
         start: function(event, ui) {
             sortableStartInTest2(event,ui)
         },
@@ -1798,18 +1918,18 @@ $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
 // adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp
 // .obfl .objekte, .oben .objekte, .unten .objekte
 $(document).on('click', '#test2 .objekte', function(e){
-   /* if (e.ctrlKey) {
+    if (e.ctrlKey) {
         if($('.selected').length > 4) {
-            $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1});
+            $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1, padding: '2px'});
         } else {
             $(this).toggleClass("selected");
-            $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0});
+            $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0,padding: 0});
         }
 
         return;
     } else {
-        $(this).addClass("selected").siblings().removeClass('selected');
-    }*/
+        $(this).siblings().removeClass('selected');
+    }
     var modal = document.getElementById('myModalKitchen');
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption1");
@@ -1825,27 +1945,17 @@ $(document).on('click', '#obj .objekte', function(e){
     // TODO nach auswählen Verschiebbar machen !
         if (e.ctrlKey) {
             if($('.selected').length > 4) {
-                $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1});
+                $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1, padding: '2px'});
             } else {
                 $(this).toggleClass("selected");
-                $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0});
+                $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
             }
 
             return;
         } else {
-            $(this).addClass("selected").siblings().removeClass('selected');
+            $(this).siblings().removeClass('selected');
         }
 
-    // if (e.ctrlKey || e.shiftKey) {
-    //     if (!$(this).hasClass('selected-multiple')) {
-    //         $(this).addClass('selected-multiple');
-    //     } else {
-    //         $(this).removeClass("selected-multiple");
-    //     }
-    //         return;
-    // } else {
-    //     $(this).removeClass('selected-multiple').siblings().removeClass('selected-multiple');
-    // }
     let modal = document.getElementById('myModalObj');
     let modalImg = document.getElementById("img02");
     let captionText = document.getElementById("caption2");
@@ -1859,6 +1969,17 @@ $(document).on('click', '#obj .objekte', function(e){
     span.onclick = function() {
         modal.style.display = "none";
     };
+});
+
+$(document).on('click', '#obj', function(e) {
+    if (e.target !== this)
+        return;
+
+    let currentSelected = document.querySelectorAll('.selected');
+    for (let i = 0; i < currentSelected.length; i++) {
+        currentSelected[i].classList.remove('selected');
+        console.log('removed selected');
+    }
 });
 
 $(document).on('click', '#closeAlert', function(){
@@ -1875,6 +1996,7 @@ $(document).on('click', '#closeAlert', function(){
     // $('#myModalAlert').css('visibility','hidden');
 
 });
+
 
 
 // function selectMultipleObjects() {

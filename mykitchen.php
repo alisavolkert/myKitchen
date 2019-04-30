@@ -15,10 +15,10 @@ $db = new Database();
 
 <head>
 
-    <title>mykitchen</title>
+    <title>Küchensimulation</title>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/mykitchen.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/mykitchen_old_min-width_etc.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
 
 <!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
