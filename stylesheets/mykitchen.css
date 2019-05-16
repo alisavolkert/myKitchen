@@ -111,11 +111,11 @@ h3 {
 	width: 100px;
 	height:100px;
 	box-sizing: border-box;
-	margin: 1px;
+	padding: 1px;
 }
-#obj .objekte  {
-	width: 100px;
-	height: 100px;
+.objekte:not(#obj .objekte)  {
+	width: 75px;
+	height: 75px;
 }
 
 #mehrereObjekte {
@@ -152,6 +152,7 @@ h3 {
 
 .selected-multiple, .selected {
 	border:4px solid #ce0403;
+	padding: 0;
 }
 
 /*.ui-sortable-helper {
@@ -1144,7 +1145,9 @@ h3 {
 	opacity: 0;
 	z-index: 15;
 }
-
+#test2 .regalSort {
+	z-index: 10;
+}
 #test2 .closeAnzeige {
 	padding: 5px 10px;
 	background: #fff;
