@@ -20,7 +20,7 @@
 
 
   <div class="container">
-    <!-- <button class="btn btn-primary mt-5" onclick="window.location.href='https://micro-europa.de'">Zurück zur Webseite</button> -->
+    <!-- <button class="btn btn-primary mt-5" onclick="window.location.href='https://prokrep.informatik.uni-tuebingen.de/myKit/index.php'">Zurück zur Startseite</button> -->
 
     <h1 class="mt-5">Impressum für "ProKRep-Küchensimulation"</h1>
 
@@ -37,7 +37,7 @@
           <b>Telefon:</b> +49 7071 29-70419<br>
           <b>Email:</b> alisa.volkert (@) uni-tuebingen.de</p>
 
-<!-- TODO: checken, ob das hier inhaltlich so passt -->
+<!-- hier inhaltlich richtig? - damit sollte zumindest nichts schief gehen (3.9.19)-->
   <h3 class="mt-5">Urheberrecht</h3>
  <p>Alle auf dieser Website veröffentlichten Inhalte (Layout, Texte, 
 Bilder, Grafiken, usw.) unterliegen dem
@@ -65,7 +65,7 @@ gesetzlich zulässig – ausgeschlossen.</p>
 
 
 
-                                            <button class="btn btn-primary mt-5 mb-5" onclick="window.location.href='https://micro-europa.de'">Zurück zur Webseite</button>
+                                            <button class="btn btn-primary mt-5 mb-5" onclick="window.location.href='https://prokrep.informatik.uni-tuebingen.de/myKit/index.php'">Zurück zur Startseite</button>
 
 
 
