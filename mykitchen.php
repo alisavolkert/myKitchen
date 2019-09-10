@@ -19,7 +19,7 @@ $db = new Database();
     <meta charset="utf-8">
 
     <link rel="stylesheet" type="text/css" href="stylesheets/mykitchen.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>-->
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
