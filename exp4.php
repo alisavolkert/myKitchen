@@ -27,6 +27,7 @@
                 Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
                 <hr>
                 <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+              <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
               </div>
             </body>';
     die();
@@ -91,6 +92,7 @@
     <hr>
 <!--    <span id="macos"><sup>[1]</sup> Etwaige Sicherheitsabfrage bestätigen, dann in den Systemeinstellungen auf "Sicherheit" klicken. Dort auf App "Dennoch öffnen" klicken.<span><br><br>-->
   	<span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span><br>
+    <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
   </body>
 
 </html>

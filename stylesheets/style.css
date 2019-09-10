@@ -64,3 +64,10 @@ table {
 #toggle {
 	display: none;
 }
+
+.footer2 a {
+	color: #999;
+}
+.footer2 a:hover {
+	color: #666;
+}

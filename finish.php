@@ -25,6 +25,7 @@ if (!isset($_SESSION["user_id"]))
                 Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
                 <hr>
                 <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+                <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
               </div>
             </body>';
     die();
@@ -166,7 +167,7 @@ E-Mail: <span class="mailadr">alisa.volkert (@) uni-tuebingen.de</span><br>
 
 <hr>
 <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
-
+<span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
 
 </body>
 
@@ -204,6 +205,7 @@ else
                 <br>
                 <hr>
                 <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+                <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
               </div>
             </body>';
 //        echo '<h3>Vielen Dank für Deine Teilnahme!</h3>';

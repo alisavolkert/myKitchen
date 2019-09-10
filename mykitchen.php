@@ -21,9 +21,11 @@ $db = new Database();
     <link rel="stylesheet" type="text/css" href="stylesheets/mykitchen.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
 
-<!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>-->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!--    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js"></script>-->
+<!--    <script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="js/html2canvas.min.js"></script>
 <!--    <script type="text/javascript" src="js/mykitchen.js"></script>-->
@@ -108,7 +110,7 @@ $db = new Database();
             <div id="info-bild"></div>
             Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände
         </div>
-        <div id="test2">
+        <!--<div id="test2">
             <div class="testUpAndDown">
                 <button id="testUp"><h4>↑</h4></button><br>
                 <button id="testDown"><h4>↓</h4></button>
@@ -116,17 +118,17 @@ $db = new Database();
             <button class="closeAnzeige" id="close-anzeige">
                 <h4>X</h4>
             </button>
-        </div>
+        </div>-->
       <!--  S1
         S2
         S3
         S4
         S5-->
 <!--        <div class="door" id="d1"></div>  ondblclick="openDoor()"-->
-        <div class="door opendoorrightClosed" id="d2"></div>
-        <div class="door opendoorrightClosed" id="d3"></div>
-        <div class="door" id="d4"></div>
-        <div class="door opendoorrightClosed" id="d5"></div>
+        <div class="door oben opendoorrightClosed" id="d2"></div>
+        <div class="door oben opendoorrightClosed" id="d3"></div>
+        <div class="door oben " id="d4"></div>
+        <div class="door oben opendoorrightClosed" id="d5"></div>
         <!--S1-1
         S1-2
         S2-1
@@ -157,30 +159,30 @@ $db = new Database();
         <!--S6-3-->
         <!--S6-4-->
         <!--S6-5-->
-        <div class="door" id="d6-1"></div>
-        <div class="door" id="d6-2"></div>
-        <div class="door" id="d6-3"></div>
-        <div class="door" id="d6-4"></div>
-        <div class="door" id="d6-5"></div>
+        <div class="door unten" id="d6-1"></div>
+        <div class="door unten" id="d6-2"></div>
+        <div class="door unten" id="d6-3"></div>
+        <div class="door unten" id="d6-4"></div>
+        <div class="door unten" id="d6-5"></div>
 
         <div id="gray"></div>
         <!--S7-->
         <!--S8-->
-        <div class="door" id="d7"></div>
+        <div class="door unten" id="d7"></div>
         <div id="gray2"></div>
-        <div class="door opendoordownClosed" id="d8"></div>
+        <div class="door unten opendoordownClosed" id="d8"></div>
         <!--S9-1-->
         <!--S9-2-->
         <!--S9-3-->
-        <div class="door" id="d9-1"></div>
-        <div class="door" id="d9-2"></div>
-        <div class="door" id="d9-3"></div>
+        <div class="door unten" id="d9-1"></div>
+        <div class="door unten" id="d9-2"></div>
+        <div class="door unten" id="d9-3"></div>
         <!--S10-1-->
         <!--S10-2-->
         <!--S10-3-->
-        <div class="door" id="d10-1"></div>
-        <div class="door" id="d10-2"></div>
-        <div class="door" id="d10-3"></div>
+        <div class="door unten" id="d10-1"></div>
+        <div class="door unten" id="d10-2"></div>
+        <div class="door unten" id="d10-3"></div>
 
 
         <div class="schrank" id="s1">
@@ -306,6 +308,15 @@ $db = new Database();
         <div id="arbeitsflache"></div>
     </div>
 
+    <div id="test2">
+        <div class="testUpAndDown">
+            <button id="testUp"><h4>↑</h4></button><br>
+            <button id="testDown"><h4>↓</h4></button>
+        </div>
+        <button class="closeAnzeige" id="close-anzeige">
+            <h4>X</h4>
+        </button>
+    </div>
     <div id="obj" class="regal regalSort">
         <div id="myModalObj" class="modal">
             <span class="close" id="close2">&times;</span>
@@ -423,7 +434,9 @@ $result_mk = $db->getAllImagesWithData();
 
 
     <p id="foto-src"><small>Fotos: Vanessa Bernath</small></p>
+<span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
 </div>
+
 
 </body>
 

@@ -25,6 +25,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
                 Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
                 <hr>
                 <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+                <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
               </div>
             </body>';
     die();
@@ -170,8 +171,8 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
                     Wohnst du mit Kindern zusammen
                 </td>
                 <td class="abstand">
-                    <label><input type="radio" name="withKids" id="withKidsYes" value="ja" required> ja </label><br />
-                    <label><input type="radio" name="withKids" id="withKidsNo" value="nein"> nein </label><br />
+                    <label><input type="radio" name="withKids" id="withKidsYes" value="1" required> ja </label><br />
+                    <label><input type="radio" name="withKids" id="withKidsNo" value="0"> nein </label><br />
                 </td>
             </tr>
 
@@ -220,6 +221,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
           </tr>
         </table>
       </form>
+<span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
     </div>
 
 	</body>

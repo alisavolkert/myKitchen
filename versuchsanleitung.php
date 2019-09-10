@@ -19,6 +19,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
                 Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
                 <hr>
                 <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+              <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
               </div>
             </body>';
     die();
@@ -55,6 +56,7 @@ Der Versuch ist beendet, sobald du jedes gefüllte Fach kurz beschrieben hast.
 
 		
 		<a href="formular.php"><button>Weiter</button></a>
+        <br><br><span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
 	</body>
 
 </html>

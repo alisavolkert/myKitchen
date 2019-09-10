@@ -5,6 +5,17 @@ body {
 	*/
 	font-family: Helvetica, Arial, sans-serif;
 }
+.footer2 {
+	position: absolute;
+	/*bottom: 245px;*/
+	top: 634px;
+}
+.footer2 a {
+	color: #999;
+}
+.footer2 a:hover {
+	color: #666;
+}
 
 .all {
 	/*position: absolute;
@@ -12,7 +23,7 @@ body {
 	*/
 	width: 1345px;
 	margin: auto;
-	margin-top: 60px;
+	/*margin-top: 60px;*/
 	font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -31,10 +42,12 @@ body {
 
 #obj{
 	position: absolute;
-	margin-left: 920px;
-	margin-top: 80px;
+	/*margin-left: 920px;*/
+	/*margin-top: 80px;*/
+	margin-left: 910px;
+	margin-top: 70px;
 	width: 420px;
-	height: 542px;
+	height: 526px;
 	background-color: #fff;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -43,6 +56,7 @@ body {
 	border: 2px solid white;
 	overflow: auto;
 	overflow-x: hidden;
+	box-sizing: border-box;
 }
 #obj img:hover {
 	cursor: pointer;
@@ -53,7 +67,7 @@ body {
 	position: absolute;
 	width: 420px;
 	height: 60px;
-	margin-left: 920px;
+	margin-left: 910px;
 	background-color: #fff;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -128,9 +142,11 @@ h3 {
 	background: #fff;
 	box-sizing: border-box;
 	z-index: 5;
-	width: 424px;
-	margin-left: 920px;
-	margin-top: 626px;
+	width: 420px;
+	/*margin-left: 920px;*/
+	/*margin-top: 626px;*/
+	margin-left: 910px;
+	margin-top: 597px;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -151,7 +167,9 @@ h3 {
 }
 
 .selected-multiple, .selected {
-	border:4px solid #ce0403;
+	/*border:4px solid #ce0403;*/
+	/*border:4px solid #7C6471;*/
+	border:4px solid #9DC0FF;
 	padding: 0;
 }
 
@@ -168,7 +186,9 @@ h3 {
 }
 
 .hoverBackgroundWhileDragging {
-	background: #faea2c !important;
+	/*background: #faea2c !important;*/
+	/*background: #C6BCC2 !important;*/
+	background: #C4CED3 !important;
 }
 
 
@@ -273,20 +293,20 @@ h3 {
 }
 
 .opendoorleft {
-	-webkit-transform: rotateY(-105deg) skewY(5deg);
-	-moz-transform: rotateY(-105deg) skewY(5deg);
-  -o-transform: rotateY(-105deg) skewY(5deg);
-	transform: rotateY(-105deg) skewY(5deg);
+	-webkit-transform: rotateY(-80deg) skewY(5deg);
+	-moz-transform: rotateY(-80deg) skewY(5deg);
+  -o-transform: rotateY(-80deg) skewY(5deg);
+	transform: rotateY(-80deg) skewY(5deg);
 	transform-origin: left bottom;
 	position: absolute;
 	z-index: 5;
 }
 
 .opendoorright {
-	-webkit-transform: rotateY(105deg) skewY(-5deg);
-	-moz-transform: rotateY(105deg) skewY(-5deg);
-  -o-transform: rotateY(105deg) skewY(-5deg);
-	transform: rotateY(105deg) skewY(-5deg);
+	-webkit-transform: rotateY(80deg) skewY(-5deg);
+	-moz-transform: rotateY(80deg) skewY(-5deg);
+  -o-transform: rotateY(80deg) skewY(-5deg);
+	transform: rotateY(80deg) skewY(-5deg);
 	transform-origin: right;
 	position: absolute;
 	z-index: 5;
@@ -1130,7 +1150,7 @@ h3 {
 #test2 {
 	width: 900px;
 	height: 250px;
-	position: relative;
+	position: absolute;
 	top: 0;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -1230,11 +1250,11 @@ h3 {
 
 
 #foto-src {
-	position: relative;
+	position: absolute;
 	/*margin-top: 626px;*/
 	/*margin-left: 1205px;*/
 	float: right;
-	top: 639px;
+	top: 634px;
 }
 
 /* adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp */
@@ -1365,9 +1385,9 @@ h3 {
 		min-width: 1200px;
 	}
 
-	.all {
+	/*.all {
 		margin-top: 37px;
-	}
+	}*/
 
 	.but {
 		width: 282px;
@@ -1386,9 +1406,11 @@ h3 {
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
-		margin-top: 137px;
+		/*margin-top: 137px;*/
+		margin-top: 127px;
 		width: 282px;
-		height: 490px;
+		/*height: 490px;*/
+		height: 451px;
 		margin-left: 907px;
 	}
 	#obj .objekte {
@@ -1398,7 +1420,7 @@ h3 {
 	}
 	#foto-src {
 		right: 160px;
-		top: 663px;
+		top: 608px;
 	}
 
 	#myModalObj {
@@ -1409,7 +1431,8 @@ h3 {
 	#mehrereObjekte {
 		width: 282px;
 		margin-left: 907px;
-		margin-top: 628px;
+		/*margin-top: 628px;*/
+		margin-top: 578px;
 	}
 
 	#mehrereObjekte span:last-of-type {

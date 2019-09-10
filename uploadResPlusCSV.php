@@ -38,6 +38,10 @@ if (isset($_POST["arr1"])) {
     if (isset($_POST["arr5"])){
 
         $res = $_POST["arr5"];
+        $res = json_decode($res,true);
+        echo "<br>\n";
+        print_r($res);
+        echo "<br>\n";
 
         //    $userId = $res[0];
         //    $shelf = $res[1];
@@ -47,13 +51,16 @@ if (isset($_POST["arr1"])) {
         foreach ($res as list($userId, $shelf, $timestamp, $itemId, $isLast) ) {
 //            list($userId, $shelf, $timestamp, $itemId, $isLast) = $r;
             if($db->saveObjects($userId, $shelf, $timestamp, $itemId, $isLast)) {
-                echo "saved";
+                echo "this saved";
             }
             echo $userId . "; " . $shelf. "; " . $timestamp. "; " . $itemId . "; " . $isLast;
         }
+        echo "resultsForDB saved";
 
     } else {
-        echo "resultsForDB not set";
+        echo "arr1 is: " . isset($_POST["arr1"]);
+        echo " arr5 is: " . isset($_POST["arr5"]);
+        echo " resultsForDB not set ";
     }
     // $userid = $db->query("SELECT userid FROM participants WHERE completed = 0 ORDER BY userid DESC LIMIT 1")->fetch();
     // $stmt->execute();
@@ -97,6 +104,8 @@ if (isset($_POST["arr1"])) {
         for ($i = 0; $i < $cl; $i++) {
             if($db->saveReasons($userid, $arr3[$i], $arr4[$i])) {
                 echo 'saved reasons';
+            } else {
+                echo 'not saved reasons';
             }
         }
 //        foreach($arr4 as $index => $r) {
