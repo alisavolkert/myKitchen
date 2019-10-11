@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheets/exp.css" />
+    <link rel="stylesheet" href="stylesheets/cookie.css" />
     <title>Studie Einräumen einer simulierten Küche</title>
   </head>
   <body>   
@@ -29,7 +30,7 @@
   	<hr>
   	<span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
     <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
-
+<?php require 'cookieFooter.php'?>
   <script>
 
       // Internet Explorer 6-11

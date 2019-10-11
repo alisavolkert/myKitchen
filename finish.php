@@ -168,7 +168,12 @@ E-Mail: <span class="mailadr">alisa.volkert (@) uni-tuebingen.de</span><br>
 <hr>
 <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
 <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
+<script>
+ document.getElementById(\'subMailMatr\').addEventListener(\'click\',function () {
+        eraseCookie(\'cookiesAccepted\');
+    });
 
+</script>
 </body>
 
 </html>';
