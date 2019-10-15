@@ -1,3 +1,10 @@
+# Copyright 2019 University of Tuebingen
+
+# Database query
+# Experiment ProKRep kitchen simulation
+# authors: Jannis Strecker
+# supervised by: Alisa Volkert
+
 <?php
 // error_reporting(E_ALL | E_STRICT);
 // error_reporting(E_ERROR | E_WARNING | E_PARSE);
