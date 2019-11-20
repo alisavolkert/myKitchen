@@ -39,8 +39,8 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 
 	<body>
 		<h1>Versuchsablauf</h1>
-		<h3>Einräumen einer simulierten Küche im Rahmen des Forschungsprojekts <br/>
-            "Psychologisch inspirierte Wissensrepräsentation"</h3>
+		<h3>Einräumen einer simulierten Küche im Rahmen der Doktorarbeit <br/>
+            "Intuitive Wissensrepräsentation"</h3>
 		<p>Du bist soeben in eine neue Wohnung eingezogen und stehst nun vor der Aufgabe, die noch leere Küche einzuräumen (siehe Abbildung). All deine Küchengegenstände befinden sich auf der rechten Seite des Browserfensters.
 Du darfst dabei auch Gegenstände auf den Arbeitsflächen abstellen. Beim Einräumen deiner neuen Küche gibt es kein Richtig oder
             Falsch. Gern darfst du während des Versuchs Gegenstände umplatzieren. Räume ALLE Gegenstände aus dem Depot in die Küche. Du musst dabei aber nicht in jedes Regal etwas einräumen. </p>
