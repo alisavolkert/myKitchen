@@ -7,29 +7,33 @@ header('Content-type: text/html; charset=utf-8');
 
 require_once('./db/database.php');
 $db = new Database();
-
-if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
-{
-//    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
-    echo '<head>
-                <meta charset="utf-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <link rel="stylesheet" href="stylesheets/exp.css" />
-                <title>Einräumen einer simulierten Küche</title>
-            </head>
-            <body>
-                <div style="width: 900px; margin: 0 auto;">
-                <img src="img/logo_web.png" id="logo">
-                <br><br>
-                <p id="expstart"><b>Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten.</b><br><br>
-                Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
-                <hr>
-                <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
-              <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
-              </div>
-            </body>';
-    die();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
 }
+//if (!isset($_SESSION["userDataSaved"]) || (isset($_SESSION["userDataSaved"]) && $_SESSION["userDataSaved"] === 'not saved'))
+//{
+////    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+//    echo '<head>
+//                <meta charset="utf-8">
+//                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+//                <link rel="stylesheet" href="stylesheets/exp.css" />
+//                <title>Einräumen einer simulierten Küche</title>
+//            </head>
+//            <body>';
+//    echo '$_SESSION["userDataSaved"]: ' . $_SESSION["userDataSaved"];
+//                echo '<div style="width: 900px; margin: 0 auto;">
+//                <img src="img/logo_web.png" id="logo">
+//                <br><br>
+//                <p id="expstart"><b>Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten.</b><br><br>
+//                Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
+//                <hr>
+//                <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+//              <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
+//              </div>
+//            </body>';
+//    die();
+//}
+
 ?>
 
 
@@ -52,6 +56,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="js/html2canvas.min.js"></script>
 <!--    <script type="text/javascript" src="js/mykitchen.js"></script>-->
+<!--    <script type="text/javascript" src="js/mykitchen.js"></script>-->
     <script type="text/javascript" src="js/mykitchen.js"></script>
 <!--    <script type="text/javascript" src="js/multiselect.js"></script>-->
 
@@ -59,8 +64,11 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 
 <body>
 <script type="text/javascript">
-    var data = <?php echo json_encode($_POST, JSON_UNESCAPED_UNICODE) ?>;
 
+
+    <?php if (isset($_POST)&& sizeof($_POST) === 8) {?>
+        let data = <?= json_encode($_POST, JSON_UNESCAPED_UNICODE) ?>;
+     <?php } ?>
     // var beruf;
 
 
@@ -386,7 +394,7 @@ $result_mk = $db->getAllImagesWithData();
 //            while($row = $result_mk->fetch()) {
            $i=0;
              foreach ($result_mk as $row) {
-                 if ($i < 50) {
+                 // if ($i < 10) {
                      $image = $row['picture'];
                      if ($image === 0) {
                          $image = "default.jpeg";
@@ -403,8 +411,8 @@ $result_mk = $db->getAllImagesWithData();
 //                echo "img set";
                      $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
                  }
-                $i++;
-             }
+                //$i++;
+             //}
         } else {
             echo "Datenbanktabelle ist leer";
         }
@@ -424,7 +432,7 @@ $result_mk = $db->getAllImagesWithData();
     <script type="text/javascript">
         <?php
         echo "var daten = ", json_encode($js_array_mk), ";";
-        echo 'var userid = '. json_encode($_COOKIE['userID']) . ';';
+        echo 'var userid = '. json_encode($_SESSION['user_id']) . ';';
         ?>
     </script>
 

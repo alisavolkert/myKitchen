@@ -75,7 +75,22 @@ class Database
     }
     public function saveUserData($dk,$vj) {
 
-        $stmt = $this->connection->prepare('DELETE FROM  participants  WHERE completed = 0');
+        $stmt = $this->connection->prepare('SELECT user_id  FROM  participants  WHERE completed = 0 AND check_time_if_active < ADDDATE(NOW(), INTERVAL -1 HOUR)');
+        $stmt->execute();
+        $stmt->bind_result($usrd);
+        $userids = [];
+        while ($stmt->fetch()) {
+            $userids[] = $usrd;
+        }
+
+        $uids = implode("','",$userids);
+        $stmt = $this->connection->prepare("DELETE FROM  reasons  WHERE user_id IN ('".$uids."')");
+        $stmt->execute();
+        $stmt = $this->connection->prepare("DELETE FROM  results  WHERE user_id IN ('".$uids."')");
+        $stmt->execute();
+
+
+        $stmt = $this->connection->prepare('DELETE FROM  participants  WHERE completed = 0 AND check_time_if_active < ADDDATE(NOW(), INTERVAL -1 HOUR)');
         $stmt->execute();
 
         $stmt = $this->connection->prepare("INSERT INTO participants(german,adult) VALUES (?,?)");

@@ -7,7 +7,9 @@ session_start();
 
 require_once('./db/database.php');
 
-
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION["user_id"]))
 {
 //    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginne den Versuch <a href="index.php">erneut</a>.';
@@ -32,7 +34,7 @@ if (!isset($_SESSION["user_id"]))
 } else {
     $db = new Database();
     if ($db->setCompletedById($_SESSION['user_id'])) {
-        unset($_COOKIE['user_id']);
+        unset($_SESSION['user_id']);
     }
 }
 

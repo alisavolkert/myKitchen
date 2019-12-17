@@ -28,7 +28,7 @@
     E-Mail: <span class="mailadr">alisa.volkert (@) uni-tuebingen.de</span><br>
 
     <br>
-    <a href="./exp3.php"><button>WEITER</button></a>
+    <button id="weiter">WEITER</button>
 <!--    <b><a href="exp3.php">WEITER</a></b>-->
     <br>
     <br>
@@ -36,6 +36,15 @@
   	<hr>
   	<span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
     <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
+
+    <div id="myModalAlert" class="modal">
+        <div style="width: 300px;height: 225px;">
+            Der Versuch kann nur durchgeführt werden, wenn du Cookies akzeptierst.<br>
+            Es werden keinerlei Tracking-Cookies oder Analytic-Cookies eingesetzt.<br><br>
+            Die eingesetzten Cookies gewährleisten lediglich, dass die Versuchsergebnisse korrekt gespeichert werden können.<br><br>
+            <button id="closeAlert">Ok, verstanden.</button>
+        </div>
+    </div>
 <?php require 'cookieFooter.php'?>
   <script>
 
@@ -47,6 +56,27 @@
               'z.B. Google Chrome, Mozilla Firefox oder Safari');
       }
 
+      document.addEventListener('DOMContentLoaded', function() {
+          document.getElementById('weiter').addEventListener('click',function () {
+              if(!getCookie('cookiesAccepted')) {
+                  document.getElementById('myModalAlert').style.visibility = 'visible';
+                  setTimeout(function() {
+                      document.getElementById('myModalAlert').style.display = 'block';
+                  }, 300);
+              } else {
+                  window.location = "./exp3.php";
+              }
+          });
+          document.getElementById('closeAlert').addEventListener('click',function () {
+              document.getElementById('myModalAlert').style.visibility = 'hidden';
+              setTimeout(function() {
+                  document.getElementById('myModalAlert').style.display = 'none';
+              }, 300);
+
+          });
+
+
+      }, false);
 
   </script>
   </body>

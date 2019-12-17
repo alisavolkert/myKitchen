@@ -1,5 +1,9 @@
 <?php
 
+error_reporting(E_ALL & ~E_NOTICE);
+mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
+ini_set('display_errors', '1');
+
 function nicknameToFile($str){
     $replace_array = array(
         '-' => '_',
@@ -32,8 +36,9 @@ $datum = date("d_m_Y");
 
 
 # add new row(array) in csv-file
-if (isset($_POST["arr1"])) {
-
+if (isset($_POST['arr1'])) {
+//echo "post:";
+//print_r($_POST);
 
     if (isset($_POST["arr5"])){
 
@@ -206,6 +211,7 @@ if (isset($_POST["arr1"])) {
         }
     }
 }
+
 
 # save distance-table in folder "userdaten"
 if (isset($_POST["dist"])) {

@@ -10,7 +10,7 @@
 //  $dbname = "prokrepdb";
 
   // Check if ID is set, otherwise something went wrong:
-  if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
+ /* if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
   {
 //    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
       echo '<head>
@@ -31,7 +31,7 @@
               </div>
             </body>';
     die();
-  }
+  }*/
 
   // Create connection
 //  $conn = new mysqli($servername, $user, $pass, $dbname);
@@ -53,6 +53,34 @@
 //  $conn->close();
 
 //  session_destroy();
+
+
+if(isset($_REQUEST["demogr"],$_REQUEST["dtkenntn"],$_REQUEST["vollj"])):
+    $_SESSION['vollj'] = $_REQUEST["vollj"];
+    $_SESSION['dtkenntn'] = $_REQUEST["dtkenntn"];
+    header('Location: versuchsanleitung.php', true, 303);
+/*else:
+        echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+        echo '<head>
+                <meta charset="utf-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="stylesheets/exp.css" />
+                <title>Einräumen einer simulierten Küche</title>
+            </head>
+            <body>
+                <div style="width: 900px; margin: 0 auto;">
+                <img src="img/logo_web.png" id="logo">
+                <br><br>
+                <p id="expstart"><b>Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten.</b><br><br>
+                Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
+                <hr>
+                <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+              <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
+              </div>
+            </body>';
+        die();*/
+endif;
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -68,7 +96,28 @@
 
   	<p>Um den Versuch durchzuführen, muss die Auflösung deines Bildschirms mindestens 1200x700 Pixel betragen. </p>
 
-<!--    <p><a target="_blank" href="java.htm">So finden Sie heraus</a>, ob Sie Java installiert haben.</p>-->
+
+    <p>Wer das Experiment gewissenhaft durchgeführt hat, kann an einer Verlosung von 10 Gutscheinen à 20 Euro für den Tübinger Einzelhandel teilnehmen. Dies ist nur einmal möglich.
+       Alternativ können wir eine (halbe) Versuchspersonenstunde ausstellen.  </p> <!-- TODO: nach Pilottest entscheiden, ob halbe oder ganze VP-Stunde ausstellen.-->
+
+    <p>Alle Angaben zu deiner Person werden anonym gespeichert, sodass kein Rückschluss auf deine Person möglich ist. Die Teilnahme an dieser Studie ist freiwillig. Wenn du nicht einwilligst, schließe bitte dieses Fenster in deinem Browser.
+       Mit der Teilnahme an der Studie gehst du weder Risiken ein, noch profitierst du davon persönlich (mit der Ausnahme, für den Fall, dass du einen Einkaufsgutschein gewinnst oder eine Versuchspersonenstunde erhälst).</p>
+
+    <form action="exp4.php#demographics" method="POST" id="demographics" class="hl">
+        <h3>Teilnahmevoraussetzungen:</h3>
+<!--        <span class="error">' . $errorstring . '</span>-->
+        <input type="hidden" name="demogr" value="">
+        <p>
+            <input type="checkbox" name="dtkenntn" id="dtkenntn" value="1" required>
+            <label for="dtkenntn">Deutsch ist meine Muttersprache</label>
+        </p>
+        <p>
+            <input type="checkbox" name="vollj" id="vollj" value="1" required>
+            <label for="vollj">Ich bin volljährig</label>
+        </p>
+        <button type="submit">Weiter</button>
+    </form>
+                                                                                   <!--    <p><a target="_blank" href="java.htm">So finden Sie heraus</a>, ob Sie Java installiert haben.</p>-->
 
 <!--  	<span><i>Schritt-für-Schritt-Anleitung:</i></span> -->
 <!--  	<ol>-->
@@ -87,7 +136,7 @@
 
 <!--  	</ol>-->
 
-    <a href="./versuchsanleitung.php"><button>Weiter</button></a>
+<!--    <a href="./versuchsanleitung.php"><button>Weiter</button></a>-->
   	<br><br>
     <hr>
 <!--    <span id="macos"><sup>[1]</sup> Etwaige Sicherheitsabfrage bestätigen, dann in den Systemeinstellungen auf "Sicherheit" klicken. Dort auf App "Dennoch öffnen" klicken.<span><br><br>-->

@@ -7,11 +7,7 @@
 
 
 
-function redirect($url, $statusCode = 303)
-{
-   header('Location: ' . $url, true, $statusCode);
-   die();
-}
+
 // Check if email is set, otherwise something went wrong:
 //if (isset($_SESSION["email"]))
 //{
@@ -21,7 +17,7 @@ function redirect($url, $statusCode = 303)
 //    die();
 //}
 
-function form_is_correct()
+/*function form_is_correct()
 {
     global $errorstring;
     $errorstring = "";
@@ -49,11 +45,12 @@ function form_is_correct()
       return TRUE;
 //    else
 //      return FALSE;
-}
+}*/
 
-function get_form($errorstring = "")
+/*function get_form($errorstring = "")
 {
-      $form = '
+      $form = '*/
+?>
         <!DOCTYPE html>
         <html lang="de">
           <head>
@@ -68,38 +65,20 @@ function get_form($errorstring = "")
 
             <p>Deine Aufgabe ist, an einem einfachen Experiment teilzunehmen, in welchem du Bilder, die verschiedene Küchengegenstände zeigen, in eine simulierte Küche einräumen sollst. Anschließend sollst du den Inhalt jedes gefüllten Fachs kurz beschreiben. Der Screenshot unten zeigt die simulierte Küche.
                </p>
-            <p>Wer das Experiment gewissenhaft durchgeführt hat, kann an einer Verlosung von 10 Gutscheinen à 20 Euro für den Tübinger Einzelhandel teilnehmen. Dies ist nur einmal möglich.
-               Alternativ können wir eine (halbe) Versuchspersonenstunde ausstellen.  </p> <!-- TODO: nach Pilottest entscheiden, ob halbe oder ganze VP-Stunde ausstellen.-->   
-    
-            <p>Alle Angaben zu deiner Person werden anonym gespeichert, sodass kein Rückschluss auf deine Person möglich ist. Die Teilnahme an dieser Studie ist freiwillig. Wenn du nicht einwilligst, schließe bitte dieses Fenster in deinem Browser.
-                 Mit der Teilnahme an der Studie gehst du weder Risiken ein, noch profitierst du davon persönlich (mit der Ausnahme, für den Fall, dass du einen Einkaufsgutschein gewinnst oder eine Versuchspersonenstunde erhälst).</p>   
+                <img src="./img/Kitchen_Simulation.png" width="900" alt="Screenshot der Küchensimulation">
+            
+            <!-- <img width="1093" height="600" src="img/CatScan_Main-Trial_web.png" alt="Software-Screenshot Abbildung Küchengegenstände"> -->
+            <p style="float:right;display: block;margin: 0;"><small>Fotos: Vanessa Bernath</small></p> 
+            <div style="clear:both;"></div>
 
-            
-           <!-- <img width="1093" height="600" src="img/CatScan_Main-Trial_web.png" alt="Software-Screenshot Abbildung Küchengegenstände">
-            <p><small>Fotos: Vanessa Bernath</small></p> -->
-            
-            <form action="exp3.php#demographics" method="POST" id="demographics" class="hl">
-                <h3>Teilnahmevoraussetzungen:</h3> 
-                <span class="error">' . $errorstring . '</span>
-                <input type="hidden" name="demogr" value="">
-                <p>
-                  <input type="checkbox" name="dtkenntn" id="dtkenntn" value="1" required>
-                  <label for="dtkenntn">Deutsch ist meine Muttersprache</label>
-                </p>
-                <p>
-                  <input type="checkbox" name="vollj" id="vollj" value="1" required>
-                  <label for="vollj">Ich bin volljährig</label>
-                </p>
-                <button type="submit">Weiter</button>
-            </form>
-            
+            <a href="./exp4.php"><button>Weiter</button></a>
             <hr>
             <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
             <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
           </body>
 
         </html>
-      ';
+      <!--';
       return $form;
 }
 
@@ -125,3 +104,4 @@ else
 
 
 ?>
+-->

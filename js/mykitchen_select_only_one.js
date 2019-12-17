@@ -10,6 +10,29 @@ let timeLimitReachedString = "";
 Date.prototype.getUnixTime = function() { return this.getTime()/1000|0 };
 
 
+function post(path, params, method) {
+    method = method || "post"; // Set method to post by default if not specified.
+
+    // The rest of this code assumes you are not using a library.
+    // It can be made less wordy if you use one.
+    var form = document.createElement("form");
+    form.setAttribute("method", method);
+    form.setAttribute("action", path);
+
+    for(var key in params) {
+        if(params.hasOwnProperty(key)) {
+            var hiddenField = document.createElement("input");
+            hiddenField.setAttribute("type", "hidden");
+            hiddenField.setAttribute("name", key);
+            hiddenField.setAttribute("value", params[key]);
+
+            form.appendChild(hiddenField);
+        }
+    }
+
+    document.body.appendChild(form);
+    form.submit();
+}
 
 
 var timeLimit = function() {
@@ -85,16 +108,16 @@ $(document).ready(function() {
         zIndex: 100000000000,
         // containment: "parent",
         // helper: "clone",
-        helper: function (e, item) {
-            let helper = $('<div/>');
-            helper.css('width','300px');
-            if (!item.hasClass('selected')) {
-                item.addClass('selected').siblings().removeClass('selected');
-            }
-            let elements = item.parent().children('.selected').clone();
-            item.data('multidrag', elements).siblings('.selected').remove();
-            return helper.append(elements);
-        },
+        // helper: function (e, item) {
+        //     let helper = $('<div/>');
+        //     helper.css('width','300px');
+        //     if (!item.hasClass('selected')) {
+        //         item.addClass('selected').siblings().removeClass('selected');
+        //     }
+        //     let elements = item.parent().children('.selected').clone();
+        //     item.data('multidrag', elements).siblings('.selected').remove();
+        //     return helper.append(elements);
+        // },
         cursorAt: { top: 0, left: 50 },
         tolerance: "pointer",
         over: function(event, ui) {
@@ -114,55 +137,36 @@ $(document).ready(function() {
         start: function(event, ui) {
             // sortableStart(event,ui)
             // var elements = ui.item.data('multidrag');
-            $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
+            // $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
 
             num_of_clicks_on_obj++;
             countClicks++;
             endTime = new Date();
-            let elements = ui.item.data('multidrag');
 
+            var obj_id = ui.item.attr('id');
+            var obj_width = parseFloat(ui.item.data('regalWidth'));
+            var obj_height = parseFloat(ui.item.data('regalHeight'));
+            var obj_length = parseFloat(ui.item.data('regalDepth'));
+            var obj_volume = obj_length * obj_height * obj_width;
 
-            // console.log('elem[0] id ' + elements[0].id);
-            for (let i = 0; i < elements.length; i++) {
-            // elements.each(function (el) {
-                /* calculate space in shelf  */
-                var obj_id = elements[i].id;
-                // var obj_width = parseFloat(parseInt(,10)).toFixed(2);
-                // var obj_height = parseFloat(elements[i].css('min-height')).toFixed(2);
-                // var obj_length = parseFloat(elements[i].css('perspective')).toFixed(2);
+            var l = regal_ids.length - 1;
+            for (var i = 1; i < l; i++) {
+                var id = '#' + regal_ids[i];
+                var pw = +getPlaceholderVolume(id) + +obj_volume;
 
-              /*  var obj_width = parseInt(elements[i].style.minWidth);
-                var obj_height = parseInt(elements[i].style.minHeight);
-                var obj_length = parseInt(elements[i].style.perspective);*/
-                var obj_width = parseInt(elements[i].dataset.regalWidth);
-                var obj_height = parseInt(elements[i].dataset.regalHeight);
-                var obj_length = parseInt(elements[i].dataset.regalDepth);
+                var w = parseInt($(id).css('min-width'));
+                var h = parseInt($(id).css('min-height'));
+                var d = parseInt($(id).css('perspective'));
+                var regal_volume = w * h * d;
 
-
-
-                var obj_volume = obj_length * obj_height * obj_width;
-
-                var l = regal_ids.length - 1;
-                for (let i = 1; i < l; i++ ){
-                    var id = '#' + regal_ids[i];
-                    var pw = +getPlaceholderVolume(id) + +obj_volume;
-
-                  /*  var w = parseInt($(id).css('min-width'));
-                    var h = parseInt($(id).css('min-height'));
-                    var d = parseInt($(id).css('perspective'));*/
-                    var w = parseInt($(id).data('regal-width'));
-                    var h = parseInt($(id).data('regal-height'));
-                    var d = parseInt($(id).data('regal-depth'));
-                    var regal_volume = w * h * d;
-
-                    if ( pw > regal_volume || h < obj_height ) {
-                        $(id).css('opacity', 0.5);
-                    }
+                if (pw > regal_volume || h < obj_height) {
+                    $(id).css('opacity', 0.5);
                 }
-                ui.placeholder.height(30);
-                ui.placeholder.width(30);
-                ui.placeholder.css('visibility', 'visible');
             }
+            ui.placeholder.height(30);
+            ui.placeholder.width(30);
+            ui.placeholder.css('visibility', 'visible');
+
 
             /*/!* calculate space in shelf  *!/
             var obj_id = ui.item.attr('id');
@@ -201,14 +205,10 @@ $(document).ready(function() {
             var old_parent_id = $(event.target).attr("id");
             var new_parent_id = ui.item.parent().attr("id");
 
-            let elements = ui.item.data('multidrag');
-            ui.item.after(elements).remove();
-
-            let idsOfElementsTooLargeOrFull = [];
-            let idsOfElementsThatFitInNew = [];
+            // let elements = ui.item.data('multidrag');
             let isInAnzeige = false;
 
-            for (let i = 0; i < elements.length; i++) {
+            // for (let i = 0; i < elements.length; i++) {
 
 
                 // console.log('iteration ' + i);
@@ -233,17 +233,14 @@ $(document).ready(function() {
                     // $('#' + new_parent_id).append(elements[i].outerHTML);
                 }
 
-                var obj_id = elements[i].id;
-                // console.log('obj_id ' + obj_id);
-             /*   var obj_width = parseInt(elements[i].style.minWidth);
-                var obj_height = parseInt(elements[i].style.minHeight);
-                var obj_length = parseInt(elements[i].style.perspective);*/
-                var obj_width = parseInt(elements[i].dataset.regalWidth);
-                var obj_height = parseInt(elements[i].dataset.regalHeight);
-                var obj_length = parseInt(elements[i].dataset.regalDepth);
-                var obj_volume = obj_length * obj_height * obj_width;
+            var obj_id = ui.item.attr('id');
+            var obj_width = parseFloat(ui.item.data('regalWidth'));
+            var obj_height = parseFloat(ui.item.data('regalHeight'));
+            var obj_length = parseFloat(ui.item.data('regalDepth'));
+            var obj_volume = obj_length * obj_height * obj_width;
 
-                var parent_width = parseInt($("#" + new_parent_id).data('regal-width'));
+
+            var parent_width = parseInt($("#" + new_parent_id).data('regal-width'));
                 var parent_height = parseInt($("#" + new_parent_id).data('regal-height'));
                 var parent_depth = parseInt($("#" + new_parent_id).data('regal-depth'));
                 var regal_volume = parent_width * parent_height * parent_depth;
@@ -254,42 +251,36 @@ $(document).ready(function() {
                 if (old_parent_id.startsWith(new_parent_id) &&
                     isInAnzeige){
                     // $('#' + old_parent_id).find(elements[i]).remove();
-                    $('#' + old_parent_id).append(elements[i].outerHTML);
-                    if (new_parent_id === 'obj') {
-                        idsOfElementsThatFitInNew.push(elements[i].outerHTML);
-                    }
+                    $('#' + old_parent_id).append(ui.item);
                     // console.log("old yes 01");
                     old = true;
-                }
-                else if (new_parent_id.startsWith(old_parent_id) &&
+                } else if (new_parent_id.startsWith(old_parent_id) &&
                     isInAnzeige) {
-                    $('#' + old_parent_id).append(elements[i]);
+                    $('#' + old_parent_id).append(ui.item);
                     // console.log("old yes 011");
                     old = true;
                 } else if ((old_parent_id !== new_parent_id)) {
                     // console.log("old yes 02");
                     if (new_parent_id === 'obj') {
-                        elements[i].style.width = "100px";
-                        elements[i].style.height = "100px";
+                        ui.item.css('width',"100px");
+                        ui.item.css('height',"100px");
                         // console.log("old yes 021");
-                        $('#' + old_parent_id + ' #'+ obj_id).remove();
-                        $('#' + new_parent_id + ' #'+ obj_id).remove();
-                        idsOfElementsThatFitInNew.push(elements[i].outerHTML);
                         // elements[i].css('width', 100);
                         // elements[i].css('height', 100);
                     } else {
                         if (obj_height > parent_height) {
                             // console.log("old yes 03");
-                            $('#' + old_parent_id).append(elements[i].outerHTML);
+                            $('#' + old_parent_id).append(ui.item);
                             // $('#' + new_parent_id).find(elements[i]).remove();
-                            $('#' + new_parent_id).find('#' +elements[i].id).remove();
+                            $('#' + new_parent_id).find('#' +obj_id).remove();
                             // document.getElementById('myModalAlert').style.display = "block";
 
-                            $('#myModalAlert #alertText').html("Die gewählten Objekte passen nicht in dieses Fach!");
-                            $("#myModalAlert").css('opacity', '0').css('display','block').css('opacity', '1');
+                            $("#myModalAlert").css('opacity', '0');
+                            $('#myModalAlert').css('display','block');
+                            $("#myModalAlert").css('opacity', '1');
                             // $('#myModalAlert').animate({opacity: 1}, 100);
 
-                            idsOfElementsTooLargeOrFull.push(elements[i].id);
+                            $('#myModalAlert #alertText').html("Passt nicht rein!");
                             curObjTooLargeOrFull = true;
                             // alert("Passt nicht rein!");
                         } else {
@@ -305,24 +296,21 @@ $(document).ready(function() {
                                 //Skalierung momentan auf 50% der Größe in der Liste
 
 
-                                elements[i].style.width = "75px";
-                                elements[i].style.height = "75px";
-                                elements[i].style.horizontalAlign = "bottom";
-                                $('#' + old_parent_id).find('#' +elements[i].id).remove();
-                                $('#' + new_parent_id).find('#' +elements[i].id).remove();
-                                idsOfElementsThatFitInNew.push(elements[i].outerHTML);
+                                ui.item.css({'width':"75px",
+                                            'height':"75px",
+                                            'horizontalAlign':"bottom"});
                                 // (
-                                // if(isInAnzeige) {
-                                //     $('#' + new_parent_id).append(elements[i].outerHTML);
-                                // }
+                                if(isInAnzeige) {
+                                    $('#' + new_parent_id).append(ui.item);
+                                }
 
                                 // elements[i].css('width', 50);
                                 // elements[i].css('height', 50);
                                 // elements[i].css('horizontal-align','bottom');
                             } else {
                                 // console.log("old yes 033b");
-                                $('#' + old_parent_id).append(elements[i].outerHTML);
-                                $('#' + new_parent_id).find(elements[i]).remove();
+                                $('#' + old_parent_id).append(ui.item);
+                                $('#' + new_parent_id).find('#' +obj_id).remove();
                                 // document.getElementById('myModalAlert').style.display = "block";
                                 // $('#myModalAlert').fadeIn(300);
                                 // $('#myModalAlert').css('opacity', '1').css('display', 'block');
@@ -333,8 +321,7 @@ $(document).ready(function() {
                                     function(e) {
                                         $('#myModalAlert').css('display','block');
                                     });
-                                $('#myModalAlert #alertText').html("In diesem Fach ist kein Platz mehr!");
-                                idsOfElementsTooLargeOrFull.push(elements[i].id);
+                                $('#myModalAlert #alertText').html("Kein Platz mehr!");
                                 curObjTooLargeOrFull = true;
                                 // alert("Kein Platz mehr!");
                             }
@@ -429,19 +416,8 @@ $(document).ready(function() {
                 }
                 // document.getElementById('back').disabled = false;
 
-            }
-            // console.log('idsOfElementsTooLargeOrFull: ');
-            // console.log(idsOfElementsTooLargeOrFull);
-            for (let i = 0; i < idsOfElementsTooLargeOrFull.length; i++) {
-                $('#' + new_parent_id).find('#' + idsOfElementsTooLargeOrFull[i]).remove();
-            }
+            // }
 
-
-            // console.log('idsOfElementsThatFitInNew: ');
-            // console.log(idsOfElementsThatFitInNew);
-            for (let i = 0; i < idsOfElementsThatFitInNew.length; i++) {
-                $('#' + new_parent_id).append(idsOfElementsThatFitInNew[i]);
-            }
             // ui.item.after(elements).remove();
             let currentSelected = document.querySelectorAll('.selected');
             for (let i = 0; i < currentSelected.length; i++) {
@@ -1065,41 +1041,50 @@ $(document).ready(function() {
             // // console.log(JSON.stringify(reasons));
 
 
-
+            console.log('row before unshift: '+row);
             row.unshift('save');
             // let endTime = new Date();
             let timeDiff = (endTime-startTime);
             row.push(timeToString(startTime), timeToString(endTime), msecToString(timeDiff), countClicks, num_of_clicks_on_obj);
             // row.push(timeToString(startTime), timeToString(new Date()), countClicks, num_of_clicks_on_obj);
-            let resultsForDBS =  JSON.stringify(resultsForDB);
+            // let resultsForDBS =  JSON.stringify(resultsForDB);
             // console.log('type resultsForDB before: ' + typeof  resultsForDB);
-            $.ajax({
-                type: 'POST',
-                url: this.url,
-                // url: './db/uploadResPlusCSV.php',
-                // processData: false,
-                data: {
+            console.log('row: '+row);
+
+            // post('uploadResPlusCSV.php', {arr1:row, arr2:results, arr3:regal_ids, arr4:reasons, arr5: resultsForDBS});
+            let data = {
                     arr1 : row,
                     arr2 : results,
                     arr3 : regal_ids,
                     arr4 : reasons,
-                    arr5 : resultsForDBS
-                },
+                    arr5 : resultsForDB
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: this.url,
+                // url: './uploadResPlusCSV.php',
+                // processData: false,
+                data: data,
+                // dataType: 'JSON',
+                // contentType: 'JSON',
+                // beforeSend: function(xhr){xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded")},
                 success: function(data) {
                     // console.log('type resultsForDB after: ' + typeof  resultsForDB);
-                    // console.log('resultsForDB:\ ' + resultsForDB + "\n");
-                    // console.log(data);
+                    console.log('resultsForDBS: ' + resultsForDB + "\n");
+                    console.log(data);
+                    console.log('row: '+row);
 
                     $(".all").addClass("hidden");
                     // $("h3").removeClass("hidden");
                     window.location.href = 'finish.php';
                 },
                 error: function(data) {
-                    // console.log("Error während des uploads: " + JSON.stringify(data));
-                },
-                completed: function(data){
-                    // window.location.href = 'finish.php';
+                    console.log("Error während des Uploads: " + JSON.stringify(data));
                 }
+                // completed: function(data){
+                //     // window.location.href = 'finish.php';
+                // }
             });
         }
 
@@ -1319,7 +1304,7 @@ $(document).ready(function() {
                 compareZIndex: true,
                 zIndex: 100000000000,
                 // containment: "parent",
-                helper: function (e, item) {
+                /*helper: function (e, item) {
                     let helper = $('<div/>');
                     helper.css('width','300px');
                     if (!item.hasClass('selected')) {
@@ -1328,7 +1313,7 @@ $(document).ready(function() {
                     let elements = item.parent().children('.selected').clone();
                     item.data('multidrag', elements).siblings('.selected').remove();
                     return helper.append(elements);
-                },
+                },*/
                 cursorAt: { top: 0, left: 50 },
                 tolerance: "pointer",
                 over: function(event, ui) {
@@ -1481,40 +1466,31 @@ var showImage = function(id) {
 
 
 function sortableStartInTest2(event,ui) {
-    $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
+    // $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
 
     num_of_clicks_on_obj++;
     countClicks++;
     endTime = new Date();
-    let elements = ui.item.data('multidrag');
+    // let elements = ui.item.data('multidrag');
 
 
     // console.log('elem[0] id ' + elements[0].id);
-    for (let i = 0; i < elements.length; i++) {
+    // for (let i = 0; i < elements.length; i++) {
 
-        var obj_id = elements[i].id;
-    /*    var obj_width = parseInt(elements[i].style.minWidth);
-        var obj_height = parseInt(elements[i].style.minHeight);
-        var obj_length = parseInt(elements[i].style.perspective);*/
-        var obj_width = parseInt(elements[i].dataset.regalWidth);
-        var obj_height = parseInt(elements[i].dataset.regalHeight);
-        var obj_length = parseInt(elements[i].dataset.regalDepth);
-
-
+        var obj_id = ui.item.attr('id');
+        var obj_width = parseFloat(ui.item.data('regalWidth'));
+        var obj_height = parseFloat(ui.item.data('regalHeight'));
+        var obj_length = parseFloat(ui.item.data('regalDepth'));
         var obj_volume = obj_length * obj_height * obj_width;
 
         var l = regal_ids.length - 1;
-        for (let i = 1; i < l; i++ ){
+        for (var i = 1; i < l; i++ ){
             var id = '#' + regal_ids[i];
             var pw = +getPlaceholderVolume(id) + +obj_volume;
 
-          /*  var w = parseInt($(id).css('min-width'));
+            var w = parseInt($(id).css('min-width'));
             var h = parseInt($(id).css('min-height'));
-            var d = parseInt($(id).css('perspective'));*/
-            var w = parseInt($(id).data('regal-width'));
-            var h = parseInt($(id).data('regal-height'));
-            var d = parseInt($(id).data('regal-depth'));
-
+            var d = parseInt($(id).css('perspective'));
             var regal_volume = w * h * d;
 
             if ( pw > regal_volume || h < obj_height ) {
@@ -1523,7 +1499,7 @@ function sortableStartInTest2(event,ui) {
         }
         ui.placeholder.height(30);
         ui.placeholder.width(30);
-    }
+    // }
 
 
 
@@ -1568,22 +1544,18 @@ function sortableStopInTest2(event,ui) {
     // console.log('new_parent_id ' + new_parent_id);
 
     let elements = ui.item.data('multidrag');
-    ui.item.after(elements).remove();
 
-    let idsOfElementsTooLargeOrFull = [];
-    let idsOfElementsThatFitInNew = [];
-
-    for (let i = 0; i < elements.length; i++) {
+    // for (let i = 0; i < elements.length; i++) {
 
 
-        var obj_id = elements[i].id;
+        var obj_id = ui.item.attr('id');
         // console.log('obj_id ' + obj_id);
        /* var obj_width = parseInt(elements[i].style.minWidth);
         var obj_height = parseInt(elements[i].style.minHeight);
         var obj_length = parseInt(elements[i].style.perspective);*/
-        var obj_width = parseInt(elements[i].dataset.regalWidth);
-        var obj_height = parseInt(elements[i].dataset.regalHeight);
-        var obj_length = parseInt(elements[i].dataset.regalDepth);
+        var obj_width = parseFloat(ui.item.data('regalWidth'));
+        var obj_height = parseFloat(ui.item.data('regalHeight'));
+        var obj_length = parseFloat(ui.item.data('regalDepth'));
 
 
         var obj_volume = obj_length * obj_height * obj_width;
@@ -1604,19 +1576,15 @@ function sortableStopInTest2(event,ui) {
                 || (old_parent_id === new_parent_id))
             && !movedToTest2){
             // $('#' + new_parent_id).append(elements[i]);
-            $('#' + old_parent_id).find(elements[i]).remove();
-            if (new_parent_id === 'obj') {
-                idsOfElementsThatFitInNew.push(elements[i].outerHTML);
-            }
-            // $('#' + old_parent_id).append(elements[i].outerHTML);
+            $('#' + old_parent_id).find('#'+obj_id).remove();
+            $('#' + old_parent_id).append(ui.item);
             // $('#' + new_parent_id).append(elements[i]);
             // console.log("old 1");
             old = true;
-        }
-        else if ((old_parent_id.startsWith(new_parent_id)
+        }  else if ((old_parent_id.startsWith(new_parent_id)
                     || (old_parent_id === new_parent_id)) && movedToTest2) {
             // $('#' + old_parent_id).find('#' + elements[i].id).remove();
-            $('#' + new_parent_id).append(elements[i].outerHTML);
+            $('#' + new_parent_id).append(ui.item);
 
             old = true;
             // console.log("old yes 2");
@@ -1624,26 +1592,20 @@ function sortableStopInTest2(event,ui) {
 
             // console.log("old yes 3");
             if (new_parent_id === 'obj') {
-                elements[i].style.width = "100px";
-                elements[i].style.height = "100px";
+                ui.item.css({'width':"100px", 'height':"100px"});
                 $('#' + old_parent_id + ' #'+ obj_id).remove();
-                $('#' + new_parent_id + ' #'+ obj_id).remove();
-                idsOfElementsThatFitInNew.push(elements[i].outerHTML);
                 // console.log("new parent - obj");
             } else {
                 if (obj_height > parent_height) {
-                    $('#' + old_parent_id).append(elements[i].outerHTML);
-                    $('#' + new_parent_id).find('#' +elements[i].id).remove();
+                    $('#' + old_parent_id).append(ui.item);
+                    $('#' + new_parent_id).find('#' +obj_id).remove();
                     // // console.log('old find ' + $('#' + old_parent_id).find('#' + elements[i].id).prop('outerHTML'));
-                    // console.log("find remove id");
-                    // console.log($('#' + new_parent_id).find('#' +elements[i].id));
+                    // // console.log("find remove " + $('#' + new_parent_id).find(elements[i]).prop('outerHTML'));
 
                     // document.getElementById('myModalAlert').style.display = "block";
-                    $('#myModalAlert #alertText').html("Die gewählten Objekte passen nicht in dieses Fach!");
+                    $('#myModalAlert #alertText').html("Passt nicht rein!");
                     $("#myModalAlert").css('opacity', '0').css('display','block').css('opacity', '1');
                     // $('#myModalAlert').animate({opacity: 1}, 100);
-
-                    idsOfElementsTooLargeOrFull.push(elements[i].id);
 
 
                     curObjTooLargeOrFull = true;
@@ -1652,30 +1614,20 @@ function sortableStopInTest2(event,ui) {
                 } else {
                     if (regal_volume >= placeholder_volume ) {
                         //Skalierung momentan auf 50% der Größe in der Liste
-                        elements[i].style.width = "75px";
-                        elements[i].style.height = "75px";
-                        elements[i].style.horizontalAlign = "bottom";
+                        ui.item.css({'width':"75px",
+                            'height':"75px",
+                            'horizontalAlign':"bottom"});
 
-                        // // console.log("find" + $('#' + new_parent_id).find('#' +elements[i].id));
-                        $('#' + old_parent_id).find('#' +elements[i].id).remove();
-                        $('#' + new_parent_id).find('#' +elements[i].id).remove();
-                        // $('#' + old_parent_id + ' #'+ obj_id).remove();
-                        // $('#' + new_parent_id).append(elements[i].outerHTML);
-
-                        // if($('#' + new_parent_id).find(elements[i])) {
-                        //     $('#' + new_parent_id).find('#' +elements[i].id).remove();
-                        // }
-                        // if(!$('#' + new_parent_id).find('#' +elements[i].id) || movedToTest2){
-                        //     $('#' + new_parent_id).append(elements[i].outerHTML);
-                        //     // console.log('appended');
-                        // }
-                        // console.log('current Elem: ' + elements[i].outerHTML);
-                        idsOfElementsThatFitInNew.push(elements[i].outerHTML);
+                        $('#' + old_parent_id + ' #'+ obj_id).remove();
+                        if(!$('#' + new_parent_id).find('#' + obj_id) || movedToTest2){
+                            $('#' + new_parent_id).append(ui.item);
+                            // console.log('appended');
+                        }
                         // console.log('fits in new');
 
                     } else {
-                        $('#' + old_parent_id).append(elements[i].outerHTML);
-                        $('#' + new_parent_id).find(elements[i]).remove();
+                        $('#' + old_parent_id).append(ui.item);
+                        $('#' + new_parent_id).find('#'+obj_id).remove();
                         // document.getElementById('myModalAlert').style.display = "block";
                         // $('#myModalAlert').fadeIn(300);
                         // $('#myModalAlert').css('opacity', '1').css('display', 'block');
@@ -1686,8 +1638,7 @@ function sortableStopInTest2(event,ui) {
                             function(e) {
                                 $('#myModalAlert').css('display','block');
                             });
-                        $('#myModalAlert #alertText').html("In diesem Fach ist kein Platz mehr!");
-                        idsOfElementsTooLargeOrFull.push(elements[i].id);
+                        $('#myModalAlert #alertText').html("Kein Platz mehr!");
                         curObjTooLargeOrFull = true;
                         // // console.log("old yes 3");
                         // alert("Kein Platz mehr!");
@@ -1761,28 +1712,17 @@ function sortableStopInTest2(event,ui) {
         // }
         // Objekte unten im Extra-Fenster anzeigen
 
-    }
-    // console.log('idsOfElementsTooLargeOrFull: ');
-    // console.log(idsOfElementsTooLargeOrFull);
-    for (let i = 0; i < idsOfElementsTooLargeOrFull.length; i++) {
-        $('#' + new_parent_id).find('#' + idsOfElementsTooLargeOrFull[i]).remove();
-    }
+    // }
 
 
-    // console.log('idsOfElementsThatFitInNew: ');
-    // console.log(idsOfElementsThatFitInNew);
-    for (let i = 0; i < idsOfElementsThatFitInNew.length; i++) {
-        $('#' + new_parent_id).append(idsOfElementsThatFitInNew[i]);
-    }
 
-    // ui.item.after(elements).remove();
+    // // ui.item.after(elements).remove();
     let currentSelected = document.querySelectorAll('.selected');
     for (let i = 0; i < currentSelected.length; i++) {
         currentSelected[i].classList.remove('selected');
         // console.log('removed selected');
     }
-    if( (new_parent_id !== 'obj') &&
-        ((currentSelected.length > 1) || !curObjTooLargeOrFull )) {
+    if((new_parent_id !== 'obj') && !curObjTooLargeOrFull) {
         if (old) {
             $("#" + old_parent_id).click();
         }else {
@@ -1910,7 +1850,7 @@ function showObjects(last_shelf) {
         $cloned_shelf.css('width', 900).css('height', 250);
         $cloned_shelf.css('margin-top', 0);
         $("img", $cloned_shelf).css('height', 100).css('width', 100);
-        // $("img", $cloned_shelf).css('margin', 2);
+        $("img", $cloned_shelf).css('margin', 2);
         $cloned_shelf.appendTo("#test2");
         $("#test2").children().not(last_shelf).remove();
 
@@ -1948,7 +1888,7 @@ function showObjects(last_shelf) {
         compareZIndex:true,
         // containment: "parent",
         // helper: "clone",
-        helper: function (e, item) {
+        /*helper: function (e, item) {
             let helper = $('<div/>');
             helper.css('width','300px');
             if (!item.hasClass('selected')) {
@@ -1957,7 +1897,7 @@ function showObjects(last_shelf) {
             let elements = item.parent().children('.selected').clone();
             item.data('multidrag', elements).siblings('.selected').remove();
             return helper.append(elements);
-        },
+        },*/
         cursorAt: { top: 0, left: 50 },
         tolerance: "pointer",
         over: function(event, ui) {
@@ -2112,18 +2052,18 @@ $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
 // adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp
 // .obfl .objekte, .oben .objekte, .unten .objekte
 $(document).on('click', '#test2 .objekte', function(e){
-    if (e.ctrlKey) {
-        if($('.selected').length > 4) {
-            $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1, padding: '2px'});
-        } else {
-            $(this).toggleClass("selected");
-            $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0,padding: 0});
-        }
-
-        return;
-    } else {
-        $(this).siblings().removeClass('selected');
-    }
+    // if (e.ctrlKey) {
+    //     if($('.selected').length > 100) {
+    //         $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1, padding: '2px'});
+    //     } else {
+    //         $(this).toggleClass("selected");
+    //         $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0,padding: 0});
+    //     }
+    //
+    //     return;
+    // } else {
+    //     $(this).siblings().removeClass('selected');
+    // }
     var modal = document.getElementById('myModalKitchen');
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption1");
@@ -2137,18 +2077,19 @@ $(document).on('click', '#test2 .objekte', function(e){
 });
 $(document).on('click', '#obj .objekte', function(e){
 
-        if (e.ctrlKey) {
-            if($('.selected').length > 4) {
-                $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1, padding: '2px'});
-            } else {
-                $(this).toggleClass("selected");
-                $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
-            }
-
-            return;
-        } else {
-            $(this).siblings().removeClass('selected');
-        }
+        // if (e.ctrlKey) {
+        //     // TODO: make 4 again !
+        //     if($('.selected').length > 100) {
+        //         $('#maxFive').css({visibility: 'visible', height: 'auto', opacity: 1, padding: '2px'});
+        //     } else {
+        //         $(this).toggleClass("selected");
+        //         $('#maxFive').css({visibility: 'hidden', height: '0', opacity: 0, padding: 0});
+        //     }
+        //
+        //     return;
+        // } else {
+        //     $(this).siblings().removeClass('selected');
+        // }
 
     let modal = document.getElementById('myModalObj');
     let modalImg = document.getElementById("img02");

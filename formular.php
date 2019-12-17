@@ -47,14 +47,17 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 
         $userid = $db->getLastUserId();
         $_SESSION['user_id'] = $userid;
-        setcookie("userID", $userid, time() + 7200);
+//        setcookie("userID", $userid, time() + 7200);
 
         unset($_SESSION["dtkenntn"], $_SESSION["vollj"]);
+        $_SESSION["userDataSaved"] = 'saved';
 //        unset();
 //            echo "saved";
 //        }
     } else {
-        die("Errormessage: ". $db->saveUserData($dk,$vj));
+//        die("Errormessage: ". $db->saveUserData($dk,$vj));
+        $_SESSION["userDataSaved"] = 'not saved';
+        echo '$_SESSION["userDataSaved"]: ' . $_SESSION["userDataSaved"];
     }
 
 //} else {
@@ -76,45 +79,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.10.2.js"></script>
   	<script type="text/javascript" src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
     <script type="text/javascript">
-      // Eingabefelder überprüfen
-      function checkInput(form){
-        // Name - kein leeres Feld
-        // if (form.name.value == "") {
-        //   alert("Bitte geben Sie Ihren Nicknamen ein!");
-        //   form.name.focus();
-        //   return false;
-        // }
 
-        // Ã„lter soll ein Zahl zwischen 0 und 100 sein
-        var age = form.age.value;
-        age = Number(age);
-        if (isNaN(form.age.value) || age == 0) {
-          alert("Bitte gib dein Alter an!");
-          form.age.focus();
-          return false;
-        }
-		//alter
-        if (age < 0 || age > 100) {
-          alert("Bist du ernsthaft " + age + " Jahre alt?");
-          form.age.focus();
-          return false;
-        }
-		
-       /* if (Number(form.hours1.value) < 0) {
-          alert("Die Zahl sollte positiv sein");
-          form.hours1.focus();
-          return false;
-        }
-		//wie lange Küche
-        var hours2 = form.hoursKitchen.value;
-        if (isNaN(hours2) || hours2 == "" || Number(hours2) < 0) {
-          alert("Bitte gib an, wie viele Stunden du letzte Woche in der K&uuml;che verbracht hast.");
-          form.hoursKitchen.focus();
-          return false;
-        }*/
-
-        return true;
-      }
   </script>
 
   </head>
@@ -124,7 +89,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 
     <p>Bitte mach folgende Angaben: </p>
     <div class="all">
-      <form id="kontaktformular" name="kontaktformular" action="mykitchen.php" method="post" onsubmit="return checkInput(this)">
+      <form id="kontaktformular" name="kontaktformular" action="mykitchen.php" method="post">
         <table>
 <!--          <tr>-->
 <!--            <td>-->
