@@ -47,7 +47,7 @@
     </p>
     <p>
         <b>Telefon:</b> +49 7071 29-0<br/>
-        <b>Email:</b> <a href="mailto:datenschutz@uni-tuebingen.de">datenschutz@uni-tuebingen.de</a></p>
+        <b>E-Mail:</b> <span class="mailadr">datenschutz (@) uni-tuebingen.de</span> <!-- <a href="mailto:datenschutz@uni-tuebingen.de">datenschutz@uni-tuebingen.de</a> --> </p>
     <h3 class="mt-5">Umfang der Datenerhebung, -verarbeitung und -nutzung</h3>
     <p>Grundsätzlich verfolgen wir das Ziel, die Erhebung, Verarbeitung und Nutzung von personenbezogenen Daten während
        Ihres Besuchs unserer Webseiten, auf das erforderliche Mindestmaß zu beschränken. Auch erheben wir i.d.R. nur
@@ -115,7 +115,6 @@
     <p>
     <ul>
         <li>zur Abwicklung unserer vertraglich zugesicherten Leistungen erforderlich ist.</li>
-        <li>zur Durchsetzung unserer Forderungen notwendig wird.</li>
         <li>zur Durchsetzung unserer Forderungen notwendig wird.</li>
         <li>durch einen gesetzlichen Erlaubnistatbestand legimitiert wird oder wir gesetzlich zur Weitergabe der Daten
             verpflichtet sind.

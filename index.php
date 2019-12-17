@@ -20,8 +20,8 @@
 <!--    <p><b>Die Studie ist beendet.</b></p>-->
 
 
-    <p>Bitte lies die Informationen auf den nächsten Seite sorgfältig durch und entscheide dich dich dann,
-        ob du an dieser Studie teilnehmen möchten. Falls du weitere Fragen zur Studie haben sollten, beantworten wir dir diese gern.</p>
+    <p>Bitte lies die Informationen auf den nächsten Seite sorgfältig durch und entscheide dich dann,
+        ob du an dieser Studie teilnehmen möchtest. Falls du weitere Fragen zur Studie haben solltest, beantworten wir dir diese gern.</p>
     <br>
     Ansprechpartnerin: <br>
     Alisa Volkert, M.Sc.<br>
