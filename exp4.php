@@ -97,7 +97,7 @@ endif;
   	<p>Um den Versuch durchzuführen, muss die Auflösung deines Bildschirms mindestens 1200x700 Pixel betragen. </p>
 
 
-    <p>Wer das Experiment gewissenhaft durchgeführt hat, kann an einer Verlosung von 10 Gutscheinen à 20 Euro für den Tübinger Einzelhandel teilnehmen. Dies ist nur einmal möglich.
+    <p>Wer das Experiment gewissenhaft durchgeführt hat, kann an einer Verlosung von 20 Gutscheinen à 20 Euro für den Tübinger Einzelhandel teilnehmen. Dies ist nur einmal möglich.
        Alternativ können wir eine (halbe) Versuchspersonenstunde ausstellen.  </p> <!-- TODO: nach Pilottest entscheiden, ob halbe oder ganze VP-Stunde ausstellen.-->
 
     <p>Alle Angaben zu deiner Person werden anonym gespeichert, sodass kein Rückschluss auf deine Person möglich ist. Die Teilnahme an dieser Studie ist freiwillig. Wenn du nicht einwilligst, schließe bitte dieses Fenster in deinem Browser.
