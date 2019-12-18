@@ -109,7 +109,7 @@ function get_form($errorstring = "", $email = "")
     <h4>Teilnahme am Gewinnspiel</h4>
 <!--    <p>Zur Verknüpfung Ihrer Entscheidung mit Ihrer Person benötigen wir Ihre Mailadresse.</p>-->
 
-    <p>Wenn du am Gewinnspiel teilnehmen möchtest, um einen von 10 Gutscheinen im Wert von je 20 € für den Tübinger Einzelhandel zu gewinnen, gib bitte deine Mailadresse an.</p>
+    <p>Wenn du am Gewinnspiel teilnehmen möchtest, um einen von 20 Gutscheinen im Wert von je 20 € für den Tübinger Einzelhandel zu gewinnen, gib bitte deine Mailadresse an.</p>
     <p>Wenn du lieber eine halbe Versuchspersonenstunde ausgestellt haben möchtest, gib bitte deine Matrikelnummer an. </p> <!-- TODO: nach Pilottest entscheiden, ob halbe oder ganze VP-Stunde ausstellen.-->
     <p>Deine Mailadresse und Matrikelnummer werden getrennt von deinen Daten aus dem Experiment gespeichert. So ist kein Rückschluss auf deine Person möglich.
         </p>

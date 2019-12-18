@@ -8,7 +8,7 @@
 
 
 <div id="cookies-banner" style="">
-    <p>Diese Seite benutzt Cookies um die technische Funktionalität des Experiments zu gewährleisten.<br>
+    <p>Diese Seite benutzt Cookies, um die technische Funktionalität des Experiments zu gewährleisten.<br>
        Es werden keine Tracking-Cookies verwendet.</p>
     <a href="./datenschutzerklaerung.php" id="cookies-more">Mehr</a>
     <button id="cookies-reject">Ablehnen</button>
