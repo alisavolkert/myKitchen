@@ -5,7 +5,7 @@
     background: #a51e37;
     color: #fff;
     position: fixed;
-    bottom: 0;
+    /*bottom: 0;*/
     left: 0;
     text-align: center;
     padding: 9px;
@@ -15,6 +15,7 @@
     -ms-transition: all 1s;
     -o-transition: all 1s;
     transition: all 1s;
+    margin-top: 30px;
 }
 
 #cookies-banner p {
@@ -41,7 +42,7 @@
 }
 
 #cookies-reject {
-    background: #9999;
+    background: #62626299;
 }
 
 #cookies-reject:hover {

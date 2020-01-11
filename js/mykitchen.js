@@ -420,13 +420,7 @@ $(document).ready(function() {
                 }
 
 
-                if ($('#obj').find('img.objekte').length === 0) {
-                    document.getElementById('finish').disabled = false;
-                    // console.log("finish enabled");
-                } else {
-                    document.getElementById('finish').disabled = true;
-                    // console.log("finish disabled");
-                }
+
                 // document.getElementById('back').disabled = false;
 
             }
@@ -461,6 +455,13 @@ $(document).ready(function() {
                 }
             } else {
                 // console.log("not showing objects");
+            }
+            if ($('#obj').find('img.objekte').length === 0) {
+                document.getElementById('finish').disabled = false;
+                // console.log("finish enabled");
+            } else {
+                document.getElementById('finish').disabled = true;
+                // console.log("finish disabled");
             }
            //  let curObjTooLargeOrFull = false;
            //  let old = false;
@@ -856,14 +857,44 @@ $(document).ready(function() {
 
         $('.schrank').children().addClass('regalSort');
 
-        $( ".regalSort" ).sortable({
+        $('.regalSort').sortable({
             connectWith: '.regalSort',
+            placeholder: 'objekte',
+            appendTo: 'body',
+            compareZIndex: true,
+            zIndex: 100000000000,
+            // containment: "parent",
+            helper: function (e, item) {
+                let helper = $('<div/>');
+                helper.css('width','300px');
+                if (!item.hasClass('selected')) {
+                    item.addClass('selected').siblings().removeClass('selected');
+                }
+                let elements = item.parent().children('.selected').clone();
+                item.data('multidrag', elements).siblings('.selected').remove();
+                return helper.append(elements);
+            },
+            cursorAt: { top: 0, left: 50 },
+            tolerance: "pointer",
             over: function(event, ui) {
                 $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+                // $( ".obfl" ).removeClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
             },
             out: function(event, ui) {
                 $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
-            },});
+                // $( ".obfl" ).addClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+            },
+            start: function(event, ui) {
+                sortableStartInTest2(event,ui)
+            },
+            stop: function(event, ui) {
+                sortableStopInTest2(event,ui);
+                // $( ".obfl" ).addClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+            }
+        });
 
 
     });
@@ -886,14 +917,44 @@ $(document).ready(function() {
         $('#test2').fadeOut(300);
         $('.schrank').children().removeClass('regalSort');
 
-        $( ".regalSort" ).sortable({
+        $('.regalSort').sortable({
             connectWith: '.regalSort',
+            placeholder: 'objekte',
+            appendTo: 'body',
+            compareZIndex: true,
+            zIndex: 100000000000,
+            // containment: "parent",
+            helper: function (e, item) {
+                let helper = $('<div/>');
+                helper.css('width','300px');
+                if (!item.hasClass('selected')) {
+                    item.addClass('selected').siblings().removeClass('selected');
+                }
+                let elements = item.parent().children('.selected').clone();
+                item.data('multidrag', elements).siblings('.selected').remove();
+                return helper.append(elements);
+            },
+            cursorAt: { top: 0, left: 50 },
+            tolerance: "pointer",
             over: function(event, ui) {
                 $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+                // $( ".obfl" ).removeClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
             },
             out: function(event, ui) {
                 $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
-            },});
+                // $( ".obfl" ).addClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+            },
+            start: function(event, ui) {
+                sortableStartInTest2(event,ui)
+            },
+            stop: function(event, ui) {
+                sortableStopInTest2(event,ui);
+                // $( ".obfl" ).addClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+            }
+        });
     });
 
     /* reload the kitchen */
@@ -1801,10 +1862,10 @@ function sortableStopInTest2(event,ui) {
 
     if ($('#obj').find('img.objekte').length === 0) {
         document.getElementById('finish').disabled = false;
-        // console.log("finish enabled");
+        // console.log("finish enabled 2");
     } else {
         document.getElementById('finish').disabled = true;
-        // console.log("finish disabled");
+        // console.log("finish disabled 2");
     }
     // document.getElementById('back').disabled = false;
 }

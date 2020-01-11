@@ -115,31 +115,23 @@ if (session_status() === PHP_SESSION_NONE) {
             <button class="closeAnzeige" id="close-hilfe">
                 <h4>X</h4>
             </button>
-            <!--<h4>Hilfe</h4>
-            Im folgenden Versuch finden Sie mehrere Kisten mit verschiedenen Küchengegenständen vor.
-            Ihre Aufgabe wird es sein, diese in die gegebenen Regale einzuordnen (siehe Abbildung).
-            Sie dürfen dabei auch Gegenstände auf den Arbeitsflächen abstellen.
-            Räumen Sie die Küche so ein, wie Sie es auch bei Ihnen zu Hause tun würden: Es gibt dabei kein Richtig oder Falsch.
-            Gern dürfen Sie während des Versuchs Gegenstände umplatzieren.
-            Der Versuch ist beendet, sobald alle Gegenstände in der Küche platziert wurden. Es gibt kein Zeitlimit.
-            Außerdem muss nicht jedes Regal gefüllt werden.
-            <br><br>
-            Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände
-            <div id="info-bild"></div>-->
-
             <h2>Versuchsablauf</h2>
-            <h4>Einräumen einer simulierten Küche im Rahmen des Forschungsprojekts <br/>
-                "Psychologisch inspirierte Wissensrepräsentation"</h4>
+            <h4>Einräumen einer simulierten Küche im Rahmen der Doktorarbeit <br/>
+                "Intuitive Wissensrepräsentation"</h4>
             <p>Du bist soeben in eine neue Wohnung eingezogen und stehst nun vor der Aufgabe, die noch leere Küche einzuräumen (siehe Abbildung). All deine Küchengegenstände befinden sich auf der rechten Seite des Browserfensters.
-                Du darfst dabei auch Gegenstände auf den Arbeitsflächen abstellen. Beim Einräumen deiner neuen Küche gibt es kein Richtig oder
-                Falsch. Gern darfst du während des Versuchs Gegenstände umplatzieren. Räume ALLE Gegenstände aus dem Depot in die Küche. Du musst dabei aber nicht in jedes Regal etwas einräumen. </p>
+               Du darfst dabei auch Gegenstände auf den Arbeitsflächen abstellen. </p>
+            <p>Beim Einräumen deiner neuen Küche gibt es kein Richtig oder Falsch. Gern darfst du während des Versuchs Gegenstände umplatzieren. Räume ALLE Gegenstände aus dem Depot in die Küche. Du musst dabei aber nicht in jedes Regal etwas einräumen. </p>
             <p>Anschließend sollst du den Inhalt der gefüllten Fächer kurz beschreiben.
-                Der Versuch ist beendet, sobald du jedes gefüllte Fach kurz beschrieben hast.
-                Er wird jedoch spätestens nach 60 Minuten abgebrochen.
-            </p>
+               Der Versuch ist beendet, sobald du jedes gefüllte Fach kurz beschrieben hast.
+               Er wird jedoch spätestens nach 60 Minuten abgebrochen.
 
+            </p>
+<!--            <img src="img/versuch_neu.png" />-->
             <div id="info-bild"></div>
-            Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände
+            <p>Abbildung: In die grün markierten Bereiche kannst du Gegenstände einräumen.</p>
+<!--            <p>Wenn du deine Aufgabe verstanden hast, klicke bitte auf "Weiter". </p>-->
+
+<!--            Abbildung: Mögliche Bereiche innerhalb der Küche zum Einräumen der Gegenstände-->
         </div>
         <!--<div id="test2">
             <div class="testUpAndDown">
@@ -392,9 +384,9 @@ $result_mk = $db->getAllImagesWithData();
 //            echo "Datenbanktabelle ist nicht leer";
 //              print_r($result_mk);
 //            while($row = $result_mk->fetch()) {
-           $i=0;
+            $i=0;
              foreach ($result_mk as $row) {
-                 // if ($i < 10) {
+                   if ($i < 10) {
                      $image = $row['picture'];
                      if ($image === 0) {
                          $image = "default.jpeg";
@@ -411,8 +403,8 @@ $result_mk = $db->getAllImagesWithData();
 //                echo "img set";
                      $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
                  }
-                //$i++;
-             //}
+                $i++;
+             }
         } else {
             echo "Datenbanktabelle ist leer";
         }

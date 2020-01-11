@@ -8,13 +8,13 @@ body {
 .footer2 {
 	position: absolute;
 	/*bottom: 245px;*/
-	top: 634px;
+	top: 645px;
 }
 .footer2 a {
-	color: #999;
+	color: #666;
 }
 .footer2 a:hover {
-	color: #666;
+	color: #333;
 }
 
 .all {
@@ -239,6 +239,7 @@ h3 {
 	-webkit-box-shadow: 2px 2px 5px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 5px 0px rgba(110,110,110,1);
 	box-shadow: 2px 2px 5px 0px rgba(110,110,110,1);
+	font-size: 90%;
 }
 #info-bild {
 	background: url("../img/versuch_neu.png") no-repeat;
@@ -261,6 +262,7 @@ h3 {
 }
 #info h2, #info h4 {
 	margin: 0;
+	position: unset;
 }
 
 .schrank {
@@ -1258,6 +1260,9 @@ h3 {
 	/*margin-left: 1205px;*/
 	float: right;
 	top: 634px;
+	width: 1330px;
+	text-align: right;
+	margin: 0;
 }
 
 /* adapted from https://www.w3schools.com/howto/howto_css_modal_images.asp */
@@ -1419,8 +1424,10 @@ h3 {
 		margin: 0 1px;
 	}
 	#foto-src {
-		right: 129px;
-		top: 618px;
+		right: 64px;
+		top: 638px;
+		text-align: center;
+		width: auto;
 	}
 
 	#myModalObj {
