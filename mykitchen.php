@@ -101,8 +101,8 @@ if (session_status() === PHP_SESSION_NONE) {
 <!--        <button id="back" class="small" style="font-size: 18px; width: 35px;" disabled><</button>-->
 <!--        <button id="next" class="small" style="font-size: 18px; width: 35px;" disabled>></button>-->
         <button id="help" class="small" style="font-size: 18px; width: 35px;">?</button>
-        <button id="open"  class="big">Alle öffnen</button>
-        <button id="close" class="big">Alle schließen</button>
+        <button id="open"  class="big">Alle Fächer öffnen</button>
+        <button id="close" class="big">Alle Fächer schließen</button>
         <button id="refresh" class="big">Neustart</button>
         <button id="finish" class="big" disabled>Weiter</button>
     </div>
@@ -208,7 +208,7 @@ if (session_status() === PHP_SESSION_NONE) {
         <div class="door unten" id="d10-3"></div>
 
 
-        <div class="schrank" id="s1">
+        <div class="schrank no-door" id="s1">
             <div class="regal regalSort oben" id="sv1-1"
                  data-regal-width="57" data-regal-height="33.2" data-regal-depth="32.4"></div>
             <div class="regal regalSort oben" id="sv1-2"
@@ -384,9 +384,9 @@ $result_mk = $db->getAllImagesWithData();
 //            echo "Datenbanktabelle ist nicht leer";
 //              print_r($result_mk);
 //            while($row = $result_mk->fetch()) {
-            $i=0;
+           // $i=0;
              foreach ($result_mk as $row) {
-                   if ($i < 10) {
+                   //if ($i < 5) {
                      $image = $row['picture'];
                      if ($image === 0) {
                          $image = "default.jpeg";
@@ -402,8 +402,8 @@ $result_mk = $db->getAllImagesWithData();
 
 //                echo "img set";
                      $js_array_mk[] = array($row['id'], $row['name'], $row['picture'], $row['height'], $row['width'], $row['depth']);
-                 }
-                $i++;
+                 //}
+                //$i++;
              }
         } else {
             echo "Datenbanktabelle ist leer";

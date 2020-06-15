@@ -10,7 +10,8 @@
 <div id="cookies-banner" style="">
     <p>Diese Seite benutzt Cookies, um die technische Funktionalität des Experiments zu gewährleisten.<br>
        Es werden keine Tracking-Cookies verwendet.</p>
-    <a href="./datenschutzerklaerung.php" id="cookies-more">Mehr</a>
+    <br><br>
+    <a href="./datenschutzerklaerung.php"><button  id="cookies-more">Mehr</button></a>
     <button id="cookies-reject">Ablehnen</button>
     <button id="cookies-accept">Akzeptieren</button>
 </div>

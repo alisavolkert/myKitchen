@@ -1,15 +1,17 @@
 
 #cookies-banner {
     display: none;
-    width: 100vw;
+    width: 29vw;
+    min-width: 360px;
     background: #a51e37;
     color: #fff;
     position: fixed;
     /*bottom: 0;*/
-    left: 0;
+    /*left: 0;*/
+    top: 0;
     text-align: center;
-    padding: 9px;
-    font-size: 13px;
+    padding: 20px 9px;
+    /*font-size: 13px;*/
     -webkit-transition: all 1s;
     -moz-transition: all 1s;
     -ms-transition: all 1s;
@@ -39,6 +41,8 @@
     font-size: 12px;
     font-weight: bold;
     transition: background 0.07s, color 0.07s, border-color 0.07s;
+    height: 40px;
+    display: inline-block;
 }
 
 #cookies-reject {

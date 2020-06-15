@@ -8,7 +8,8 @@
     <title>Studie Einräumen einer simulierten Küche</title>
   </head>
   <body>   
-    <img src="img/logo_web.png" id="logo"> 
+    <img src="img/logo_web.png" id="logo">
+
   	<p id="expstart"><b>Vielen Dank</b> für dein Interesse an unserer Studie!</p>
     <br>
 <!--    <p><b>Die Studie ist beendet.</b></p>-->

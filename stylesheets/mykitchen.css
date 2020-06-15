@@ -45,9 +45,9 @@ body {
 	/*margin-left: 920px;*/
 	/*margin-top: 80px;*/
 	margin-left: 910px;
-	margin-top: 70px;
+	margin-top: 90px;
 	width: 420px;
-	height: 526px;
+	height: 506px;
 	background-color: #fff;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
 	-moz-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -66,7 +66,7 @@ body {
 .but{
 	position: absolute;
 	width: 420px;
-	height: 60px;
+	height: 80px;
 	margin-left: 910px;
 	background-color: #fff;
 	-webkit-box-shadow: 2px 2px 12px 0px rgba(110,110,110,1);
@@ -211,7 +211,7 @@ h3 {
 #open, #close, #refresh, #finish, #back, #next, #help, #distance_table, #screenshot{
 	/*position:relative;*/
 	/*width: 75px;*/
-	height: 50px;
+	height: 70px;
 	margin: 3px;
 	left:10px;
 	top: 10px;
@@ -1110,7 +1110,7 @@ h3 {
 	background: url("../img/oben.jpg") no-repeat;
 	opacity: 0.5;
 	width: 700px;
-	height: 152px;
+	height: 20px;
 	position: absolute;
 	top: 93px;
 	left: 27px;
@@ -1396,7 +1396,7 @@ h3 {
 
 	.but {
 		width: 282px;
-		height: 120px;
+		height: 157px;
 		margin-left: 907px;
 		z-index: 11;
 	}
@@ -1412,10 +1412,10 @@ h3 {
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
 		/*margin-top: 137px;*/
-		margin-top: 127px;
+		margin-top: 164px;
 		width: 282px;
 		/*height: 490px;*/
-		height: 451px;
+		height: 415px;
 		margin-left: 907px;
 	}
 	#obj .objekte {

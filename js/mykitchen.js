@@ -267,14 +267,18 @@ $(document).ready(function() {
                     // console.log("old yes 011");
                     old = true;
                 } else if ((old_parent_id !== new_parent_id)) {
-                    // console.log("old yes 02");
+                    console.log("old yes 02");
                     if (new_parent_id === 'obj') {
                         elements[i].style.width = "100px";
                         elements[i].style.height = "100px";
-                        // console.log("old yes 021");
+                        console.log("old yes 021");
+                        $('#test 2' + ' #'+ obj_id).remove();
                         $('#' + old_parent_id + ' #'+ obj_id).remove();
                         $('#' + new_parent_id + ' #'+ obj_id).remove();
                         idsOfElementsThatFitInNew.push(elements[i].outerHTML);
+                        $("#test2 .regal").css('height', '0');
+                        $('#test2').css({'opacity': '0',
+                            'display': 'none'});
                         // elements[i].css('width', 100);
                         // elements[i].css('height', 100);
                     } else {
@@ -915,7 +919,7 @@ $(document).ready(function() {
 
         // $('#test2').css('display', 'none');
         $('#test2').fadeOut(300);
-        $('.schrank').children().removeClass('regalSort');
+        $('.schrank:not(.no-door)').children().removeClass('regalSort ui-sortable');
 
         $('.regalSort').sortable({
             connectWith: '.regalSort',
@@ -1040,11 +1044,18 @@ $(document).ready(function() {
             $('#myModalAlert').css('display','block');
             $("#myModalAlert").css('opacity', '1');
 
-            $("#open").click();
+            $("#open").click().prop("disabled",true);
+            $("#close").prop("disabled",true);
+
+            $(".hasObjects:not(:has(img))").removeClass('hasObjects');
 
             $('.regal').removeClass('hasObjectsActive');
             $('.hasObjects').addClass('hasObjectsBorder');
             $('.regalSort').sortable('destroy').unbind();
+            $('.regalSort').removeClass('regalSort');
+            // $('#test2 .regalSort').sortable('disable');
+            // $('#test2 .erkl').css('display', 'block');
+
 
 
             $(document).on('click', '#gkitchen .regal:not(#test2 .regal)', function(){
@@ -1268,6 +1279,10 @@ $(document).ready(function() {
         // console.log("shelf_id " + shelf_id);
 
         if ($(door_id).hasClass(classname)) {
+
+            console.log('closed');
+            console.log('shelf_id' + shelf_id);
+            console.log('door_id' + door_id);
             $(door_id).removeClass(classname);
             $(door_id).addClass(classClosed);
             // $(schrank_id).css('display', 'none');
@@ -1279,6 +1294,8 @@ $(document).ready(function() {
             if (shelf_id.startsWith('#sv2') || shelf_id.startsWith('#sv3')
                 || shelf_id.startsWith('#sv4') || shelf_id.startsWith('#sv5')){
 
+                $(shelf_id + '-1').removeClass('hasObjectsActive');
+                $(shelf_id + '-2').removeClass('hasObjectsActive');
                 $(shelf_id + '-1').removeClass('regalSort').sortable('destroy').unbind();
                 $(shelf_id + '-2').removeClass('regalSort').sortable('destroy').unbind();
 
@@ -1286,14 +1303,22 @@ $(document).ready(function() {
                 // $(shelf_id + '-2').disableSelection('disabled').unbind('click').unbind('mousedown').unbind('mouseup').unbind('selectstart');
 
             } else {
+                $(shelf_id).removeClass('hasObjectsActive');
                 $(shelf_id).removeClass('regalSort').sortable('destroy').unbind();
                 // $(shelf_id).disableSelection('disabled').unbind('click').unbind('mousedown').unbind('mouseup').unbind('selectstart');
 
             }
 
+            let shelf_id_name = shelf_id.substring(1);
 
-            $('#test2').css('opacity', '0').css('display', 'none');
+            if($('#test2 div[id^="' + shelf_id_name +'"]').length > 0) {
+                $("#test2 .regal").css('height', '0');
+                $('#test2').css({'opacity': '0',
+                    'display': 'none'});
+            }
+
         } else {
+            console.log('opened');
             $(door_id).removeClass(classClosed);
             $(door_id).addClass(classname);
             // $(schrank_id).css('display', 'block');
@@ -1323,98 +1348,58 @@ $(document).ready(function() {
                 $(shelf_id + '-1').addClass('regalSort').removeClass("ui-sortable-disabled");
                 $(shelf_id + '-2').addClass('regalSort').removeClass("ui-sortable-disabled");
 
-                // if ($(shelf_id+ '-1').sortable( "option", "disabled" ) === 'true') {
-                //     $(shelf_id+ '-1').sortable("enable");
-                //     $(shelf_id+ '-2').sortable("enable");
-                // }
-
-               /* $(shelf_id + '-1').sortable("enable",{
-                    connectWith: shelf_id + '-1',
-                    placeholder: 'objekte',
-                    revert: 50,
-                    start: function(event, ui) {
-                        sortableStartInTest2(event,ui)
-                    },
-                    stop: function(event, ui) {
-                        sortableStopInTest2(event,ui)
-                    }
-                });
-                $(shelf_id + '-2').sortable("enable",{
-                    connectWith: shelf_id + '-2',
-                    placeholder: 'objekte',
-                    revert: 50,
-                    start: function(event, ui) {
-                        sortableStartInTest2(event,ui)
-                    },
-                    stop: function(event, ui) {
-                        sortableStopInTest2(event,ui)
-                    }
-                });*/
 
             } else {
                 $(shelf_id).addClass('regalSort').removeClass("ui-sortable-disabled");
 
-                // if ($(shelf_id).sortable( "option", "disabled" ) === 'true') {
-                //     $(shelf_id).sortable("enable");
-                // }
-               /* $(shelf_id).sortable("enable",{
-                    connectWith: shelf_id,
-                    placeholder: 'objekte',
-                    disable: false,
-                    revert: 50,
-                    start: function(event, ui) {
-                        sortableStartInTest2(event,ui)
-                    },
-                    stop: function(event, ui) {
-                        sortableStopInTest2(event,ui)
-                    }
-                });*/
+
             }
             // // console.log("shelf_id " + shelf_id + " after");
 
 
-            $('.regalSort').sortable({
-                connectWith: '.regalSort',
-                placeholder: 'objekte',
-                appendTo: 'body',
-                compareZIndex: true,
-                zIndex: 100000000000,
-                // containment: "parent",
-                helper: function (e, item) {
-                    let helper = $('<div/>');
-                    helper.css('width','300px');
-                    if (!item.hasClass('selected')) {
-                        item.addClass('selected').siblings().removeClass('selected');
-                    }
-                    let elements = item.parent().children('.selected').clone();
-                    item.data('multidrag', elements).siblings('.selected').remove();
-                    return helper.append(elements);
-                },
-                cursorAt: { top: 0, left: 50 },
-                tolerance: "pointer",
-                over: function(event, ui) {
-                    $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
-                    // $( ".obfl" ).removeClass('regalSort');
-                    // refreshSortableWithClassname("regalSort", event, ui);
-                },
-                out: function(event, ui) {
-                    $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
-                    // $( ".obfl" ).addClass('regalSort');
-                    // refreshSortableWithClassname("regalSort", event, ui);
-                },
-                start: function(event, ui) {
-                    sortableStartInTest2(event,ui)
-                },
-                stop: function(event, ui) {
-                    sortableStopInTest2(event,ui);
-                    // $( ".obfl" ).addClass('regalSort');
-                    // refreshSortableWithClassname("regalSort", event, ui);
-                }
-            });
+
             // showObjects(last_open_shelf);
             // $('#test2').css('display', 'block');
             // $('#test2').show();
         }
+        $('.regalSort').sortable({
+            connectWith: '.regalSort',
+            placeholder: 'objekte',
+            appendTo: 'body',
+            compareZIndex: true,
+            zIndex: 100000000000,
+            // containment: "parent",
+            helper: function (e, item) {
+                let helper = $('<div/>');
+                helper.css('width','300px');
+                if (!item.hasClass('selected')) {
+                    item.addClass('selected').siblings().removeClass('selected');
+                }
+                let elements = item.parent().children('.selected').clone();
+                item.data('multidrag', elements).siblings('.selected').remove();
+                return helper.append(elements);
+            },
+            cursorAt: { top: 0, left: 50 },
+            tolerance: "pointer",
+            over: function(event, ui) {
+                $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+                // $( ".obfl" ).removeClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+            },
+            out: function(event, ui) {
+                $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
+                // $( ".obfl" ).addClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+            },
+            start: function(event, ui) {
+                sortableStartInTest2(event,ui)
+            },
+            stop: function(event, ui) {
+                sortableStopInTest2(event,ui);
+                // $( ".obfl" ).addClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+            }
+        });
 
     });
 
@@ -1687,10 +1672,13 @@ function sortableStopInTest2(event,ui) {
             if (new_parent_id === 'obj') {
                 elements[i].style.width = "100px";
                 elements[i].style.height = "100px";
+                $('#test 2' + ' #'+ obj_id).remove();
                 $('#' + old_parent_id + ' #'+ obj_id).remove();
                 $('#' + new_parent_id + ' #'+ obj_id).remove();
                 idsOfElementsThatFitInNew.push(elements[i].outerHTML);
-                // console.log("new parent - obj");
+                $("#test2 .regal").css('height', '0');
+                $('#test2').css({'opacity': '0',
+                    'display': 'none'});
             } else {
                 if (obj_height > parent_height) {
                     $('#' + old_parent_id).append(elements[i].outerHTML);
@@ -1886,6 +1874,7 @@ function refreshSortableWithClassname(classes, event, ui){
 
 /* zeige Gegenstände unten an*/
 function showObjects(last_shelf) {
+
     refreshSortableWithClassname("regalSort");
     // $( ".regalSort" ).sortable({
     //     over: function(event, ui) {
@@ -1897,11 +1886,11 @@ function showObjects(last_shelf) {
     //     },});
 
     let clickedOben = true;
-    if($(last_shelf).hasClass('oben')) {
+    if ($(last_shelf).hasClass('oben')) {
         $("#test2").css('top', '384px');
-    } else if($(last_shelf).hasClass('unten')) {
+    } else if ($(last_shelf).hasClass('unten')) {
         clickedOben = false;
-        $("#test2").css('top','8px');
+        $("#test2").css('top', '8px');
     }
     // Durch das if werden die oberen Schränke abgefangen, da diese nur eine Tür aber zwei Regale
     // besitzen. Um beide darzustellen wird der Kasten unten aufgeteilt.
@@ -1936,158 +1925,157 @@ function showObjects(last_shelf) {
     //     // $("#test2").children().not(last_shelf1, last_shelf2).remove();
     //     // $('#test2').show();
     // } else {
-        // // console.log('out ' + last_shelf.match(/(\#sv\-[1-5])/g) + " + " + last_shelf);
-        // bei den restlichen Regalen gilt: klone den inhalt des divs, verändere seine
-        // css-Attribute width, height und vergrößere die images innerhalb des divs
-        // füge anschließend den kopierten und modifizierten div dem Kasten hinzu
-        $("#test2").empty();
+    // // console.log('out ' + last_shelf.match(/(\#sv\-[1-5])/g) + " + " + last_shelf);
+    // bei den restlichen Regalen gilt: klone den inhalt des divs, verändere seine
+    // css-Attribute width, height und vergrößere die images innerhalb des divs
+    // füge anschließend den kopierten und modifizierten div dem Kasten hinzu
+    $("#test2").empty();
 
-        // $('.regal').css('border', 'none');
-        // $('#sv1-1, #sv2-1, #sv3-1, #sv4-1, #sv5-1').css({
-        // borderBottom: 'solid #b6afaf',
-        // borderWidth: '3px'});
-        // $(last_shelf).css({border: '2px dashed #690000', boxSizing:'border-box'});
+    // $('.regal').css('border', 'none');
+    // $('#sv1-1, #sv2-1, #sv3-1, #sv4-1, #sv5-1').css({
+    // borderBottom: 'solid #b6afaf',
+    // borderWidth: '3px'});
+    // $(last_shelf).css({border: '2px dashed #690000', boxSizing:'border-box'});
 
-        if (!totallyFinished) {
-            $('.regal').removeClass('hasObjectsActive');
-            $(last_shelf).addClass('hasObjectsActive');
-        }
+    if (!totallyFinished) {
+        $('.regal').removeClass('hasObjectsActive');
+        $(last_shelf).addClass('hasObjectsActive');
+    }
 
 
-
-        var $cloned_shelf;
-        if ($(last_shelf).hasClass('obfl')) {
-            if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
-                // // console.log("last shelf: " + last_shelf);
-                // $cloned_shelf = $(last_shelf).clone();
-                $cloned_shelf = $(last_shelf).clone();
-            } else {
-                return;
-            }
-        } else if (!$(last_shelf).hasClass('obfl')){
+    var $cloned_shelf;
+    if ($(last_shelf).hasClass('obfl')) {
+        if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
+            // // console.log("last shelf: " + last_shelf);
+            // $cloned_shelf = $(last_shelf).clone();
             $cloned_shelf = $(last_shelf).clone();
+        } else {
+            return;
         }
+    } else if (!$(last_shelf).hasClass('obfl')) {
+        $cloned_shelf = $(last_shelf).clone();
+    }
 
-        $cloned_shelf.css('width', 900).css('height', 250);
-        $cloned_shelf.css('margin-top', 0);
-        $("img", $cloned_shelf).css('height', 100).css('width', 100);
-        // $("img", $cloned_shelf).css('margin', 2);
-        $cloned_shelf.appendTo("#test2");
-        $("#test2").children().not(last_shelf).remove();
+    $cloned_shelf.css('width', 900).css('height', 250);
+    $cloned_shelf.css('margin-top', 0);
+    $("img", $cloned_shelf).css('height', 100).css('width', 100);
+    // $("img", $cloned_shelf).css('margin', 2);
+    $cloned_shelf.appendTo("#test2");
+    $("#test2").children().not(last_shelf).remove();
 
-        // if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
-        //     $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
-        // }
-        $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
+    // if (last_shelf === "#obfl3" || $(last_shelf).hasClass('obfl')) {
+    //     $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
+    // }
+    $cloned_shelf.prop("id", last_shelf.substr(1) + Math.floor(Math.random() * 10) + 1);
 
-/*
-        if($(last_shelf).hasClass('oben')) {
-            $('.unten.door').animate({opacity:'1'})
-                .css('z-index', '1')
-                .removeClass("opendoorleft opendoorright opendrawer opendoorup opendoordown");
-
-            $('.unten.schrank').children().removeClass('regalSort');
-            $(".unten.regal").css('z-index', '0');
-            $( ".regalSort" ).sortable();
-        } else if($(last_shelf).hasClass('unten')) {
-            $('.oben.door').animate({opacity:'1'})
-                .css('z-index', '1')
-                .removeClass("opendoorleft opendoorright opendrawer opendoorup opendoordown");
-            $('.oben.schrank').children().removeClass('regalSort');
-            $(".oben.regal").css('z-index', '0');
-            $( ".regalSort" ).sortable();
-        }
-*/
-
-    $('#test2 .regalSort').sortable({
-        connectWith: '.regalSort',
-        placeholder: 'objekte',
-        delay: 150, //Needed to prevent accidental drag when trying to select
-        revert: 0,
-        appendTo: "body",
-        zIndex: 100000000000,
-        compareZIndex:true,
-        // containment: "parent",
-        // helper: "clone",
-        helper: function (e, item) {
-            let helper = $('<div/>');
-            helper.css('width','300px');
-            if (!item.hasClass('selected')) {
-                item.addClass('selected').siblings().removeClass('selected');
-            }
-            let elements = item.parent().children('.selected').clone();
-            item.data('multidrag', elements).siblings('.selected').remove();
-            return helper.append(elements);
-        },
-        cursorAt: { top: 0, left: 50 },
-        tolerance: "pointer",
-        over: function(event, ui) {
-            $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
-           /* if(clickedOben) {
+    /*
+            if($(last_shelf).hasClass('oben')) {
                 $('.unten.door').animate({opacity:'1'})
                     .css('z-index', '1')
                     .removeClass("opendoorleft opendoorright opendrawer opendoorup opendoordown");
 
-                // $('.unten.schrank').children().removeClass('regalSort');
-                $('.unten.regal').closest('.schrank').css('z-index', '0');
-                $(".unten.regal").not('#obfl1,#obfl2,#obfl3,#obl4').removeClass('regalSort');
-                $( ".regalSort" ).sortable({
-                    over: function(event, ui) {
-                        $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
-
-                    },
-                    out: function(event, ui) {
-                        $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
-                    },});
-
-            } else {
-                $( "#sv1-1,#sv1-2,#obfl5" ).removeClass('regalSort');
-
+                $('.unten.schrank').children().removeClass('regalSort');
+                $(".unten.regal").css('z-index', '0');
+                $( ".regalSort" ).sortable();
+            } else if($(last_shelf).hasClass('unten')) {
                 $('.oben.door').animate({opacity:'1'})
                     .css('z-index', '1')
                     .removeClass("opendoorleft opendoorright opendrawer opendoorup opendoordown");
-                // $('.oben.schrank').children().removeClass('regalSort');
-                $('.oben.regal').closest('.schrank').css('z-index', '0');
-                $(".oben.regal").removeClass('regalSort');
-                $( ".regalSort" ).sortable({
-                    over: function(event, ui) {
-                            $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
-
-                        },
-                    out: function(event, ui) {
-                            $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
-                        },}
-                );
-
-            }*/
-
-            // $( "#sv1-1,#sv1-2,#obfl5,#obfl1,#obfl2,#obfl3,#obfl4" ).removeClass('regalSort');
-            // $( "#sv1-1" ).removeClass('regalSort');
-            // $( ".regalSort" );
-        },
-        out: function(event, ui) {
-            $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
-
-            // $( ".obfl" ).addClass('regalSort');
-            // refreshSortableWithClassname("regalSort", event, ui);
-            // // console.log('out addclass');
-
-            // $( ".regal" ).addClass('regalSort');
-            // $( ".regalSort" ).sortable();
-        },
-        change: function(event, ui) {
-            ui.placeholder.css({visibility: 'visible', border : '3px solid yellow'});
-        },
-        start: function(event, ui) {
-            sortableStartInTest2(event,ui)
-        },
-        stop: function(event, ui) {
-            sortableStopInTest2(event,ui);
-            // $( ".obfl" ).addClass('regalSort');
-            // refreshSortableWithClassname("regalSort", event, ui);
+                $('.oben.schrank').children().removeClass('regalSort');
+                $(".oben.regal").css('z-index', '0');
+                $( ".regalSort" ).sortable();
             }
-    });
+    */
+    if (!totallyFinished) {
+        $('#test2 .regalSort').sortable({
+            connectWith: '.regalSort',
+            placeholder: 'objekte',
+            delay: 150, //Needed to prevent accidental drag when trying to select
+            revert: 0,
+            appendTo: "body",
+            zIndex: 100000000000,
+            compareZIndex: true,
+            // containment: "parent",
+            // helper: "clone",
+            helper: function (e, item) {
+                let helper = $('<div/>');
+                helper.css('width', '300px');
+                if (!item.hasClass('selected')) {
+                    item.addClass('selected').siblings().removeClass('selected');
+                }
+                let elements = item.parent().children('.selected').clone();
+                item.data('multidrag', elements).siblings('.selected').remove();
+                return helper.append(elements);
+            },
+            cursorAt: {top: 0, left: 50},
+            tolerance: "pointer",
+            over: function (event, ui) {
+                $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+                /* if(clickedOben) {
+                     $('.unten.door').animate({opacity:'1'})
+                         .css('z-index', '1')
+                         .removeClass("opendoorleft opendoorright opendrawer opendoorup opendoordown");
 
+                     // $('.unten.schrank').children().removeClass('regalSort');
+                     $('.unten.regal').closest('.schrank').css('z-index', '0');
+                     $(".unten.regal").not('#obfl1,#obfl2,#obfl3,#obl4').removeClass('regalSort');
+                     $( ".regalSort" ).sortable({
+                         over: function(event, ui) {
+                             $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+
+                         },
+                         out: function(event, ui) {
+                             $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
+                         },});
+
+                 } else {
+                     $( "#sv1-1,#sv1-2,#obfl5" ).removeClass('regalSort');
+
+                     $('.oben.door').animate({opacity:'1'})
+                         .css('z-index', '1')
+                         .removeClass("opendoorleft opendoorright opendrawer opendoorup opendoordown");
+                     // $('.oben.schrank').children().removeClass('regalSort');
+                     $('.oben.regal').closest('.schrank').css('z-index', '0');
+                     $(".oben.regal").removeClass('regalSort');
+                     $( ".regalSort" ).sortable({
+                         over: function(event, ui) {
+                                 $(this).not('#obj').addClass('hoverBackgroundWhileDragging');
+
+                             },
+                         out: function(event, ui) {
+                                 $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
+                             },}
+                     );
+
+                 }*/
+
+                // $( "#sv1-1,#sv1-2,#obfl5,#obfl1,#obfl2,#obfl3,#obfl4" ).removeClass('regalSort');
+                // $( "#sv1-1" ).removeClass('regalSort');
+                // $( ".regalSort" );
+            },
+            out: function (event, ui) {
+                $(this).not('#obj').removeClass('hoverBackgroundWhileDragging');
+
+                // $( ".obfl" ).addClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+                // // console.log('out addclass');
+
+                // $( ".regal" ).addClass('regalSort');
+                // $( ".regalSort" ).sortable();
+            },
+            change: function (event, ui) {
+                ui.placeholder.css({visibility: 'visible', border: '3px solid yellow'});
+            },
+            start: function (event, ui) {
+                sortableStartInTest2(event, ui)
+            },
+            stop: function (event, ui) {
+                sortableStopInTest2(event, ui);
+                // $( ".obfl" ).addClass('regalSort');
+                // refreshSortableWithClassname("regalSort", event, ui);
+            }
+        });
+    }
 
 
     let $buttonClose = ' <button class="closeAnzeige" id="close-anzeige"><h4>X</h4></button>';
@@ -2220,11 +2208,13 @@ $(document).on('click', '#obj .objekte', function(e){
     modal.style.display = "block";
     modalImg.src = this.src;
     $( "#obj.regalSort" ).sortable( "disable" );
+    $('#obj').css('overflow', 'hidden');
     // captionText.innerHTML = this.alt;
     let span = document.getElementById("close2");
     span.onclick = function() {
         modal.style.display = "none";
         $( "#obj.regalSort" ).sortable( "enable" );
+        $('#obj').css('overflow', 'auto');
     };
 });
 
