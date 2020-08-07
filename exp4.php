@@ -101,7 +101,7 @@ endif;
        Alternativ können wir eine halbe Versuchspersonenstunde ausstellen.  </p> <!-- TODO: nach Pilottest entscheiden, ob halbe oder ganze VP-Stunde ausstellen.-->
 
     <p>Alle Angaben zu deiner Person werden anonym gespeichert, sodass kein Rückschluss auf deine Person möglich ist. Die Teilnahme an dieser Studie ist freiwillig. Wenn du nicht einwilligst, schließe bitte dieses Fenster in deinem Browser.
-       Mit der Teilnahme an der Studie gehst du weder Risiken ein, noch profitierst du davon persönlich (mit der Ausnahme, für den Fall, dass du einen Einkaufsgutschein gewinnst oder eine Versuchspersonenstunde erhälst).</p>
+       Mit der Teilnahme an der Studie gehst du weder Risiken ein, noch profitierst du davon persönlich (mit der Ausnahme, für den Fall, dass du einen Einkaufsgutschein gewinnst oder eine halbe Versuchspersonenstunde erhältst).</p>
 
     <form action="exp4.php#demographics" method="POST" id="demographics" class="hl">
         <h3>Teilnahmevoraussetzungen:</h3>
