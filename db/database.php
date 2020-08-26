@@ -1,9 +1,9 @@
-# Copyright 2019 University of Tuebingen
+<!-- # Copyright 2019 University of Tuebingen
 
 # Database query
 # Experiment ProKRep kitchen simulation
 # authors: Jannis Strecker
-# supervised by: Alisa Volkert
+# supervised by: Alisa Volkert -->
 
 <?php
 // error_reporting(E_ALL | E_STRICT);
@@ -213,11 +213,40 @@ class Database
         }
 
 
-
 //        $stmt = $this->connection->prepare('INSERT INTO mail(mail_id,email) VALUES (UUID_SHORT(),?)');
 
         $stmt = $this->connection->prepare('INSERT INTO mail(mail_id,email) VALUES (?,?)');
         $stmt->bind_param("is",$newID,$mail);
+        if($stmt->execute()) {
+            $stmt->close();
+            return TRUE;
+        } else {
+            echo "<p>There was an error in query:</p>";
+            echo $this->connection->error;
+            $stmt->close();
+            return FALSE;
+        }
+    }
+
+    public function insertMatrikel($matrikel,$mail,$vorname,$name) {
+        $isNotAUniqueID = true;
+        $newID = mt_rand(0,100000000000);
+
+        while($isNotAUniqueID) {
+            $result = $this->connection->query("SELECT mail_id FROM mail WHERE mail_id = $newID");
+            if ($result->num_rows !== 0) {
+                $newID = mt_rand(0, 100000000000);
+            } else {
+                $isNotAUniqueID = false;
+            }
+            $result->close();
+        }
+      
+
+//        $stmt = $this->connection->prepare('INSERT INTO mail(mail_id,email) VALUES (UUID_SHORT(),?)');
+
+        $stmt = $this->connection->prepare('INSERT INTO mail(mail_id,email,matrikel,vorname,nachname) VALUES (?,?,?,?,?)');
+        $stmt->bind_param("isiss",$newID,$mail,$matrikel,$vorname,$name);
         if($stmt->execute()) {
             $stmt->close();
             return TRUE;

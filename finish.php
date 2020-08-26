@@ -2,10 +2,11 @@
 
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+error_reporting(E_ALL|E_STRICT);
 session_start();
 
 require_once('./db/database.php');
+$db = new Database();
 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
@@ -98,7 +99,7 @@ function get_form($errorstring = "", $email = "")
 <img src="img/logo_web.png" id="logo">
 <br>
 <br>
-<h3> Vielen Dank für deine Teilnahme!</h3> 
+<h3> Vielen Dank für deine Teilnahme!</h3>
 <!--<p id="expstart"><b>Vielen Dank</b> für Ihr Interesse an unserer Studie!</p>-->
 <br>
 
@@ -117,27 +118,56 @@ function get_form($errorstring = "", $email = "")
     <span class="error">' . $errorstring . '</span>
     <p>
         <!--<label for="email" >Mailadresse:</label>-->
+        <fieldset>
         <input type="text" name="email" id="email" size="50" maxlength="100" hidden required>
-        <label><input type="radio" name="num" id="mailadrr" value="" onclick="disableMatrInput()" checked> Mailadresse:</label> 
-        <input type="email" name="m1" id="email2" size="50" maxlength="100" oninput="updateInput(this.value)"/>
+        <label><input type="radio" name="num" id="mailadrr" value="" onclick="disableMatrInput()" checked> Mailadresse:</label>
+        <input type="email" name="mail1" id="email2" size="50" maxlength="100"" oninput="updateInput(this.value)"/>
+        </fieldset>
        <br>
-        <label><input type="radio" name="num" id="matrnum" value="" onclick="disableMailInput()"> Matrikelnummer:</label> 
-        <input type="number" name="m1" id="matr" min="0" maxlength="7" oninput="updateInput(this.value)" disabled/>
+       <fieldset class="vp">
+       <label><input type="radio" name="num" id="matrnum" value="" onclick="disableMailInput()"> Matrikelnummer:</label>
+       <input class="vp_input" type="number" name="matrikel1" id="matr" min="0" maxlength="7" disabled oninput="updateInput(this.value)"/>
+<br />
+    <label style="display: inline-block; width: 166px;text-align: right;">E-Mailadresse:</label>
+    <input class="vp_input" type="email" name="matrikel_email" id="email4" size="50" maxlength="100" disabled/>
+<br />
+       <label style="display: inline-block; width: 166px;text-align: right;">Vorname:</label>
+       <input class="vp_input" type="text" name="matrikel_vorname" id="name1" size="50" maxlength="100" disabled/>
+<br />
+       <label style="display: inline-block; width: 166px;text-align: right;">Nachname:</label>
+       <input class="vp_input" type="text" name="matrikel_nachname" id="name3" size="50" maxlength="100" disabled/>
+
+       </fieldset>
+
 
     </p>
       <script>
         function disableMailInput() {
             document.getElementById("email2").disabled = true;
-            document.getElementById("matr").disabled = false;
+            document.getElementById("email2").required = false;
+            // document.getElementById("matr").disabled = false;
+            var inputs=  document.getElementsByClassName("vp_input");
+            for(i=0;i<inputs.length;i++){
+                inputs[i].disabled=false;
+                inputs[i].required=true;
+            }
+            // document.querySelectorAll(".versuchspersonenstunde > input").disabled = false;
             document.getElementById("subMailMatr").innerHTML = "Ich möchte eine (halbe) Versuchspersonenstunde";
-            
-        } 
+
+        }
         function disableMatrInput() {
-            document.getElementById("matr").disabled = true;
+            // document.getElementById("matr").disabled = true;
+            var inputs=  document.getElementsByClassName("vp_input");
+            for(i=0;i<inputs.length;i++){
+                inputs[i].disabled=true;
+                inputs[i].required=false;
+            }
+            // document.querySelectorAll(".versuchspersonenstunde > input").disabled = true;
             document.getElementById("email2").disabled = false;
+            document.getElementById("email2").required = true;
             document.getElementById("subMailMatr").innerHTML = "Ich möchte am Gewinnspiel teilnehmen";
-           
-        } 
+
+        }
         function updateInput(v) {
             if(v === "") {
                  document.getElementById("subMailMatr").disabled = true;
@@ -190,8 +220,22 @@ else
 //  if(form_is_correct()) {
     // Save mail to session
 //    print_r("email: " .$_REQUEST["email"]);
+  $savedSuccessfully = false;
+   if (isset($_REQUEST['mail1'])) {
+     // echo $_REQUEST['email'];
+     $mail =  $_REQUEST['email'];
+     $savedSuccessfully = $db->insertMailAddress($mail);
+   } else {
+     // echo $_REQUEST["matrikel1"];
+     $matrikel = $_REQUEST["matrikel1"];
+     $mail = $_REQUEST["matrikel_email"];
+     $vorname = $_REQUEST["matrikel_vorname"];
+     $name = $_REQUEST["matrikel_nachname"];
+     echo "$matrikel,$mail,$vorname,$name";
+     $savedSuccessfully = $db->insertMatrikel($matrikel,$mail,$vorname,$name);
+   }
     // email
-      if($db->insertMailAddress($_REQUEST["email"])) {
+      if($savedSuccessfully) {
           echo '<head>
                 <meta charset="utf-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -219,6 +263,8 @@ else
 //        echo '<p>Deine Mailadresse wurde gespeichert.</p>';
 //        echo '<br><br> Sie können dieses Browserfenster nun schließen.';
       } else {
+        // echo "post";
+        // print_r($_POST["personaldata"]);
           echo '<h3>Es ist ein Fehler beim Speichern der Mailadresse/Matrikelnummer aufgetreten!</h3>';
 
 //          echo 'Something went wrong while saving the mailaddress!';
@@ -229,7 +275,7 @@ else
 //    $email = (isset($_REQUEST["email"])) ? stripslashes( strip_tags( trim( $_REQUEST["email"] ))) : "";
 //    $_SESSION["email"]=$email;
 
-    // Give me the next page  
+    // Give me the next page
 //    redirect("exp3.php");
 
 //  } else {
@@ -239,4 +285,3 @@ else
 //  }
 
 }
-

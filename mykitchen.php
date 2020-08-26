@@ -10,29 +10,29 @@ $db = new Database();
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-//if (!isset($_SESSION["userDataSaved"]) || (isset($_SESSION["userDataSaved"]) && $_SESSION["userDataSaved"] === 'not saved'))
-//{
-////    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
-//    echo '<head>
-//                <meta charset="utf-8">
-//                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//                <link rel="stylesheet" href="stylesheets/exp.css" />
-//                <title>Einräumen einer simulierten Küche</title>
-//            </head>
-//            <body>';
-//    echo '$_SESSION["userDataSaved"]: ' . $_SESSION["userDataSaved"];
-//                echo '<div style="width: 900px; margin: 0 auto;">
-//                <img src="img/logo_web.png" id="logo">
-//                <br><br>
-//                <p id="expstart"><b>Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten.</b><br><br>
-//                Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
-//                <hr>
-//                <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
-//              <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
-//              </div>
-//            </body>';
-//    die();
-//}
+if (!isset($_SESSION["userDataSaved"]) || (isset($_SESSION["userDataSaved"]) && $_SESSION["userDataSaved"] === 'not saved'))
+{
+//    echo 'Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten. Bitte beginnen Sie den Versuch <a href="index.php">erneut</a>.';
+   echo '<head>
+               <meta charset="utf-8">
+               <meta name="viewport" content="width=device-width, initial-scale=1.0">
+               <link rel="stylesheet" href="stylesheets/exp.css" />
+               <title>Einräumen einer simulierten Küche</title>
+           </head>
+           <body>';
+   // echo '$_SESSION["userDataSaved"]: ' . $_SESSION["userDataSaved"];
+               echo '<div style="width: 900px; margin: 0 auto;">
+               <img src="img/logo_web.png" id="logo">
+               <br><br>
+               <p id="expstart"><b>Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten.</b><br><br>
+               Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
+               <hr>
+               <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+             <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
+             </div>
+           </body>';
+   die();
+}
 
 ?>
 
@@ -349,9 +349,9 @@ if (session_status() === PHP_SESSION_NONE) {
 <?php
         //mb_internal_encoding('UTF-8');
         function setOffset($height, $width, $depth){
-            $height = round(number_format($height));
-            $width = round(number_format($width));
-            $depth = round(number_format($depth));
+            // $height = round(number_format($height));
+            // $width = round(number_format($width));
+            // $depth = round(number_format($depth));
 
             $result = 'data-regal-width="'.$width.'" data-regal-height="'.$height.'" data-regal-depth="'.$depth.'"';
 
