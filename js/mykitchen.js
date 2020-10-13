@@ -296,11 +296,20 @@ $(document).ready(function() {
             });
             // elements[i].css('width', 100);
             // elements[i].css('height', 100);
+            // fife 9efif
+            // :mweofiu f+
+            // oejfojf ejfjf diuju9ufefkdhfio👍
+            // ojfojdfodjfo;
+            // ojfjfdfr ejjfudfuk;
+            // ejfodfo üif ffkuu9rfjfdsfkfdfpwfu wefu
+            // Ookfpdf+düd koeflmd+
+            // J e pfoefp
           } else {
             // obj_max = Math.max(obj_length, obj_height, obj_width)
             // regal_max = Math.max(parent_width, parent_height, parent_depth);
             // if (obj_height > parent_height) {
-            var doesntFit = ObjectDoesntFit(obj_length, obj_height, obj_width, parent_width, parent_height, parent_depth);
+            var doesntFit = objectDoesntFit(obj_length, obj_height, obj_width, parent_width, parent_height, parent_depth);
+            // if (parent_depth < obj_length && parent_height < obj_height && parent_width < obj_width) {
             if (doesntFit) {
               // console.log("old yes 03");
               $('#' + old_parent_id).append(elements[i].outerHTML);
@@ -1464,49 +1473,66 @@ function getKeyByValue(object, value) {
 
 /* calculate if object fits in regal */
 
-var ObjectDoesntFit = function(obj_length, obj_height, obj_width, parent_width, parent_height, parent_depth) {
+var objectDoesntFit = function(obj_length, obj_height, obj_width, parent_width, parent_height, parent_depth) {
 
-  var obj_measures = {
-    length: obj_length,
-    height: obj_height,
-    width: obj_width
-  }
-  var parent_measures = {
-    length: parent_depth,
-    height: parent_height,
-    width: parent_width
-  }
-  // console.log('obj ', obj_length, ',', obj_height, ',', obj_width);
-    // console.log('obj ', parent_depth, ',', parent_height, ',', parent_width);
-  obj_max = Math.max(obj_length, obj_height, obj_width);
-  obj_min = Math.min(obj_length, obj_height, obj_width);
-  // console.log('obj_max = ', obj_max);
-  // console.log('obj_min = ', obj_min);
-  var max_index = getKeyByValue(obj_measures, obj_max);
-  var min_index = getKeyByValue(obj_measures, obj_min);
-  // console.log('max index ', max_index);
-  // console.log('min index ', min_index);
-  var obj_m = [obj_length, obj_height, obj_width];
-  obj_m.splice(obj_m.indexOf(max_index), 1);
+  var object = [obj_length, obj_height, obj_width];
+  var parent = [parent_width, parent_height, parent_depth];
+  // console.log('object, unsorted: ', JSON.stringify(object));
+  // console.log('parent, unsorted: ', JSON.stringify(parent));
+  object.sort((a,b) => b-a);
+  parent.sort((a,b) => b-a);
 
-  obj_max_second = Math.max(...obj_m);
-  var max_index_2 = getKeyByValue(obj_measures, obj_max_second);
-  // console.log('max index 2', max_index_2);
-  if (max_index === max_index_2) {
-    for (const key in obj_measures) {
-      if ((key !== max_index) && (key !== min_index)) {
-        max_index_2 = key;
-      }
-    }
-  }
-  // console.log('max index 2, after: ', max_index_2);
+  // console.log('object, sorted: ', JSON.stringify(object));
+  // console.log('parent, sorted: ', JSON.stringify(parent));
 
-  if ((parent_measures[max_index] > obj_measures[max_index])
-      &&(parent_measures[max_index_2] > obj_measures[max_index_2])) {
-        return false;
-      }
+  if ((object[0]<=parent[0]) && (object[1]<=parent[1]) && (object[2]<=parent[2])) {
+    return false;
+  }
 
   return true;
+
+
+  // var obj_measures = {
+  //   length: obj_length,
+  //   height: obj_height,
+  //   width: obj_width
+  // }
+  // var parent_measures = {
+  //   length: parent_depth,
+  //   height: parent_height,
+  //   width: parent_width
+  // }
+  // // console.log('obj ', obj_length, ',', obj_height, ',', obj_width);
+  //   // console.log('obj ', parent_depth, ',', parent_height, ',', parent_width);
+  // obj_max = Math.max(obj_length, obj_height, obj_width);
+  // obj_min = Math.min(obj_length, obj_height, obj_width);
+  // // console.log('obj_max = ', obj_max);
+  // // console.log('obj_min = ', obj_min);
+  // var max_index = getKeyByValue(obj_measures, obj_max);
+  // var min_index = getKeyByValue(obj_measures, obj_min);
+  // // console.log('max index ', max_index);
+  // // console.log('min index ', min_index);
+  // var obj_m = [obj_length, obj_height, obj_width];
+  // obj_m.splice(obj_m.indexOf(max_index), 1);
+  //
+  // obj_max_second = Math.max(...obj_m);
+  // var max_index_2 = getKeyByValue(obj_measures, obj_max_second);
+  // // console.log('max index 2', max_index_2);
+  // if (max_index === max_index_2) {
+  //   for (const key in obj_measures) {
+  //     if ((key !== max_index) && (key !== min_index)) {
+  //       max_index_2 = key;
+  //     }
+  //   }
+  // }
+  // // console.log('max index 2, after: ', max_index_2);
+  //
+  // if ((parent_measures[max_index] > obj_measures[max_index])
+  //     &&(parent_measures[max_index_2] > obj_measures[max_index_2])) {
+  //       return false;
+  //     }
+  //
+  // return true;
 }
 
 /* set object offset */
@@ -1788,12 +1814,15 @@ function sortableStopInTest2(event, ui) {
           'opacity': '0',
           'display': 'none'
         });
+
       } else {
         // obj_max = Math.max(obj_length, obj_height, obj_width)
         // regal_max = Math.max(parent_width, parent_height, parent_depth);
         // (obj_length > parent_depth) && (obj_height > parent_height)
         // if (obj_height > parent_height) {
-        var doesntFit = ObjectDoesntFit(obj_length, obj_height, obj_width, parent_width, parent_height, parent_depth);
+        var doesntFit = objectDoesntFit(obj_length, obj_height, obj_width, parent_width, parent_height, parent_depth);
+        // if (parent_depth < obj_length && parent_width < obj_width && parent_height < obj_height) {
+        //
         if (doesntFit) {
           $('#' + old_parent_id).append(elements[i].outerHTML);
           $('#' + new_parent_id).find('#' + elements[i].id).remove();
