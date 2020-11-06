@@ -260,9 +260,10 @@ $(document).ready(function() {
         var parent_width = parseInt($("#" + new_parent_id).data('regal-width'));
         var parent_height = parseInt($("#" + new_parent_id).data('regal-height'));
         var parent_depth = parseInt($("#" + new_parent_id).data('regal-depth'));
-        var regal_volume = parent_width * parent_height * parent_depth;
+        // console.log("parent_width ",parent_width ,", parent_height ", parent_height ,", parent_depth", parent_depth);
+        var regal_volume = parseInt(parent_width * parent_height * parent_depth);
 
-        var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
+        var placeholder_volume = parseInt(getPlaceholderVolume("#" + new_parent_id));
 
 
         if (old_parent_id.startsWith(new_parent_id) &&
@@ -280,11 +281,11 @@ $(document).ready(function() {
           // console.log("old yes 011");
           old = true;
         } else if ((old_parent_id !== new_parent_id)) {
-          console.log("old yes 02");
+          // console.log("old yes 02");
           if (new_parent_id === 'obj') {
             elements[i].style.width = "100px";
             elements[i].style.height = "100px";
-            console.log("old yes 021");
+            // console.log("old yes 021");
             $('#test 2' + ' #' + obj_id).remove();
             $('#' + old_parent_id + ' #' + obj_id).remove();
             $('#' + new_parent_id + ' #' + obj_id).remove();
@@ -328,7 +329,9 @@ $(document).ready(function() {
               // console.log("old yes 033");
               if (regal_volume >= placeholder_volume) {
                 // console.log("old yes 033a");
-
+                // console.log("passt rein");
+                // console.log('placeholder_volume: ', placeholder_volume);
+                // console.log('regal_volume: ', regal_volume);
                 // elements[i].css('width', 100);
                 // elements[i].css('height', 100);
                 /* elements[i].style.width = "100px";
@@ -352,7 +355,10 @@ $(document).ready(function() {
                 // elements[i].css('height', 50);
                 // elements[i].css('horizontal-align','bottom');
               } else {
-                // console.log("old yes 033b");
+
+                // console.log("passt nicht rein");
+                // console.log('placeholder_volume: ', placeholder_volume);
+                // console.log('regal_volume: ', regal_volume);
                 $('#' + old_parent_id).append(elements[i].outerHTML);
                 $('#' + new_parent_id).find(elements[i]).remove();
                 // document.getElementById('myModalAlert').style.display = "block";
@@ -360,14 +366,17 @@ $(document).ready(function() {
                 // $('#myModalAlert').css('opacity', '1').css('display', 'block');
                 // $('#myModalAlert').css('visibility','visible');
                 // $('#myModalAlert').css('opacity','1');
-                $('#myModalAlert').css('opacity', '1');
-                $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
-                  function(e) {
-                    $('#myModalAlert').css('display', 'block');
-                  });
                 $('#myModalAlert #alertText').html("In diesem Fach ist kein Platz mehr!");
+                $("#myModalAlert").css('opacity', '0').css('display', 'block').css('opacity', '1');
+                // $('#myModalAlert').css('opacity', '1');
+                // $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+                  // function(e) {
+                    // $('#myModalAlert').css('display', 'block');
+                  // });
+
                 idsOfElementsTooLargeOrFull.push(elements[i].id);
                 curObjTooLargeOrFull = true;
+                // console.log("old yes 033b, kein platz mehr");
                 // alert("Kein Platz mehr!");
               }
             }
@@ -1337,9 +1346,9 @@ $(document).ready(function() {
 
     if ($(door_id).hasClass(classname)) {
 
-      console.log('closed');
-      console.log('shelf_id' + shelf_id);
-      console.log('door_id' + door_id);
+      // console.log('closed');
+      // console.log('shelf_id' + shelf_id);
+      // console.log('door_id' + door_id);
       $(door_id).removeClass(classname);
       $(door_id).addClass(classClosed);
       // $(schrank_id).css('display', 'none');
@@ -1377,7 +1386,7 @@ $(document).ready(function() {
       }
 
     } else {
-      console.log('opened');
+      // console.log('opened');
       $(door_id).removeClass(classClosed);
       $(door_id).addClass(classname);
       // $(schrank_id).css('display', 'block');
@@ -1774,10 +1783,11 @@ function sortableStopInTest2(event, ui) {
     var parent_width = parseInt($("#" + new_parent_id).data('regal-width'));
     var parent_height = parseInt($("#" + new_parent_id).data('regal-height'));
     var parent_depth = parseInt($("#" + new_parent_id).data('regal-depth'));
+console.log("parent_width ",parent_width ,", parent_height ", parent_height ,", parent_depth", parent_depth);
+    var regal_volume = parseInt(parent_width * parent_height * parent_depth);
 
-    var regal_volume = parent_width * parent_height * parent_depth;
-
-    var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
+    // var placeholder_volume = getPlaceholderVolume("#" + new_parent_id);
+    var placeholder_volume = parseInt(getPlaceholderVolume("#" + new_parent_id));
 
 
     if ((old_parent_id.startsWith(new_parent_id) ||
@@ -1843,6 +1853,9 @@ function sortableStopInTest2(event, ui) {
           // alert("Passt nicht rein!");
         } else {
           if (regal_volume >= placeholder_volume) {
+            // console.log("passt rein");
+            // console.log('placeholder_volume: ', placeholder_volume);
+            // console.log('regal_volume: ', regal_volume);
             //Skalierung momentan auf 50% der Größe in der Liste
             elements[i].style.width = "75px";
             elements[i].style.height = "75px";
@@ -1866,6 +1879,9 @@ function sortableStopInTest2(event, ui) {
             // console.log('fits in new');
 
           } else {
+            // console.log("passt nicht rein");
+            // console.log('placeholder_volume: ', placeholder_volume);
+            // console.log('regal_volume: ', regal_volume);
             $('#' + old_parent_id).append(elements[i].outerHTML);
             $('#' + new_parent_id).find(elements[i]).remove();
             // document.getElementById('myModalAlert').style.display = "block";
@@ -1873,15 +1889,17 @@ function sortableStopInTest2(event, ui) {
             // $('#myModalAlert').css('opacity', '1').css('display', 'block');
             // $('#myModalAlert').css('visibility','visible');
             // $('#myModalAlert').css('opacity','1');
-            $('#myModalAlert').css('opacity', '1');
-            $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
-              function(e) {
-                $('#myModalAlert').css('display', 'block');
-              });
-            $('#myModalAlert #alertText').html("In diesem Fach ist kein Platz mehr!");
+              $('#myModalAlert #alertText').html("In diesem Fach ist kein Platz mehr!");
+              $("#myModalAlert").css('opacity', '0').css('display', 'block').css('opacity', '1');
+            // $('#myModalAlert').css('opacity', '1');
+            // $('#myModalAlert').on('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend',
+            //   function(e) {
+            //     $('#myModalAlert').css('display', 'block');
+            //   });
+            // $('#myModalAlert #alertText').html("In diesem Fach ist kein Platz mehr!");
             idsOfElementsTooLargeOrFull.push(elements[i].id);
             curObjTooLargeOrFull = true;
-            // // console.log("old yes 3");
+            // console.log("old yes 3, kein platz mehr");
             // alert("Kein Platz mehr!");
           }
         }

@@ -287,7 +287,7 @@ if (!isset($_SESSION["userDataSaved"]) || (isset($_SESSION["userDataSaved"]) && 
 
         <div class="schrank" id="s8">
             <div class="regal unten" id="sv8"
-                 data-regal-width="50" data-regal-height="55" data-regal-depth="45"></div>
+                 data-regal-width="40" data-regal-height="31" data-regal-depth="40"></div>
         </div>
 
         <div class="schrank" id="s9-1">

@@ -120,7 +120,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
               </select>
           </tr>
 
-		  
+
 		  <tr>
             <td>
 				K&ouml;rpergr&ouml;&szlig;e (cm):
@@ -155,7 +155,23 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
               function updateInput() {
                   document.getElementById("nat_other").value = document.getElementById("nationality").value;
               }
-
+              $('#nat_other').change(function () {
+                  if($(this).is(':checked')) {
+                      $('#nationality').prop('required', true);
+                  } else {
+                      $('#nationality').prop('required', false);
+                  }
+              });
+              $('#nat_de').change(function () {
+                  if($(this).is(':checked')) {
+                      $('#nationality').prop('required', false);
+                  }
+              });
+              $('#nat_fr').change(function () {
+                  if($(this).is(':checked')) {
+                      $('#nationality').prop('required', false);
+                  }
+              });
           </script>
 <!--		  <tr>-->
 <!--            <td>-->
@@ -167,7 +183,7 @@ if (!isset($_SESSION["vollj"], $_SESSION['dtkenntn']))
 <!--				<input type="checkbox" name="job_part" id="job_part"> Teilzeit </input>-->
 <!--			</td>-->
 <!--          </tr>-->
-		  
+
 <!--          <tr>-->
 <!--            <td>Wie viele Stunden haben Sie an dem letzten Werktag in <br />der K&uuml;che verbracht?</td>-->
 <!--            <td class="abstand"><input type="number" min="0" id="hours1" name="hours1"/></td>-->
