@@ -27,7 +27,7 @@ if (!isset($_SESSION["user_id"]))
                 <p id="expstart"><b>Der Versuch wurde nicht ordnungsgemäß ausgeführt, oder es ist ein Fehler aufgetreten.</b><br><br>
                 Bitte beginne den Versuch <a href="index.php">erneut</a>.</p><br><br>
                 <hr>
-                <span class="footer">Alisa Volkert, M.Sc., Medieninformatik (Arbeitsbereich Mensch-Computer Interaktion & Künstliche Intelligenz)</span>
+                <span class="footer">Alisa Volkert, M.Sc., Fachbereich Informatik </span>
                 <span class="footer2"><a href="impressum.php">Impressum</a> | <a href="datenschutzerklaerung.php">Datenschutz</a></span>
               </div>
             </body>';
@@ -108,10 +108,10 @@ function get_form($errorstring = "", $email = "")
 
 <form action="finish.php#personaldata" method="POST" id="personaldata" class="hl">
     <h4>Teilnahme am Gewinnspiel</h4>
-<!--    <p>Zur Verknüpfung Ihrer Entscheidung mit Ihrer Person benötigen wir Ihre Mailadresse.</p>-->
+<!--    <p>Zur Verknüpfung deiner Entscheidung mit deiner Person benötigen wir deine Mailadresse.</p>-->
 
     <p>Wenn du am Gewinnspiel teilnehmen möchtest, um einen von 20 Gutscheinen im Wert von je 20 € für den Tübinger Einzelhandel zu gewinnen, gib bitte deine Mailadresse an.</p>
-    <p>Wenn du lieber eine halbe Versuchspersonenstunde ausgestellt haben möchtest, gib bitte deine Matrikelnummer an. </p> <!-- TODO: nach Pilottest entscheiden, ob halbe oder ganze VP-Stunde ausstellen.-->
+    <p>Wenn du lieber eine halbe Versuchspersonenstunde ausgestellt haben möchtest, gib bitte deine Matrikelnummer an. </p>
     <p>Deine Mailadresse und Matrikelnummer werden getrennt von deinen Daten aus dem Experiment gespeichert. So ist kein Rückschluss auf deine Person möglich.
         </p>
     <p>Bitte beachte, dass du nur an der Verlosung teilnehmen kannst, wenn du eine gültige Mailadresse angibst.</p>
@@ -152,7 +152,7 @@ function get_form($errorstring = "", $email = "")
                 inputs[i].required=true;
             }
             // document.querySelectorAll(".versuchspersonenstunde > input").disabled = false;
-            document.getElementById("subMailMatr").innerHTML = "Ich möchte eine (halbe) Versuchspersonenstunde";
+            document.getElementById("subMailMatr").innerHTML = "Ich möchte eine halbe Versuchspersonenstunde";
 
         }
         function disableMatrInput() {
